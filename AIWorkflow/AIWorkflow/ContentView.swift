@@ -9,11 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            Image(systemName: "gearshape.2.fill")
+                .font(.system(size: 80))
+                .foregroundStyle(.blue)
+            
+            Text("AI Workflow App")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+            
+            Text("Build B-001 Completed")
+                .font(.title2)
+                .foregroundStyle(.secondary)
+            
+            Text("Architecture foundation is ready!")
+                .font(.body)
+                .foregroundStyle(.secondary)
         }
         .padding()
     }
