@@ -73,6 +73,13 @@ extension DependencyContainer {
     func makeWorkflowListViewModel() -> WorkflowListViewModel {
         WorkflowListViewModel(repository: workflowRepository)
     }
+    
+    func makeWorkflowCreationViewModel(existingWorkflow: Workflow? = nil) -> WorkflowCreationViewModel {
+        WorkflowCreationViewModel(
+            repository: workflowRepository,
+            existingWorkflow: existingWorkflow
+        )
+    }
 }
 
 // MARK: - Testing Support
