@@ -110,7 +110,9 @@ private extension WorkflowListView {
         }
         .listStyle(.insetGrouped)
         .navigationDestination(for: Workflow.self) { workflow in
-            WorkflowDetailPlaceholder(workflow: workflow)
+            WorkflowDetailView(
+                viewModel: DependencyContainer.shared.makeWorkflowDetailViewModel(workflow: workflow)
+            )
         }
     }
     
@@ -190,61 +192,32 @@ private extension WorkflowListView {
     }
 }
 
-struct WorkflowDetailPlaceholder: View {
-    let workflow: Workflow
-    @State private var showingEditSheet = false
-    
-    var body: some View {
-        VStack(spacing: 20) {
-            Text(workflow.name)
-                .font(.title)
-            
-            Text("\(workflow.stepCount) steps")
-                .foregroundStyle(.secondary)
-            
-            Button("Edit Workflow") {
-                showingEditSheet = true
-            }
-            .buttonStyle(.borderedProminent)
-        }
-        .navigationTitle("Workflow Detail")
-        .sheet(isPresented: $showingEditSheet) {
-            WorkflowCreationView(
-                viewModel: DependencyContainer.shared.makeWorkflowCreationViewModel(
-                    existingWorkflow: workflow
-                )
-            )
-        }
-    }
-}
-
 #Preview("With Workflows") {
     let container = DependencyContainer.shared
     let viewModel = WorkflowListViewModel(repository: container.workflowRepository)
     
-    // Add sample workflows
-//    Task {
-//        let workflow1 = Workflow(
-//            name: "Summarize & Translate",
-//            workflowDescription: "Summarize text and translate to Spanish"
-//        )
-//        workflow1.steps = [
-//            WorkflowStep(stepType: "summarize", prompt: "Summarize", order: 0),
-//            WorkflowStep(stepType: "translate", prompt: "Translate", order: 1)
-//        ]
-//        
-//        let workflow2 = Workflow(
-//            name: "Extract Key Points",
-//            workflowDescription: "Extract the main ideas from any text"
-//        )
-//        workflow2.isFavorite = true
-//        workflow2.steps = [
-//            WorkflowStep(stepType: "extract", prompt: "Extract", order: 0)
-//        ]
-//        
-//        try? await container.workflowRepository.save(workflow1)
-//        try? await container.workflowRepository.save(workflow2)
-//    }
+    Task {
+        let workflow1 = Workflow(
+            name: "Summarize & Translate",
+            workflowDescription: "Summarize text and translate to Spanish"
+        )
+        workflow1.steps = [
+            WorkflowStep(stepType: "summarize", prompt: "Summarize", order: 0),
+            WorkflowStep(stepType: "translate", prompt: "Translate", order: 1)
+        ]
+        
+        let workflow2 = Workflow(
+            name: "Extract Key Points",
+            workflowDescription: "Extract the main ideas from any text"
+        )
+        workflow2.isFavorite = true
+        workflow2.steps = [
+            WorkflowStep(stepType: "extract", prompt: "Extract", order: 0)
+        ]
+        
+        try? await container.workflowRepository.save(workflow1)
+        try? await container.workflowRepository.save(workflow2)
+    }
     
     return WorkflowListView(viewModel: viewModel)
 }

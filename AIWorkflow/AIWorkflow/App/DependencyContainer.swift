@@ -80,6 +80,13 @@ extension DependencyContainer {
             existingWorkflow: existingWorkflow
         )
     }
+    
+    func makeWorkflowDetailViewModel(workflow: Workflow) -> WorkflowDetailViewModel {
+        WorkflowDetailViewModel(
+            workflow: workflow,
+            repository: workflowRepository
+        )
+    }
 }
 
 // MARK: - Testing Support

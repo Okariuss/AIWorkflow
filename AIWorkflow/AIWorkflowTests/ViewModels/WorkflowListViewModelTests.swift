@@ -66,6 +66,8 @@ struct WorkflowListViewModelTests {
         }
     }
     
+    // MARK: - Tests
+    
     @Test("ViewModel initializes with empty state")
     func testInitialization() {
         let repository = MockWorkflowRepository()
