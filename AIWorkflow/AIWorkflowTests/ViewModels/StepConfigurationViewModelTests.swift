@@ -13,6 +13,8 @@ import Foundation
 @MainActor
 struct StepConfigurationViewModelTests {
     
+    // MARK: - Tests
+
     @Test("ViewModel initializes with default values")
     func testInitialization() {
         let viewModel = StepConfigurationViewModel()
