@@ -68,6 +68,13 @@ extension DependencyContainer {
     }
 }
 
+// MARK: - ViewModels
+extension DependencyContainer {
+    func makeWorkflowListViewModel() -> WorkflowListViewModel {
+        WorkflowListViewModel(repository: workflowRepository)
+    }
+}
+
 // MARK: - Testing Support
 extension DependencyContainer {
     static func createTestContainer() -> DependencyContainer? {
