@@ -12,31 +12,13 @@ import Foundation
 final class WorkflowListViewModel {
     
     // MARK: - Published State
-    private(set) var workflows: [Workflow] = []
-    private(set) var isLoading = false
     private(set) var errorMessage: String?
     
-    var searchQuery = "" {
-        didSet {
-            Task {
-                await searchWorkflows()
-            }
-        }
-    }
+    var searchQuery = ""
     
-    var sortOption: SortOption = .modifiedDate {
-        didSet {
-            sortWorkflows()
-        }
-    }
+    var sortOption: SortOption = .modifiedDate
     
-    var filterOption: FilterOption = .all {
-        didSet {
-            Task {
-                await loadWorkflows()
-            }
-        }
-    }
+    var filterOption: FilterOption = .all
     
     // MARK: - Dependencies
     private let repository: WorkflowRepositoryProtocol
@@ -48,29 +30,10 @@ final class WorkflowListViewModel {
 
 // MARK: - Public Methods
 extension WorkflowListViewModel {
-    func loadWorkflows() async {
-        isLoading = true
-        errorMessage = nil
-        
-        do {
-            switch filterOption {
-            case .all:
-                workflows = try await repository.fetchAll()
-            case .favorites:
-                workflows = try await repository.fetchFavorites()
-            }
-            sortWorkflows()
-        } catch {
-            errorMessage = "Failed to load workflows: \(error.localizedDescription)"
-            workflows = []
-        }
-        isLoading = false
-    }
     
     func deleteWorkflow(_ workflow: Workflow) async {
         do {
             try await repository.delete(workflow)
-            workflows.removeAll { $0.id == workflow.id }
         } catch {
             errorMessage = "Failed to delete workflow: \(error.localizedDescription)"
         }
@@ -81,10 +44,6 @@ extension WorkflowListViewModel {
         
         do {
             try await repository.save(workflow)
-            
-            if filterOption == .favorites {
-                await loadWorkflows()
-            }
         } catch {
             workflow.isFavorite.toggle()
             errorMessage = "Failed to update favorite: \(error.localizedDescription)"
@@ -110,48 +69,45 @@ extension WorkflowListViewModel {
         
         do {
             try await repository.save(newWorkflow)
-            await loadWorkflows()
         } catch {
             errorMessage = "Failed to duplicate workflow: \(error.localizedDescription)"
         }
     }
     
-    func clearError() {
-        errorMessage = nil
-    }
-}
-
-// MARK: - Private Methods
-private extension WorkflowListViewModel {
-    func searchWorkflows() async {
-        guard !searchQuery.isEmpty else {
-            await loadWorkflows()
-            return
+    func filterWorkflows(_ workflows: [Workflow]) -> [Workflow] {
+        var filtered = workflows
+        
+        switch filterOption {
+        case .all:
+            break
+        case .favorites:
+            filtered = filtered.filter { $0.isFavorite }
         }
         
-        isLoading = true
-        
-        do {
-            workflows = try await repository.search(query: searchQuery)
-            sortWorkflows()
-        } catch {
-            errorMessage = "Search failed: \(error.localizedDescription)"
+        if !searchQuery.isEmpty {
+            filtered = filtered.filter { workflow in
+                workflow.name.localizedStandardContains(searchQuery)
+            }
         }
         
-        isLoading = false
+        return sortWorkflows(filtered)
     }
     
-    func sortWorkflows() {
+    func sortWorkflows(_ workflows: [Workflow]) -> [Workflow] {
         switch sortOption {
         case .name:
-            workflows.sort { $0.name.localizedCompare($1.name) == .orderedAscending }
+            return workflows.sorted { $0.name.localizedCompare($1.name) == .orderedAscending }
         case .modifiedDate:
-            workflows.sort { $0.modifiedAt > $1.modifiedAt }
+            return workflows.sorted { $0.modifiedAt > $1.modifiedAt }
         case .createdDate:
-            workflows.sort { $0.createdAt > $1.createdAt }
+            return workflows.sorted { $0.createdAt > $1.createdAt }
         case .stepCount:
-            workflows.sort { $0.stepCount > $1.stepCount }
+            return workflows.sorted { $0.stepCount > $1.stepCount }
         }
+    }
+    
+    func clearError() {
+        errorMessage = nil
     }
 }
 

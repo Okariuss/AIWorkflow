@@ -6,8 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct WorkflowListView: View {
+    
+    // MARK: - SwiftData Query
+    @Query(sort: \Workflow.modifiedAt, order: .reverse)
+    private var allWorkflows: [Workflow]
     
     // MARK: - Properties
     @State private var viewModel: WorkflowListViewModel
@@ -20,13 +25,16 @@ struct WorkflowListView: View {
         self.viewModel = viewModel
     }
     
+    // MARK: - Computed Properties
+    private var filteredWorkflows: [Workflow] {
+        viewModel.filterWorkflows(allWorkflows)
+    }
+    
     // MARK: - View
     var body: some View {
         NavigationStack {
             Group {
-                if viewModel.isLoading && viewModel.workflows.isEmpty {
-                    ProgressView("Loading workflows...")
-                } else if viewModel.workflows.isEmpty {
+                if filteredWorkflows.isEmpty {
                     emptyStateView
                 } else {
                     workflowsList
@@ -37,13 +45,8 @@ struct WorkflowListView: View {
                 toolbarContent
             }
             .searchable(text: $viewModel.searchQuery, prompt: "Search workflows")
-            .refreshable {
-                await viewModel.loadWorkflows()
-            }
             .sheet(isPresented: $showingCreateSheet) {
-                // Placeholder for now
-                Text("Create workflow screen")
-                    .font(.title)
+                WorkflowCreationView(viewModel: DependencyContainer.shared.makeWorkflowCreationViewModel())
             }
             .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button("OK") {
@@ -54,9 +57,6 @@ struct WorkflowListView: View {
                     Text(error)
                 }
             }
-            .task {
-                await viewModel.loadWorkflows()
-            }
         }
     }
 }
@@ -65,21 +65,33 @@ struct WorkflowListView: View {
 private extension WorkflowListView {
     @ViewBuilder
     var emptyStateView: some View {
-        if viewModel.searchQuery.isEmpty {
+        if viewModel.searchQuery.isEmpty && allWorkflows.isEmpty {
             EmptyStateView(
-                message: viewModel.filterOption == .favorites ? "No favorite workflows yet" : "No workflows yet",
-                systemImage: viewModel.filterOption == .favorites ? "star.slash" : "square.stack.3d.up.slash",
+                message: "No workflows yet",
+                systemImage: "square.stack.3d.up.slash",
                 actionTitle: "Create Workflow",
                 action: { showingCreateSheet = true }
             )
+        } else if viewModel.searchQuery.isEmpty && viewModel.filterOption == .favorites {
+            EmptyStateView(
+                message: "No favorite workflows yet",
+                systemImage: "star.slash",
+                actionTitle: "Browse All",
+                action: { viewModel.filterOption = .all }
+            )
+        } else if !viewModel.searchQuery.isEmpty {
+            EmptyStateView(message: "No workflows found for '\(viewModel.searchQuery)'", systemImage: "magnifyingglass")
         } else {
-            EmptyStateView(message: "No workflows for '\(viewModel.searchQuery)'", systemImage: "magnifyingglass")
+            EmptyStateView(
+                message: "No workflows match the current filter",
+                systemImage: "line.3.horizontal.decrease.circle"
+            )
         }
     }
     
     var workflowsList: some View {
         List {
-            ForEach(viewModel.workflows, id: \.id) { workflow in
+            ForEach(filteredWorkflows, id: \.id) { workflow in
                 NavigationLink(value: workflow) {
                     WorkflowRowView(workflow: workflow) {
                         Task {
@@ -98,9 +110,7 @@ private extension WorkflowListView {
         }
         .listStyle(.insetGrouped)
         .navigationDestination(for: Workflow.self) { workflow in
-            // Placeholder for now
-            Text("Workflow Detail: \(workflow.name)")
-                .font(.title)
+            WorkflowDetailPlaceholder(workflow: workflow)
         }
     }
     
@@ -177,6 +187,34 @@ private extension WorkflowListView {
             )
         }
         .tint(.yellow)
+    }
+}
+
+struct WorkflowDetailPlaceholder: View {
+    let workflow: Workflow
+    @State private var showingEditSheet = false
+    
+    var body: some View {
+        VStack(spacing: 20) {
+            Text(workflow.name)
+                .font(.title)
+            
+            Text("\(workflow.stepCount) steps")
+                .foregroundStyle(.secondary)
+            
+            Button("Edit Workflow") {
+                showingEditSheet = true
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .navigationTitle("Workflow Detail")
+        .sheet(isPresented: $showingEditSheet) {
+            WorkflowCreationView(
+                viewModel: DependencyContainer.shared.makeWorkflowCreationViewModel(
+                    existingWorkflow: workflow
+                )
+            )
+        }
     }
 }
 

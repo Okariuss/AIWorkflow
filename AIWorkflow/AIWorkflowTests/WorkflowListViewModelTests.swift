@@ -17,12 +17,10 @@ struct WorkflowListViewModelTests {
     final class MockWorkflowRepository: WorkflowRepositoryProtocol {
         var workflows: [Workflow] = []
         var shouldThrowError = false
-        var fetchAllCalled = false
         var saveCalled = false
         var deleteCalled = false
         
         func fetchAll() async throws -> [Workflow] {
-            fetchAllCalled = true
             if shouldThrowError {
                 throw NSError(domain: "test", code: 1)
             }
@@ -35,11 +33,9 @@ struct WorkflowListViewModelTests {
         
         func save(_ workflow: Workflow) async throws {
             saveCalled = true
-            
             if shouldThrowError {
                 throw NSError(domain: "test", code: 1)
             }
-            
             if let index = workflows.firstIndex(where: { $0.id == workflow.id }) {
                 workflows[index] = workflow
             } else {
@@ -75,71 +71,61 @@ struct WorkflowListViewModelTests {
         let repository = MockWorkflowRepository()
         let viewModel = WorkflowListViewModel(repository: repository)
         
-        #expect(viewModel.workflows.isEmpty)
-        #expect(viewModel.isLoading == false)
         #expect(viewModel.errorMessage == nil)
         #expect(viewModel.searchQuery == "")
     }
     
-    @Test("Load workflows succeeds")
-    func testLoadWorkflowsSuccess() async {
+    @Test("Delete workflow succeeds")
+    func testDeleteWorkflowSuccess() async {
         let repository = MockWorkflowRepository()
-        let workflow1 = Workflow(name: "Workflow 1")
-        let workflow2 = Workflow(name: "Workflow 2")
-        repository.workflows = [workflow1, workflow2]
-        
-        let viewModel = WorkflowListViewModel(repository: repository)
-        await viewModel.loadWorkflows()
-        
-        #expect(repository.fetchAllCalled)
-        #expect(viewModel.workflows.count == 2)
-        #expect(viewModel.isLoading == false)
-        #expect(viewModel.errorMessage == nil)
-    }
-    
-    @Test("Load workflows handles error")
-    func testLoadWorkflowsError() async {
-        let repository = MockWorkflowRepository()
-        repository.shouldThrowError = true
-        
-        let viewModel = WorkflowListViewModel(repository: repository)
-        await viewModel.loadWorkflows()
-        
-        #expect(viewModel.workflows.isEmpty)
-        #expect(viewModel.isLoading == false)
-        #expect(viewModel.errorMessage != nil)
-    }
-    
-    @Test("Delete workflows succeeds")
-    func testDeleteWorkflowsSuccess() async {
-        let repository = MockWorkflowRepository()
-        let workflow = Workflow(name: "Workflow 1")
+        let workflow = Workflow(name: "Test")
         repository.workflows = [workflow]
         
         let viewModel = WorkflowListViewModel(repository: repository)
-        await viewModel.loadWorkflows()
-        
-        #expect(viewModel.workflows.count == 1)
-        
         await viewModel.deleteWorkflow(workflow)
         
         #expect(repository.deleteCalled)
-        #expect(viewModel.workflows.isEmpty)
+        #expect(repository.workflows.isEmpty)
+    }
+    
+    @Test("Delete workflow handles error")
+    func testDeleteWorkflowError() async {
+        let repository = MockWorkflowRepository()
+        repository.shouldThrowError = true
+        let workflow = Workflow(name: "Test")
+        
+        let viewModel = WorkflowListViewModel(repository: repository)
+        await viewModel.deleteWorkflow(workflow)
+        
+        #expect(viewModel.errorMessage != nil)
     }
     
     @Test("Toggle favorite updates workflow")
     func testToggleFavorite() async {
         let repository = MockWorkflowRepository()
-        let workflow = Workflow(name: "Workflow 1")
+        let workflow = Workflow(name: "Test")
         workflow.isFavorite = false
         repository.workflows = [workflow]
         
         let viewModel = WorkflowListViewModel(repository: repository)
-        await viewModel.loadWorkflows()
-        
         await viewModel.toggleFavorite(workflow)
+        
         #expect(repository.saveCalled)
         #expect(workflow.isFavorite == true)
+    }
+    
+    @Test("Toggle favorite reverts on error")
+    func testToggleFavoriteError() async {
+        let repository = MockWorkflowRepository()
+        repository.shouldThrowError = true
+        let workflow = Workflow(name: "Test")
+        workflow.isFavorite = false
+        
+        let viewModel = WorkflowListViewModel(repository: repository)
+        await viewModel.toggleFavorite(workflow)
+        
+        #expect(workflow.isFavorite == false) // Reverted
+        #expect(viewModel.errorMessage != nil)
     }
     
     @Test("Duplicate workflow creates copy")
@@ -160,54 +146,86 @@ struct WorkflowListViewModelTests {
         #expect(repository.workflows[1].steps.count == 1)
     }
     
-    @Test("Search filters workflows by name")
-    func testSearchWorkflows() async {
+    @Test("Filter workflows by favorites")
+    func testFilterFavorites() {
         let repository = MockWorkflowRepository()
-        let workflow1 = Workflow(name: "Summarize Text")
-        let workflow2 = Workflow(name: "Translate Document")
-        repository.workflows = [workflow1, workflow2]
-        
         let viewModel = WorkflowListViewModel(repository: repository)
-        viewModel.searchQuery = "summarize"
         
-        try? await Task.sleep(for: .milliseconds(100))
-        
-        #expect(viewModel.workflows.count == 1)
-        #expect(viewModel.workflows.first?.name == "Summarize Text")
-    }
-    
-    @Test("Sort by name orders alphabetically")
-    func testSortByName() async {
-        let repository = MockWorkflowRepository()
-        let workflow1 = Workflow(name: "Zebra")
-        let workflow2 = Workflow(name: "Apple")
-        let workflow3 = Workflow(name: "Mango")
-        repository.workflows = [workflow1, workflow2, workflow3]
-        
-        let viewModel = WorkflowListViewModel(repository: repository)
-        await viewModel.loadWorkflows()
-        
-        viewModel.sortOption = .name
-        
-        #expect(viewModel.workflows[0].name == "Apple")
-        #expect(viewModel.workflows[1].name == "Mango")
-        #expect(viewModel.workflows[2].name == "Zebra")
-    }
-    
-    @Test("Filter favorites shows only favorites")
-    func testFilterFavorites() async {
-        let repository = MockWorkflowRepository()
         let workflow1 = Workflow(name: "Test 1")
         workflow1.isFavorite = true
         let workflow2 = Workflow(name: "Test 2")
         workflow2.isFavorite = false
-        repository.workflows = [workflow1, workflow2]
+        let allWorkflows = [workflow1, workflow2]
         
-        let viewModel = WorkflowListViewModel(repository: repository)
         viewModel.filterOption = .favorites
-        await viewModel.loadWorkflows()
+        let filtered = viewModel.filterWorkflows(allWorkflows)
         
-        #expect(viewModel.workflows.count == 1)
-        #expect(viewModel.workflows.first?.name == "Test 1")
+        #expect(filtered.count == 1)
+        #expect(filtered.first?.name == "Test 1")
+    }
+    
+    @Test("Filter workflows by search query")
+    func testFilterBySearch() {
+        let repository = MockWorkflowRepository()
+        let viewModel = WorkflowListViewModel(repository: repository)
+        
+        let workflow1 = Workflow(name: "Summarize Text")
+        let workflow2 = Workflow(name: "Translate Document")
+        let allWorkflows = [workflow1, workflow2]
+        
+        viewModel.searchQuery = "Summarize"
+        let filtered = viewModel.filterWorkflows(allWorkflows)
+        
+        #expect(filtered.count == 1)
+        #expect(filtered.first?.name == "Summarize Text")
+    }
+    
+    @Test("Sort workflows by name")
+    func testSortByName() {
+        let repository = MockWorkflowRepository()
+        let viewModel = WorkflowListViewModel(repository: repository)
+        
+        let workflow1 = Workflow(name: "Zebra")
+        let workflow2 = Workflow(name: "Apple")
+        let workflow3 = Workflow(name: "Mango")
+        let allWorkflows = [workflow1, workflow2, workflow3]
+        
+        viewModel.sortOption = .name
+        let sorted = viewModel.sortWorkflows(allWorkflows)
+        
+        #expect(sorted[0].name == "Apple")
+        #expect(sorted[1].name == "Mango")
+        #expect(sorted[2].name == "Zebra")
+    }
+    
+    @Test("Sort workflows by step count")
+    func testSortByStepCount() {
+        let repository = MockWorkflowRepository()
+        let viewModel = WorkflowListViewModel(repository: repository)
+        
+        let workflow1 = Workflow(name: "One")
+        workflow1.steps = [WorkflowStep(stepType: "test", prompt: "test", order: 0)]
+        
+        let workflow2 = Workflow(name: "Three")
+        workflow2.steps = [
+            WorkflowStep(stepType: "test", prompt: "test", order: 0),
+            WorkflowStep(stepType: "test", prompt: "test", order: 1),
+            WorkflowStep(stepType: "test", prompt: "test", order: 2)
+        ]
+        
+        let workflow3 = Workflow(name: "Two")
+        workflow3.steps = [
+            WorkflowStep(stepType: "test", prompt: "test", order: 0),
+            WorkflowStep(stepType: "test", prompt: "test", order: 1)
+        ]
+        
+        let allWorkflows = [workflow1, workflow2, workflow3]
+        
+        viewModel.sortOption = .stepCount
+        let sorted = viewModel.sortWorkflows(allWorkflows)
+        
+        #expect(sorted[0].stepCount == 3)
+        #expect(sorted[1].stepCount == 2)
+        #expect(sorted[2].stepCount == 1)
     }
 }
