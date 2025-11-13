@@ -18,7 +18,7 @@ struct WorkflowListView: View {
     @State private var viewModel: WorkflowListViewModel
     @State private var showingCreateSheet = false
     @State private var selectedWorkflow: Workflow?
-    
+    @State private var showingSettings = false
     
     // MARK: - Init
     init(viewModel: WorkflowListViewModel) {
@@ -47,6 +47,9 @@ struct WorkflowListView: View {
             .searchable(text: $viewModel.searchQuery, prompt: "Search workflows")
             .sheet(isPresented: $showingCreateSheet) {
                 WorkflowCreationView(viewModel: DependencyContainer.shared.makeWorkflowCreationViewModel())
+            }
+            .sheet(isPresented: $showingSettings) {
+                SettingsView()
             }
             .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button("OK") {
@@ -128,6 +131,14 @@ private extension WorkflowListView {
                 }
             } label: {
                 Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+            }
+        }
+        
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                showingSettings = true
+            } label: {
+                Label("Settings", systemImage: "gear")
             }
         }
         
