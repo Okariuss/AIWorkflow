@@ -12,15 +12,13 @@ import SwiftData
 final class DependencyContainer {
     static let shared = DependencyContainer()
     
-    
     // MARK: - Properties
     
     private let modelContainer: ModelContainer
     private let modelContext: ModelContext
     
-    
     // MARK: - Repositories
-    
+
     lazy var workflowRepository: WorkflowRepositoryProtocol = {
         WorkflowRepository(modelContext: modelContext)
     }()
@@ -29,6 +27,15 @@ final class DependencyContainer {
         ExecutionHistoryRepository(modelContext: modelContext)
     }()
     
+    // MARK: - Services
+
+    lazy var aiService: AIServiceProtocol = {
+        FoundationModelsService.shared
+    }()
+    
+    lazy var workflowExecutionEngine: WorkflowExecutionEngineProtocol = {
+        WorkflowExecutionEngine(aiService: aiService)
+    }()
     
     // MARK: - Initialization
     
