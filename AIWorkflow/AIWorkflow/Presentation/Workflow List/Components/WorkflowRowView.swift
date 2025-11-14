@@ -11,6 +11,8 @@ struct WorkflowRowView: View {
     let workflow: Workflow
     let onToggleFavorite: () -> Void
     
+    @State private var showingExecutionSheet = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
             
@@ -21,6 +23,24 @@ struct WorkflowRowView: View {
             }
             
             footerView
+        }
+        .padding(.vertical, 4)
+        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+            Button {
+                showingExecutionSheet = true
+            } label: {
+                Label("Run", systemImage: "play.fill")
+            }
+            .tint(.green)
+        }
+        .sheet(isPresented: $showingExecutionSheet) {
+            NavigationStack {
+                WorkflowExecutionView(
+                    viewModel: DependencyContainer.shared.makeWorkflowExecutionViewModel(
+                        workflow: workflow
+                    )
+                )
+            }
         }
     }
 }

@@ -94,6 +94,14 @@ extension DependencyContainer {
             repository: workflowRepository
         )
     }
+    
+    func makeWorkflowExecutionViewModel(workflow: Workflow) -> WorkflowExecutionViewModel {
+        WorkflowExecutionViewModel(
+            workflow: workflow,
+            executionEngine: workflowExecutionEngine,
+            historyRepository: executionHistoryRepository
+        )
+    }
 }
 
 // MARK: - Testing Support
