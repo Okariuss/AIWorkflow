@@ -16,6 +16,7 @@ struct WorkflowDetailView: View {
     @State private var viewModel: WorkflowDetailViewModel
     @State private var showingEditSheet = false
     @State private var showingDuplicateSuccess = false
+    @State private var showingExecutionSheet = false
     @State private var duplicatedWorkflow: Workflow?
     @State private var navigateToDuplicatedWorkflow = false
     
@@ -60,6 +61,15 @@ struct WorkflowDetailView: View {
         }
         .sheet(isPresented: $showingEditSheet) {
             WorkflowCreationView(viewModel: DependencyContainer.shared.makeWorkflowCreationViewModel(existingWorkflow: viewModel.workflow))
+        }
+        .sheet(isPresented: $showingExecutionSheet) {
+            NavigationStack {
+                WorkflowExecutionView(
+                    viewModel: DependencyContainer.shared.makeWorkflowExecutionViewModel(
+                        workflow: viewModel.workflow
+                    )
+                )
+            }
         }
         .alert("Delete Workflow?", isPresented: $viewModel.showingDeleteConfirmation) {
             Button("Cancel", role: .cancel) { }
@@ -165,7 +175,7 @@ private extension WorkflowDetailView {
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
                 Button {
-                    // Empty for now
+                    showingExecutionSheet = true
                 } label: {
                     Label("Run Workflow", systemImage: "play.fill")
                 }
