@@ -29,6 +29,10 @@ struct WorkflowExecutionView: View {
                         inputSection
                     }
                     
+                    if LiveActivityManager.shared.areActivitiesEnabled() {
+                        liveActivityIndicator
+                    }
+                    
                     if !viewModel.isExecuting || !viewModel.completedSteps.isEmpty {
                         executionSection
                     }
@@ -83,6 +87,27 @@ private extension WorkflowExecutionView {
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
+    }
+    
+    var liveActivityIndicator: some View {
+        HStack(spacing: 8) {
+            Image(systemName: "bell.badge.fill")
+                .foregroundStyle(.blue)
+            
+            Text("Live Activity enabled")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+            
+            Spacer()
+            
+            Image(systemName: "checkmark.circle.fill")
+                .foregroundStyle(.green)
+                .font(.caption)
+        }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
+        .background(.blue.opacity(0.1))
+        .clipShape(RoundedRectangle(cornerRadius: 8))
     }
     
     var executionSection: some View {
