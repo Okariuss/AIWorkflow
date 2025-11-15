@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import ActivityKit
 
 @MainActor
 @Observable
@@ -44,6 +45,7 @@ final class WorkflowExecutionViewModel {
     // MARK: - Dependencies
     private let executionEngine: WorkflowExecutionEngineProtocol
     private let historyRepository: ExecutionHistoryRepositoryProtocol
+    private let liveActivityManager = LiveActivityManager.shared
     
     // MARK: - Init
     init(
@@ -64,6 +66,20 @@ extension WorkflowExecutionViewModel {
         isExecuting = true
         resetState()
         
+        if liveActivityManager.areActivitiesEnabled() {
+            do {
+                try await liveActivityManager.startActivity(
+                    workflowName: workflow.name,
+                    workflowId: workflow.id,
+                    totalSteps: workflow.stepCount
+                )
+            } catch {
+                print("Failed to start Live Activity: \(error)")
+            }
+        }
+        
+        let executionStartTime = Date()
+        
         do {
             let result = try await executionEngine.executeStreaming(
                 workflow: workflow,
@@ -80,6 +96,13 @@ extension WorkflowExecutionViewModel {
             )
             executionResult = result
             
+            let elapsedTime = Date().timeIntervalSince(executionStartTime)
+            await liveActivityManager.endActivity(
+                finalOutput: result.finalOutput,
+                status: .completed,
+                elapsedTime: elapsedTime
+            )
+            
             if result.status == .success {
                 haptics.notificationOccurred(.success)
             } else if result.status == .failed {
@@ -94,6 +117,13 @@ extension WorkflowExecutionViewModel {
             } else {
                 errorMessage = error.localizedDescription
             }
+            
+            let elapsedTime = Date().timeIntervalSince(executionStartTime)
+            await liveActivityManager.endActivity(
+                finalOutput: errorMessage ?? "Execution failed",
+                status: .failed,
+                elapsedTime: elapsedTime
+            )
             
             if !completedSteps.isEmpty {
                 executionResult = WorkflowExecutionResult(
@@ -121,6 +151,9 @@ extension WorkflowExecutionViewModel {
     func cancel() {
         guard canCancel else { return }
         executionEngine.cancel()
+        Task {
+            await liveActivityManager.cancelActivity()
+        }
     }
     
     func reset() {
@@ -152,6 +185,17 @@ private extension WorkflowExecutionViewModel {
     
     func handleStepProgress(_ step: WorkflowStep, output: String) {
         currentOutput = output
+        
+        Task {
+            let elapsedTime = Date().timeIntervalSince(workflow.createdAt)
+            await liveActivityManager.updateActivity(
+                currentStepIndex: currentStepIndex,
+                currentStepName: step.stepType,
+                currentOutput: String(output.prefix(100)),
+                progress: progress,
+                elapsedTime: elapsedTime
+            )
+        }
     }
     
     func handleStepComplete(_ result: StepExecutionResult) {
