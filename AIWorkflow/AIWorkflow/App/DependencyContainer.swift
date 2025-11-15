@@ -102,6 +102,10 @@ extension DependencyContainer {
             historyRepository: executionHistoryRepository
         )
     }
+    
+    func makeExecutionHistoryViewModel() -> ExecutionHistoryViewModel {
+        ExecutionHistoryViewModel(repository: executionHistoryRepository)
+    }
 }
 
 // MARK: - Testing Support

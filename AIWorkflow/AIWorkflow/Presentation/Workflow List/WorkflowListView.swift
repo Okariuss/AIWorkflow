@@ -16,9 +16,11 @@ struct WorkflowListView: View {
     
     // MARK: - Properties
     @State private var viewModel: WorkflowListViewModel
-    @State private var showingCreateSheet = false
     @State private var selectedWorkflow: Workflow?
+    
     @State private var showingSettings = false
+    @State private var showingHistory = false
+    @State private var showingCreateSheet = false
     
     // MARK: - Init
     init(viewModel: WorkflowListViewModel) {
@@ -50,6 +52,13 @@ struct WorkflowListView: View {
             }
             .sheet(isPresented: $showingSettings) {
                 SettingsView()
+            }
+            .sheet(isPresented: $showingHistory) {
+                NavigationStack {
+                    ExecutionHistoryView(
+                        viewModel: DependencyContainer.shared.makeExecutionHistoryViewModel()
+                    )
+                }
             }
             .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button("OK") {
@@ -139,6 +148,14 @@ private extension WorkflowListView {
                 showingSettings = true
             } label: {
                 Label("Settings", systemImage: "gear")
+            }
+        }
+        
+        ToolbarItem(placement: .topBarLeading) {
+            Button {
+                showingHistory = true
+            } label: {
+                Label("History", systemImage: "clock.arrow.circlepath")
             }
         }
         
