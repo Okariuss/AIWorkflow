@@ -17,6 +17,25 @@ struct AIWorkflowApp: App {
         WindowGroup {
             ContentView()
                 .modelContainer(dependencyContainer.container)
+                .onOpenURL { url in
+                    handleURL(url)
+                }
         }
+    }
+    
+    // MARK: - URL Handling
+    private func handleURL(_ url: URL) {
+        guard url.scheme == "aiworkflow",
+              url.host == "run",
+              let workflowIdString = url.pathComponents.last,
+              let workflowId = UUID(uuidString: workflowIdString) else {
+            return
+        }
+        
+        NotificationCenter.default.post(
+            name: NSNotification.Name("OpenWorkflow"),
+            object: nil,
+            userInfo: ["workflowId": workflowId]
+        )
     }
 }
