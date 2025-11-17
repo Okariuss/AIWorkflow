@@ -39,11 +39,21 @@ extension WorkflowRepository: WorkflowRepositoryProtocol {
         workflow.modifiedAt = Date()
         modelContext.insert(workflow)
         try modelContext.save()
+        
+        Task {
+            let allWorkflows = try await fetchAll()
+            WidgetDataManager.shared.updateWidgetData(allWorkflows)
+        }
     }
     
     func delete(_ workflow: Workflow) async throws {
         modelContext.delete(workflow)
         try modelContext.save()
+        
+        Task {
+            let allWorkflows = try await fetchAll()
+            WidgetDataManager.shared.updateWidgetData(allWorkflows)
+        }
     }
     
     func fetchFavorites() async throws -> [Workflow] {

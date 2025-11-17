@@ -10,6 +10,9 @@
 		247C1A212EC895C600597FC4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A202EC895C600597FC4 /* WidgetKit.framework */; };
 		247C1A232EC895C600597FC4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A222EC895C600597FC4 /* SwiftUI.framework */; };
 		247C1A342EC895C800597FC4 /* WorkflowActivityWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2491C8382ECBAB4F00375115 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A202EC895C600597FC4 /* WidgetKit.framework */; };
+		2491C8392ECBAB4F00375115 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A222EC895C600597FC4 /* SwiftUI.framework */; };
+		2491C8482ECBAB5100375115 /* WorkflowWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -19,6 +22,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 247C1A1D2EC895C600597FC4;
 			remoteInfo = WorkflowActivityWidgetExtension;
+		};
+		2491C8462ECBAB5100375115 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24B373B62EC261BC00C18890 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2491C8362ECBAB4F00375115;
+			remoteInfo = WorkflowWidgetExtension;
 		};
 		24AB43F52EC272250094A757 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -37,6 +47,7 @@
 			dstSubfolderSpec = 13;
 			files = (
 				247C1A342EC895C800597FC4 /* WorkflowActivityWidgetExtension.appex in Embed Foundation Extensions */,
+				2491C8482ECBAB5100375115 /* WorkflowWidgetExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -47,6 +58,7 @@
 		247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkflowActivityWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		247C1A202EC895C600597FC4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		247C1A222EC895C600597FC4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkflowWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		24AB43F12EC272250094A757 /* AIWorkflowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIWorkflowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B373BE2EC261BC00C18890 /* AIWorkflow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIWorkflow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -66,6 +78,27 @@
 			);
 			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
 		};
+		2491C84C2ECBAB5100375115 /* Exceptions for "WorkflowWidget" folder in "WorkflowWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */;
+		};
+		2491C8552ECBB14500375115 /* Exceptions for "WorkflowWidget" folder in "AIWorkflow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WorkflowWidgetEntry.swift,
+			);
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+		};
+		2491C85D2ECBB3DA00375115 /* Exceptions for "AIWorkflow" folder in "AIWorkflow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/Info.plist,
+			);
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -78,6 +111,15 @@
 			path = WorkflowActivityWidget;
 			sourceTree = "<group>";
 		};
+		2491C83A2ECBAB4F00375115 /* WorkflowWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2491C8552ECBB14500375115 /* Exceptions for "WorkflowWidget" folder in "AIWorkflow" target */,
+				2491C84C2ECBAB5100375115 /* Exceptions for "WorkflowWidget" folder in "WorkflowWidgetExtension" target */,
+			);
+			path = WorkflowWidget;
+			sourceTree = "<group>";
+		};
 		24AB43F22EC272250094A757 /* AIWorkflowTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = AIWorkflowTests;
@@ -85,6 +127,9 @@
 		};
 		24B373C02EC261BC00C18890 /* AIWorkflow */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2491C85D2ECBB3DA00375115 /* Exceptions for "AIWorkflow" folder in "AIWorkflow" target */,
+			);
 			path = AIWorkflow;
 			sourceTree = "<group>";
 		};
@@ -97,6 +142,15 @@
 			files = (
 				247C1A232EC895C600597FC4 /* SwiftUI.framework in Frameworks */,
 				247C1A212EC895C600597FC4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2491C8342ECBAB4F00375115 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2491C8392ECBAB4F00375115 /* SwiftUI.framework in Frameworks */,
+				2491C8382ECBAB4F00375115 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,6 +186,7 @@
 				24B373C02EC261BC00C18890 /* AIWorkflow */,
 				24AB43F22EC272250094A757 /* AIWorkflowTests */,
 				247C1A242EC895C600597FC4 /* WorkflowActivityWidget */,
+				2491C83A2ECBAB4F00375115 /* WorkflowWidget */,
 				247C1A1F2EC895C600597FC4 /* Frameworks */,
 				24B373BF2EC261BC00C18890 /* Products */,
 			);
@@ -143,6 +198,7 @@
 				24B373BE2EC261BC00C18890 /* AIWorkflow.app */,
 				24AB43F12EC272250094A757 /* AIWorkflowTests.xctest */,
 				247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */,
+				2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -170,6 +226,28 @@
 			);
 			productName = WorkflowActivityWidgetExtension;
 			productReference = 247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2491C84B2ECBAB5100375115 /* Build configuration list for PBXNativeTarget "WorkflowWidgetExtension" */;
+			buildPhases = (
+				2491C8332ECBAB4F00375115 /* Sources */,
+				2491C8342ECBAB4F00375115 /* Frameworks */,
+				2491C8352ECBAB4F00375115 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				2491C83A2ECBAB4F00375115 /* WorkflowWidget */,
+			);
+			name = WorkflowWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = WorkflowWidgetExtension;
+			productReference = 2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 		24AB43F02EC272250094A757 /* AIWorkflowTests */ = {
@@ -208,6 +286,7 @@
 			);
 			dependencies = (
 				247C1A332EC895C800597FC4 /* PBXTargetDependency */,
+				2491C8472ECBAB5100375115 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				24B373C02EC261BC00C18890 /* AIWorkflow */,
@@ -230,6 +309,9 @@
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
 					247C1A1D2EC895C600597FC4 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					2491C8362ECBAB4F00375115 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
 					24AB43F02EC272250094A757 = {
@@ -258,12 +340,20 @@
 				24B373BD2EC261BC00C18890 /* AIWorkflow */,
 				24AB43F02EC272250094A757 /* AIWorkflowTests */,
 				247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */,
+				2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		247C1A1C2EC895C600597FC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2491C8352ECBAB4F00375115 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -294,6 +384,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		2491C8332ECBAB4F00375115 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24AB43ED2EC272250094A757 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -315,6 +412,11 @@
 			isa = PBXTargetDependency;
 			target = 247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */;
 			targetProxy = 247C1A322EC895C800597FC4 /* PBXContainerItemProxy */;
+		};
+		2491C8472ECBAB5100375115 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */;
+			targetProxy = 2491C8462ECBAB5100375115 /* PBXContainerItemProxy */;
 		};
 		24AB43F62EC272250094A757 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -375,6 +477,68 @@
 				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowActivityWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		2491C8492ECBAB5100375115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkflowWidget/WorkflowWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkflowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkflowWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		2491C84A2ECBAB5100375115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkflowWidget/WorkflowWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkflowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkflowWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -562,6 +726,7 @@
 				DEVELOPMENT_TEAM = SURBTN8MP7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AIWorkflow/App/Info.plist;
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to run AI workflows with voice commands.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -598,6 +763,7 @@
 				DEVELOPMENT_TEAM = SURBTN8MP7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AIWorkflow/App/Info.plist;
 				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to run AI workflows with voice commands.";
 				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -631,6 +797,15 @@
 			buildConfigurations = (
 				247C1A372EC895C800597FC4 /* Debug */,
 				247C1A382EC895C800597FC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2491C84B2ECBAB5100375115 /* Build configuration list for PBXNativeTarget "WorkflowWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2491C8492ECBAB5100375115 /* Debug */,
+				2491C84A2ECBAB5100375115 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
