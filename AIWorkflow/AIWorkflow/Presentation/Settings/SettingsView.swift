@@ -18,6 +18,7 @@ struct SettingsView: View {
             List {
                 aiServiceSection
                 aboutSection
+                siriSection
                 privacySection
                 developerSection
             }
@@ -66,6 +67,20 @@ private extension SettingsView {
             } label: {
                 Label("Test AI Service", systemImage: "testtube.2")
             }
+        }
+    }
+    
+    var siriSection: some View {
+        Section("Siri & Shortcuts") {
+            NavigationLink {
+                SiriSettingsView()
+            } label: {
+                Label("Siri Shortcuts", systemImage: "mic.fill")
+            }
+            
+            Text("Run workflows with voice command using Siri")
+                .font(.caption)
+                .foregroundStyle(.secondary)
         }
     }
     

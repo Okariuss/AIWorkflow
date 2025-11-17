@@ -37,6 +37,13 @@ final class DependencyContainer {
         WorkflowExecutionEngine(aiService: aiService)
     }()
     
+    lazy var workflowExecutionService: WorkflowExecutionService = {
+        WorkflowExecutionService(
+            executionEngine: workflowExecutionEngine,
+            historyRepository: executionHistoryRepository
+        )
+    }()
+    
     // MARK: - Initialization
     
     private init() {
@@ -98,8 +105,7 @@ extension DependencyContainer {
     func makeWorkflowExecutionViewModel(workflow: Workflow) -> WorkflowExecutionViewModel {
         WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: workflowExecutionEngine,
-            historyRepository: executionHistoryRepository
+            executionService: workflowExecutionService
         )
     }
     

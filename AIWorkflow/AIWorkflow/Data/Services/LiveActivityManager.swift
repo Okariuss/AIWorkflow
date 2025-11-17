@@ -49,6 +49,11 @@ extension LiveActivityManager {
             elapsedTime: 0
         )
         
+        guard ActivityAuthorizationInfo().areActivitiesEnabled else {
+            print("⚠️ Live Activities are not enabled")
+            return
+        }
+        
         do {
             let activity = try Activity.request(
                 attributes: attributes,
@@ -60,7 +65,6 @@ extension LiveActivityManager {
             print("✅ Live Activity started: \(activity.id)")
         } catch {
             print("❌ Failed to start Live Activity: \(error)")
-            throw error
         }
     }
     

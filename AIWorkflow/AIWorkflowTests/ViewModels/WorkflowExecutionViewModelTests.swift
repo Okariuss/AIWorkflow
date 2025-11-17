@@ -5,6 +5,13 @@
 //  Created by Okan Orkun on 14.11.2025.
 //
 
+//
+//  WorkflowExecutionViewModelTests.swift
+//  AIWorkflow
+//
+//  Created by Okan Orkun on 14.11.2025.
+//
+
 import Testing
 import Foundation
 @testable import AIWorkflow
@@ -22,22 +29,10 @@ struct WorkflowExecutionViewModelTests {
         
         func execute(workflow: Workflow, input: String) async throws -> WorkflowExecutionResult {
             executeCalled = true
-            
             if shouldFail {
                 throw WorkflowExecutionError.stepFailed(stepIndex: 0, error: "Mock failure")
             }
-            
-            return WorkflowExecutionResult(
-                workflow: workflow,
-                inputText: input,
-                finalOutput: "Mock output",
-                stepResults: [],
-                totalDuration: 1.0,
-                startedAt: Date(),
-                completedAt: Date(),
-                status: .success,
-                error: nil
-            )
+            return makeMockResult(workflow: workflow, input: input)
         }
         
         func executeStreaming(
@@ -48,7 +43,6 @@ struct WorkflowExecutionViewModelTests {
             onStepComplete: @escaping (StepExecutionResult) -> Void
         ) async throws -> WorkflowExecutionResult {
             executeCalled = true
-            
             if shouldFail {
                 throw WorkflowExecutionError.stepFailed(stepIndex: 0, error: "Mock failure")
             }
@@ -56,7 +50,6 @@ struct WorkflowExecutionViewModelTests {
             for step in workflow.sortedSteps {
                 onStepStart(step)
                 onStepProgress(step, "Mock output")
-                
                 try? await Task.sleep(nanoseconds: 50_000_000)
                 
                 let result = StepExecutionResult(
@@ -68,11 +61,14 @@ struct WorkflowExecutionViewModelTests {
                     isSuccess: true,
                     error: nil
                 )
-                
                 onStepComplete(result)
             }
             
-            return WorkflowExecutionResult(
+            return makeMockResult(workflow: workflow, input: input)
+        }
+        
+        private func makeMockResult(workflow: Workflow, input: String) -> WorkflowExecutionResult {
+            WorkflowExecutionResult(
                 workflow: workflow,
                 inputText: input,
                 finalOutput: "Mock output",
@@ -94,9 +90,7 @@ struct WorkflowExecutionViewModelTests {
         var histories: [ExecutionHistory] = []
         var saveCalled = false
         
-        func fetchAll() async throws -> [ExecutionHistory] {
-            histories
-        }
+        func fetchAll() async throws -> [ExecutionHistory] { histories }
         
         func fetch(for workflowId: UUID) async throws -> [ExecutionHistory] {
             histories.filter { $0.workflowId == workflowId }
@@ -125,13 +119,16 @@ struct WorkflowExecutionViewModelTests {
     @Test("ViewModel initializes correctly")
     func testInitialization() {
         let workflow = Workflow(name: "Test")
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         #expect(viewModel.workflow.name == "Test")
@@ -147,13 +144,16 @@ struct WorkflowExecutionViewModelTests {
         step.workflow = workflow
         workflow.steps = [step]
         
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = ""
@@ -167,13 +167,16 @@ struct WorkflowExecutionViewModelTests {
         step.workflow = workflow
         workflow.steps = [step]
         
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = "Test input"
@@ -187,22 +190,25 @@ struct WorkflowExecutionViewModelTests {
         step.workflow = workflow
         workflow.steps = [step]
         
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = "Test input"
         await viewModel.execute()
         
-        #expect(engine.executeCalled)
+        #expect(mockEngine.executeCalled)
         #expect(viewModel.executionResult != nil)
         #expect(viewModel.executionResult?.status == .success)
-        #expect(history.saveCalled)
+        #expect(mockHistory.saveCalled)
     }
     
     @Test("Execute workflow handles failure")
@@ -212,14 +218,18 @@ struct WorkflowExecutionViewModelTests {
         step.workflow = workflow
         workflow.steps = [step]
         
-        let engine = MockExecutionEngine()
-        engine.shouldFail = true
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        mockEngine.shouldFail = true
+        
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = "Test input"
@@ -235,13 +245,16 @@ struct WorkflowExecutionViewModelTests {
         step.workflow = workflow
         workflow.steps = [step]
         
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = "hello"
@@ -250,11 +263,10 @@ struct WorkflowExecutionViewModelTests {
             await viewModel.execute()
         }
         
-        try? await Task.sleep(nanoseconds: 10_000_000)  // 10ms → execution başlıyor
-
+        try? await Task.sleep(nanoseconds: 10_000_000)
         viewModel.cancel()
         
-        #expect(engine.cancelCalled) // artık true
+        #expect(mockEngine.cancelCalled)
         
         task.cancel()
     }
@@ -266,13 +278,16 @@ struct WorkflowExecutionViewModelTests {
         step.workflow = workflow
         workflow.steps = [step]
         
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = "Test input"
@@ -297,13 +312,16 @@ struct WorkflowExecutionViewModelTests {
         step2.workflow = workflow
         workflow.steps = [step1, step2]
         
-        let engine = MockExecutionEngine()
-        let history = MockHistoryRepository()
+        let mockEngine = MockExecutionEngine()
+        let mockHistory = MockHistoryRepository()
+        let mockService = WorkflowExecutionService(
+            executionEngine: mockEngine,
+            historyRepository: mockHistory
+        )
         
         let viewModel = WorkflowExecutionViewModel(
             workflow: workflow,
-            executionEngine: engine,
-            historyRepository: history
+            executionService: mockService
         )
         
         viewModel.inputText = "Test input"
