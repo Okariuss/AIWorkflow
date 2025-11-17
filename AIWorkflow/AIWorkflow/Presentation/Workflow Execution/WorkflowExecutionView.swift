@@ -360,8 +360,7 @@ private extension WorkflowExecutionView {
                 let container = DependencyContainer.shared
                 return WorkflowExecutionViewModel(
                     workflow: workflow,
-                    executionEngine: container.workflowExecutionEngine,
-                    historyRepository: container.executionHistoryRepository
+                    executionService: container.workflowExecutionService
                 )
             }()
         )

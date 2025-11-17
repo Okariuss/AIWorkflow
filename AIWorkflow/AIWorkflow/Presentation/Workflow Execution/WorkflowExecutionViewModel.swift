@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import ActivityKit
+import AppIntents
 
 @MainActor
 @Observable
@@ -43,19 +44,15 @@ final class WorkflowExecutionViewModel {
     private let haptics = UINotificationFeedbackGenerator()
     
     // MARK: - Dependencies
-    private let executionEngine: WorkflowExecutionEngineProtocol
-    private let historyRepository: ExecutionHistoryRepositoryProtocol
-    private let liveActivityManager = LiveActivityManager.shared
+    private let executionService: WorkflowExecutionService
     
     // MARK: - Init
     init(
         workflow: Workflow,
-        executionEngine: WorkflowExecutionEngineProtocol,
-        historyRepository: ExecutionHistoryRepositoryProtocol
+        executionService: WorkflowExecutionService
     ) {
         self.workflow = workflow
-        self.executionEngine = executionEngine
-        self.historyRepository = historyRepository
+        self.executionService = executionService
     }
 }
 
@@ -66,24 +63,11 @@ extension WorkflowExecutionViewModel {
         isExecuting = true
         resetState()
         
-        if liveActivityManager.areActivitiesEnabled() {
-            do {
-                try await liveActivityManager.startActivity(
-                    workflowName: workflow.name,
-                    workflowId: workflow.id,
-                    totalSteps: workflow.stepCount
-                )
-            } catch {
-                print("Failed to start Live Activity: \(error)")
-            }
-        }
-        
-        let executionStartTime = Date()
-        
         do {
-            let result = try await executionEngine.executeStreaming(
+            let result = try await executionService.executeWorkflow(
                 workflow: workflow,
-                input: inputText,
+                inputText: inputText,
+                enableLiveActivity: true,
                 onStepStart: { [weak self] step in
                     self?.handleStepStart(step)
                 },
@@ -94,53 +78,14 @@ extension WorkflowExecutionViewModel {
                     self?.handleStepComplete(result)
                 }
             )
+            
             executionResult = result
-            
-            let elapsedTime = Date().timeIntervalSince(executionStartTime)
-            await liveActivityManager.endActivity(
-                finalOutput: result.finalOutput,
-                status: .completed,
-                elapsedTime: elapsedTime
-            )
-            
-            if result.status == .success {
-                haptics.notificationOccurred(.success)
-            } else if result.status == .failed {
-                haptics.notificationOccurred(.error)
-            }
-            
-            await saveToHistory(result)
             
         } catch {
             if let execError = error as? WorkflowExecutionError {
                 errorMessage = execError.localizedDescription
             } else {
                 errorMessage = error.localizedDescription
-            }
-            
-            let elapsedTime = Date().timeIntervalSince(executionStartTime)
-            await liveActivityManager.endActivity(
-                finalOutput: errorMessage ?? "Execution failed",
-                status: .failed,
-                elapsedTime: elapsedTime
-            )
-            
-            if !completedSteps.isEmpty {
-                executionResult = WorkflowExecutionResult(
-                    workflow: workflow,
-                    inputText: inputText,
-                    finalOutput: completedSteps.last?.output ?? "",
-                    stepResults: completedSteps,
-                    totalDuration: completedSteps.reduce(0) { $0 + $1.duration },
-                    startedAt: completedSteps.first?.startedAt ?? Date(),
-                    completedAt: Date(),
-                    status: .failed,
-                    error: errorMessage
-                )
-                
-                if let result = executionResult {
-                    await saveToHistory(result)
-                }
             }
         }
         
@@ -150,10 +95,7 @@ extension WorkflowExecutionViewModel {
     
     func cancel() {
         guard canCancel else { return }
-        executionEngine.cancel()
-        Task {
-            await liveActivityManager.cancelActivity()
-        }
+        executionService.cancelExecution()
     }
     
     func reset() {
@@ -185,17 +127,6 @@ private extension WorkflowExecutionViewModel {
     
     func handleStepProgress(_ step: WorkflowStep, output: String) {
         currentOutput = output
-        
-        Task {
-            let elapsedTime = Date().timeIntervalSince(workflow.createdAt)
-            await liveActivityManager.updateActivity(
-                currentStepIndex: currentStepIndex,
-                currentStepName: step.stepType,
-                currentOutput: String(output.prefix(100)),
-                progress: progress,
-                elapsedTime: elapsedTime
-            )
-        }
     }
     
     func handleStepComplete(_ result: StepExecutionResult) {
@@ -206,35 +137,6 @@ private extension WorkflowExecutionViewModel {
             haptics.notificationOccurred(.success)
         } else {
             haptics.notificationOccurred(.error)
-        }
-    }
-    
-    func saveToHistory(_ result: WorkflowExecutionResult) async {
-        let stepResults = result.stepResults.map { stepResult in
-            ExecutionHistory.StepResult(
-                stepName: stepResult.step.stepType,
-                output: stepResult.output,
-                duration: stepResult.duration
-            )
-        }
-        
-        let history = ExecutionHistory(
-            workflowId: workflow.id,
-            workflowName: workflow.name,
-            executedAt: result.startedAt,
-            duration: result.totalDuration,
-            status: result.status.rawValue,
-            inputText: result.inputText,
-            outputText: result.finalOutput,
-            stepResultsJSON: ""
-        )
-        
-        history.setStepResults(stepResults)
-        
-        do {
-            try await historyRepository.save(history)
-        } catch {
-            print("Failed to save execution history: \(error)")
         }
     }
 }
