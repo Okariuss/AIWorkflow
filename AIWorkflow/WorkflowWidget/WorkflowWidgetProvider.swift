@@ -24,14 +24,16 @@ extension WorkflowWidgetProvider: TimelineProvider {
                     id: UUID(),
                     name: "Summarize & Translate",
                     stepCount: 3,
-                    isFavorite: true
+                    isFavorite: true,
+                    isSelected: false
                 ),
                 
                 WorkflowWidgetData(
                     id: UUID(),
                     name: "Quick Analysis",
                     stepCount: 2,
-                    isFavorite: false
+                    isFavorite: false,
+                    isSelected: true
                 )
             ]
         )
@@ -70,10 +72,10 @@ private extension WorkflowWidgetProvider {
             return []
         }
         
-        let favorites = workflows.filter { $0.isFavorite }
+        let selectedWorkflows = workflows.filter { $0.isSelected }
         
-        if !favorites.isEmpty {
-            return Array(favorites.prefix(4))
+        if !selectedWorkflows.isEmpty {
+            return Array(selectedWorkflows.prefix(4))
         }
         
         return Array(workflows.prefix(4))

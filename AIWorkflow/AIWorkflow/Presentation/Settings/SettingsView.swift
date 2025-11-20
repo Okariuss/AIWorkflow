@@ -12,15 +12,28 @@ struct SettingsView: View {
     // MARK: - Environments
     @Environment(\.dismiss) private var dismiss
     
+    // MARK: - State
+    @State private var viewModel: SettingsViewModel
+    
+    // MARK: - Init
+    init() {
+        let container = DependencyContainer.shared
+        self.viewModel = SettingsViewModel(
+            repository: container.preferencesRepository,
+            workflowRepository: container.workflowRepository,
+            widgetService: container.widgetService
+        )
+    }
+    
     // MARK: - View
     var body: some View {
         NavigationStack {
-            List {
-                aiServiceSection
-                aboutSection
-                siriSection
-                privacySection
-                developerSection
+            Group {
+                if viewModel.isLoading {
+                    ProgressView("Loading preferences...")
+                } else {
+                    settingsList
+                }
             }
             .navigationTitle("Settings")
             .toolbar {
@@ -30,15 +43,42 @@ struct SettingsView: View {
                     }
                 }
             }
+            .task {
+                await viewModel.loadPreferences()
+            }
+            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button("OK") {
+                    viewModel.clearError()
+                }
+            } message: {
+                if let error = viewModel.errorMessage {
+                    Text(error)
+                }
+            }
         }
     }
 }
 
 // MARK: - Subviews
 private extension SettingsView {
+    var settingsList: some View {
+        List {
+            aiServiceSection
+            preferencesSection
+            widgetPreferencesSection
+            siriSection
+            privacySection
+            aboutSection
+            developerSection
+        }
+    }
+    
     var aiServiceSection: some View {
         Section {
-            AIServiceStatusView()
+            AIServiceStatusView(
+                isAvailable: viewModel.isAIAvailable,
+                availability: viewModel.aiAvailability
+            )
         } header: {
             Text("AI Service")
         } footer: {
@@ -46,27 +86,51 @@ private extension SettingsView {
         }
     }
     
-    var aboutSection: some View {
-        Section("About") {
-            HStack {
-                Text("Version")
-                Spacer()
-                Text(appVersion)
-                    .foregroundStyle(.secondary)
+    var preferencesSection: some View {
+        Section("Preferences") {
+            Picker("Theme", selection: Binding(
+                get: { viewModel.currentTheme },
+                set: { newValue in
+                    Task {
+                        await viewModel.updateTheme(newValue)
+                    }
+                }
+            )) {
+                ForEach(UserPreferences.ThemePreference.allCases, id: \.self) { theme in
+                    HStack {
+                        Text(theme.rawValue)
+                        Spacer()
+                        Image(systemName: iconForTheme(theme))
+                            .foregroundStyle(.secondary)
+                    }
+                    .tag(theme)
+                }
             }
-            
-            HStack {
-                Text("Build")
-                Spacer()
-                Text(buildNumber)
-                    .foregroundStyle(.secondary)
-            }
-            
+            .pickerStyle(.navigationLink)
+        }
+    }
+    
+    var widgetPreferencesSection: some View {
+        Section {
             NavigationLink {
-                AIServiceTestView()
+                WidgetPreferencesView(viewModel: viewModel)
             } label: {
-                Label("Test AI Service", systemImage: "testtube.2")
+                HStack {
+                    Label("Widget Preferences", systemImage: "rectangle.grid.2x2")
+                    Spacer()
+                    if !viewModel.widgetSelections.isEmpty {
+                        Text("\(viewModel.widgetSelections.count)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
             }
+            
+            Text("Configure which workflows appear in your home screen widget")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        } header: {
+            Text("Widgets")
         }
     }
     
@@ -75,12 +139,8 @@ private extension SettingsView {
             NavigationLink {
                 SiriSettingsView()
             } label: {
-                Label("Siri Shortcuts", systemImage: "mic.fill")
+                Label("Manage Shortcuts", systemImage: "list.bullet")
             }
-            
-            Text("Run workflows with voice command using Siri")
-                .font(.caption)
-                .foregroundStyle(.secondary)
         }
     }
     
@@ -127,6 +187,30 @@ private extension SettingsView {
         }
     }
     
+    var aboutSection: some View {
+        Section("About") {
+            HStack {
+                Text("Version")
+                Spacer()
+                Text(appVersion)
+                    .foregroundStyle(.secondary)
+            }
+            
+            HStack {
+                Text("Build")
+                Spacer()
+                Text(buildNumber)
+                    .foregroundStyle(.secondary)
+            }
+            
+            NavigationLink {
+                AIServiceTestView()
+            } label: {
+                Label("Test AI Service", systemImage: "testtube.2")
+            }
+        }
+    }
+    
     var developerSection: some View {
         Section("Technology") {
             HStack {
@@ -146,14 +230,22 @@ private extension SettingsView {
     }
 }
 
-// MARK: - Computed Properties
+// MARK: - Helpers
 private extension SettingsView {
     var appVersion: String {
-        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "1.0"
     }
     
     var buildNumber: String {
-        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1.0.0"
+        Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "1"
+    }
+    
+    func iconForTheme(_ theme: UserPreferences.ThemePreference) -> String {
+        switch theme {
+        case .light: return "sun.max.fill"
+        case .dark: return "moon.fill"
+        case .system: return "circle.lefthalf.filled"
+        }
     }
 }
 

@@ -222,7 +222,10 @@ private extension WorkflowListView {
 
 #Preview("With Workflows") {
     let container = DependencyContainer.shared
-    let viewModel = WorkflowListViewModel(repository: container.workflowRepository)
+    let viewModel = WorkflowListViewModel(
+        repository: container.workflowRepository,
+        widgetService: container.widgetService
+    )
     
     Task {
         let workflow1 = Workflow(
@@ -252,7 +255,10 @@ private extension WorkflowListView {
 
 #Preview("Empty State") {
     let container = DependencyContainer.shared
-    let viewModel = WorkflowListViewModel(repository: container.workflowRepository)
+    let viewModel = WorkflowListViewModel(
+        repository: container.workflowRepository,
+        widgetService: container.widgetService
+    )
     
     return WorkflowListView(viewModel: viewModel)
 }
