@@ -18,11 +18,13 @@ struct WorkflowWidgetData:  Identifiable, Codable {
     let name: String
     let stepCount: Int
     let isFavorite: Bool
+    let isSelected: Bool
     
-    init(id: UUID, name: String, stepCount: Int, isFavorite: Bool) {
+    init(id: UUID, name: String, stepCount: Int, isFavorite: Bool, isSelected: Bool) {
         self.id = id
         self.name = name
         self.stepCount = stepCount
         self.isFavorite = isFavorite
+        self.isSelected = isSelected
     }
 }

@@ -20,11 +20,18 @@ final class WorkflowListViewModel {
     
     var filterOption: FilterOption = .all
     
+    var onFavoritesChanged: (() -> Void)?
+    
     // MARK: - Dependencies
     private let repository: WorkflowRepositoryProtocol
+    private let widgetService: WidgetServiceProtocol
     
-    init(repository: WorkflowRepositoryProtocol) {
+    init(
+        repository: WorkflowRepositoryProtocol,
+        widgetService: WidgetServiceProtocol
+    ) {
         self.repository = repository
+        self.widgetService = widgetService
     }
 }
 
@@ -34,6 +41,7 @@ extension WorkflowListViewModel {
     func deleteWorkflow(_ workflow: Workflow) async {
         do {
             try await repository.delete(workflow)
+            await widgetService.refreshWidgets()
         } catch {
             errorMessage = "Failed to delete workflow: \(error.localizedDescription)"
         }
@@ -44,6 +52,8 @@ extension WorkflowListViewModel {
         
         do {
             try await repository.save(workflow)
+            
+            await widgetService.refreshWidgets()
         } catch {
             workflow.isFavorite.toggle()
             errorMessage = "Failed to update favorite: \(error.localizedDescription)"

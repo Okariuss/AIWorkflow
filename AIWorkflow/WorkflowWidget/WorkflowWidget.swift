@@ -32,7 +32,8 @@ struct WorkflowWidget: Widget {
                 id: UUID(),
                 name: "Summarize & Translate",
                 stepCount: 3,
-                isFavorite: true
+                isFavorite: true,
+                isSelected: true
             )
         ]
     )
@@ -48,13 +49,15 @@ struct WorkflowWidget: Widget {
                 id: UUID(),
                 name: "Summarize Text",
                 stepCount: 2,
-                isFavorite: true
+                isFavorite: true,
+                isSelected: false
             ),
             WorkflowWidgetData(
                 id: UUID(),
                 name: "Quick Translate",
                 stepCount: 1,
-                isFavorite: false
+                isFavorite: false,
+                isSelected: true
             )
         ]
     )
@@ -70,25 +73,29 @@ struct WorkflowWidget: Widget {
                 id: UUID(),
                 name: "Summarize & Translate",
                 stepCount: 3,
-                isFavorite: true
+                isFavorite: true,
+                isSelected: true
             ),
             WorkflowWidgetData(
                 id: UUID(),
                 name: "Extract Info",
                 stepCount: 2,
-                isFavorite: true
+                isFavorite: true,
+                isSelected: true
             ),
             WorkflowWidgetData(
                 id: UUID(),
                 name: "Analyze Content",
                 stepCount: 1,
-                isFavorite: false
+                isFavorite: false,
+                isSelected: true
             ),
             WorkflowWidgetData(
                 id: UUID(),
                 name: "Quick Summary",
                 stepCount: 1,
-                isFavorite: false
+                isFavorite: false,
+                isSelected: true
             )
         ]
     )

@@ -9,11 +9,19 @@ import SwiftUI
 import FoundationModels
 
 struct AIServiceStatusView: View {
-    // MARK: - View
+    let isAvailable: Bool
+    let availability: SystemLanguageModel.Availability
+    
     var body: some View {
         GroupBox {
             VStack(alignment: .leading, spacing: 16) {
                 headerContent
+                
+                if case .available = availability {
+                    availableView
+                } else {
+                    unavailableView
+                }
             }
         }
     }
@@ -38,17 +46,9 @@ private extension AIServiceStatusView {
     }
     
     var statusIndicator: some View {
-        Group {
-            if case .available = FoundationModelsService.shared.availabilityDetails() {
-                Circle()
-                    .fill(Color.green)
-                    .frame(width: 12, height: 12)
-            } else {
-                Circle()
-                    .fill(Color.orange)
-                    .frame(width: 12, height: 12)
-            }
-        }
+        Circle()
+            .fill(isAvailable ? Color.green : Color.orange)
+            .frame(width: 12, height: 12)
     }
     
     var availableView: some View {
@@ -116,6 +116,16 @@ private extension AIServiceStatusView {
     }
 }
 
-#Preview {
-    AIServiceStatusView()
+#Preview("Available") {
+    AIServiceStatusView(
+        isAvailable: true,
+        availability: .available
+    )
+}
+
+#Preview("Unavailable") {
+    AIServiceStatusView(
+        isAvailable: false,
+        availability: .unavailable(.deviceNotEligible)
+    )
 }

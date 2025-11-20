@@ -27,6 +27,10 @@ final class DependencyContainer {
         ExecutionHistoryRepository(modelContext: modelContext)
     }()
     
+    lazy var preferencesRepository: PreferencesRepositoryProtocol = {
+        PreferencesRepository(modelContext: modelContext)
+    }()
+    
     // MARK: - Services
 
     lazy var aiService: AIServiceProtocol = {
@@ -44,6 +48,13 @@ final class DependencyContainer {
         )
     }()
     
+    lazy var widgetService: WidgetServiceProtocol = {
+        WidgetService(
+            workflowRepository: workflowRepository,
+            preferencesRepository: preferencesRepository
+        )
+    }()
+    
     // MARK: - Initialization
     
     private init() {
@@ -51,7 +62,8 @@ final class DependencyContainer {
             let schema = Schema([
                 Workflow.self,
                 WorkflowStep.self,
-                ExecutionHistory.self
+                ExecutionHistory.self,
+                UserPreferences.self
             ])
             
             let modelConfiguration = ModelConfiguration(
@@ -85,7 +97,10 @@ extension DependencyContainer {
 // MARK: - ViewModels
 extension DependencyContainer {
     func makeWorkflowListViewModel() -> WorkflowListViewModel {
-        WorkflowListViewModel(repository: workflowRepository)
+        WorkflowListViewModel(
+            repository: workflowRepository,
+            widgetService: widgetService
+        )
     }
     
     func makeWorkflowCreationViewModel(existingWorkflow: Workflow? = nil) -> WorkflowCreationViewModel {
@@ -111,6 +126,14 @@ extension DependencyContainer {
     
     func makeExecutionHistoryViewModel() -> ExecutionHistoryViewModel {
         ExecutionHistoryViewModel(repository: executionHistoryRepository)
+    }
+    
+    func makeSettingsViewModel() -> SettingsViewModel {
+        SettingsViewModel(
+            repository: preferencesRepository,
+            workflowRepository: workflowRepository,
+            widgetService: widgetService
+        )
     }
 }
 

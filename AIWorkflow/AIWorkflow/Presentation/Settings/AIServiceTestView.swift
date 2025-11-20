@@ -21,13 +21,17 @@ struct AIServiceTestView: View {
     @State private var useStreaming = true
     @State private var useStructuredOutput = false
     @State private var executionTime: TimeInterval = 0
+    @State private var isAvailableStatus: Bool = false
     
     private let aiService = FoundationModelsService.shared
     
     var body: some View {
         Form {
             Section {
-                AIServiceStatusView()
+                AIServiceStatusView(
+                    isAvailable: isAvailableStatus,
+                    availability: aiService.availabilityDetails()
+                )
             }
             
             configurationSection
@@ -37,6 +41,9 @@ struct AIServiceTestView: View {
         }
         .navigationTitle("AI Service Test")
         .navigationBarTitleDisplayMode(.inline)
+        .task {
+            isAvailableStatus = await aiService.isAvailable()
+        }
         .alert("Error", isPresented: .constant(errorMessage != nil)) {
             Button("OK") {
                 errorMessage = nil
