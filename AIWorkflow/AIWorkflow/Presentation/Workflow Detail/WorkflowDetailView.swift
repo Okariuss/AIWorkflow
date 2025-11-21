@@ -110,10 +110,7 @@ struct WorkflowDetailView: View {
         }
         .overlay {
             if viewModel.isLoading {
-                ProgressView()
-                    .padding()
-                    .background(.regularMaterial)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                LoadingView()
             }
         }
         .onChange(of: viewModel.wasDeleted) { _, wasDeleted in

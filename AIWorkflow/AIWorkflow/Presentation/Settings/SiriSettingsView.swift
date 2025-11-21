@@ -60,11 +60,7 @@ private extension SiriSettingsView {
     var availableWorkflowsSection: some View {
         Section("Available Workflows") {
             if isLoading {
-                HStack {
-                    ProgressView()
-                    Text("Loading workflows...")
-                        .foregroundStyle(.secondary)
-                }
+                LoadingView(message: "Loading workflows...")
             } else if availableWorkflows.isEmpty {
                 Text("No workflows available")
                     .foregroundStyle(.secondary)

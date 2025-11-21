@@ -16,7 +16,6 @@ struct WorkflowCreationView: View {
     @State private var viewModel: WorkflowCreationViewModel
     @State private var showingStepConfiguration = false
     @State private var editingStepIndex: Int?
-    @State private var haptics = UIImpactFeedbackGenerator(style: .medium)
     
     // MARK: - Focus State
     @FocusState private var isNameFocused: Bool
@@ -61,10 +60,7 @@ struct WorkflowCreationView: View {
             }
             .overlay {
                 if viewModel.isLoading {
-                    ProgressView("Saving...")
-                        .padding()
-                        .background(.regularMaterial)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                    LoadingView(message: "Saving workflow...")
                 }
             }
         }
@@ -208,7 +204,7 @@ private extension WorkflowCreationView {
     
     func deleteButton(at index: Int) -> some View {
         Button(role: .destructive) {
-            haptics.impactOccurred()
+            HapticManager.shared.impact(.medium)
             withAnimation {
                 viewModel.deleteStep(at: index)
             }
@@ -219,7 +215,7 @@ private extension WorkflowCreationView {
     
     func duplicateButton(at index: Int) -> some View {
         Button {
-            haptics.impactOccurred()
+            HapticManager.shared.impact(.medium)
             withAnimation {
                 viewModel.duplicateStep(at: index)
             }
@@ -232,7 +228,12 @@ private extension WorkflowCreationView {
     func saveWorkflow() {
         Task {
             let success = await viewModel.saveWorkflow()
-            if success { dismiss() }
+            if success {
+                HapticManager.shared.notification(.success)
+                dismiss()
+            } else {
+                HapticManager.shared.notification(.error)
+            }
         }
     }
 }
