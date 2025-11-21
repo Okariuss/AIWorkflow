@@ -30,7 +30,7 @@ struct SettingsView: View {
         NavigationStack {
             Group {
                 if viewModel.isLoading {
-                    ProgressView("Loading preferences...")
+                    LoadingView(message: "Loading preferences...")
                 } else {
                     settingsList
                 }
