@@ -118,7 +118,7 @@ struct PreferencesRepositoryTests {
     @Test("Repository getOrCreate creates new preferences when none exist")
     func testGetOrCreateNew() async throws {
         let repository = MockPreferencesRepository()
-        
+        let _ = try await repository.getOrCreate()
         #expect(repository.saveCalled == true)
     }
     

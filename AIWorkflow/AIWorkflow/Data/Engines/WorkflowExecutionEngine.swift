@@ -47,7 +47,20 @@ extension WorkflowExecutionEngine: WorkflowExecutionEngineProtocol {
             
             do {
                 let prompt = buildPrompt(for: step, with: currentInput)
-                let output = try await aiService.execute(prompt: prompt)
+                
+                let output: String
+                let options = step.advancedOptions
+                
+                if options.useAdvancedOptions {
+                    output = try await aiService.executeWithOptions(
+                        prompt: prompt,
+                        temperature: options.temperature,
+                        maxTokens: options.maxTokens,
+                        samplingMode: options.samplingMode
+                    )
+                } else {
+                    output = try await aiService.execute(prompt: prompt)
+                }
                 
                 let stepEndTime = Date()
                 
@@ -134,7 +147,21 @@ extension WorkflowExecutionEngine: WorkflowExecutionEngineProtocol {
             do {
                 let prompt = buildPrompt(for: step, with: currentInput)
                 
-                for try await snapshot in try await aiService.executeStreaming(prompt: prompt) {
+                let options = step.advancedOptions
+                let stream: AsyncThrowingStream<String, Error>
+                
+                if options.useAdvancedOptions {
+                    stream = try await aiService.executeStreamingWithOptions(
+                        prompt: prompt,
+                        temperature: options.temperature,
+                        maxTokens: options.maxTokens,
+                        samplingMode: options.samplingMode
+                    )
+                } else {
+                    stream = try await aiService.executeStreaming(prompt: prompt)
+                }
+                
+                for try await snapshot in stream {
                     if isCancelled {
                         throw WorkflowExecutionError.cancelled
                     }
