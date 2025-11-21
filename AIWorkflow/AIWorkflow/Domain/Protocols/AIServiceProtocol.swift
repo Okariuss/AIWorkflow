@@ -10,6 +10,8 @@ import Foundation
 protocol AIServiceProtocol {
     func execute(prompt: String) async throws -> String
     func executeStreaming(prompt: String) async throws -> AsyncThrowingStream<String, Error>
+    func executeWithOptions(prompt: String, temperature: Double, maxTokens: Int, samplingMode: WorkflowStep.AdvancedOptions.SamplingMode) async throws -> String
+    func executeStreamingWithOptions(prompt: String, temperature: Double, maxTokens: Int, samplingMode: WorkflowStep.AdvancedOptions.SamplingMode) async throws -> AsyncThrowingStream<String, Error>
     func isAvailable() async -> Bool
 }
 
