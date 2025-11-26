@@ -74,7 +74,7 @@ struct WorkflowDetailViewModelTests {
     func testCanRunWithSteps() {
         let repository = MockWorkflowRepository()
         let workflow = Workflow(name: "Test")
-        let step = WorkflowStep(stepType: "summarize", prompt: "Test", order: 0)
+        let step = WorkflowStep(stepType: WorkflowStep.StepType.summarize.rawValue, prompt: "Test", order: 0)
         step.workflow = workflow
         workflow.steps = [step]
         
@@ -156,8 +156,8 @@ struct WorkflowDetailViewModelTests {
             name: "Original",
             workflowDescription: "Description"
         )
-        let step1 = WorkflowStep(stepType: "summarize", prompt: "Test 1", order: 0)
-        let step2 = WorkflowStep(stepType: "translate", prompt: "Test 2", order: 1)
+        let step1 = WorkflowStep(stepType: WorkflowStep.StepType.summarize.rawValue, prompt: "Test 1", order: 0)
+        let step2 = WorkflowStep(stepType: WorkflowStep.StepType.translate.rawValue, prompt: "Test 2", order: 1)
         step1.workflow = workflow
         step2.workflow = workflow
         workflow.steps = [step1, step2]
@@ -167,7 +167,7 @@ struct WorkflowDetailViewModelTests {
         let duplicated = await viewModel.duplicateWorkflow()
         
         #expect(duplicated != nil)
-        #expect(duplicated?.name == "Original (Copy)")
+        #expect((duplicated?.name.contains(L10N.WorkflowDetail.Duplicated.copy)) ?? false)
         #expect(duplicated?.workflowDescription == "Description")
         #expect(duplicated?.steps.count == 2)
         #expect(duplicated?.isFavorite == false)

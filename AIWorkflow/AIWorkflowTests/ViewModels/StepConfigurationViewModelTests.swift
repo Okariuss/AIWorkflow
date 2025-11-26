@@ -19,7 +19,7 @@ struct StepConfigurationViewModelTests {
     func testInitialization() {
         let viewModel = StepConfigurationViewModel()
         
-        #expect(viewModel.selectedStepType == .summarize)
+        #expect(viewModel.selectedStepType == .custom)
         #expect(viewModel.prompt.isEmpty)
         #expect(viewModel.validationError == nil)
         #expect(viewModel.isValid == false)
@@ -93,7 +93,7 @@ struct StepConfigurationViewModelTests {
         
         let fullPrompt = viewModel.fullPrompt
         
-        #expect(fullPrompt.contains("Summarize"))
+        #expect(fullPrompt.contains(L10N.StepType.summarizeSystemPrompt))
         #expect(fullPrompt.contains("My custom instructions"))
     }
 }

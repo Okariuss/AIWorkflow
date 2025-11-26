@@ -37,9 +37,17 @@ final class UserPreferences {
 // MARK: - Theme Preference
 extension UserPreferences {
     enum ThemePreference: String, CaseIterable {
-        case light = "Light"
-        case dark = "Dark"
-        case system = "System"
+        case light
+        case dark
+        case system
+        
+        var title: String {
+            switch self {
+            case .light: L10N.Settings.Preferences.Theme.light
+            case .dark: L10N.Settings.Preferences.Theme.dark
+            case .system: L10N.Settings.Preferences.Theme.system
+            }
+        }
     }
     
     var theme: ThemePreference {

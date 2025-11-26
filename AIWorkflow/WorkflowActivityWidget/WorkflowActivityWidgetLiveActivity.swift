@@ -17,7 +17,7 @@ struct WorkflowActivityWidgetLiveActivity: Widget {
             DynamicIsland {
                 DynamicIslandExpandedRegion(.leading) {
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Step \(context.state.currentStepIndex + 1)/\(context.state.totalSteps)")
+                        Text(String(format: NSLocalizedString("activity.steps", comment: ""), context.state.currentStepIndex + 1, context.state.totalSteps))
                             .font(.caption2)
                             .foregroundStyle(.secondary)
                         

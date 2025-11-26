@@ -1,0 +1,379 @@
+/* 
+  Localizable.strings
+  AIWorkflow
+
+  Created by Okan Orkun on 21.11.2025.
+  
+*/
+// MARK: TURKISH
+
+// MARK: - Common
+"common.save" = "Kaydet";
+"common.cancel" = "İptal";
+"common.delete" = "Sil";
+"common.edit" = "Düzenle";
+"common.done" = "Tamam";
+"common.close" = "Kapat";
+"common.add" = "Ekle";
+"common.remove" = "Kaldır";
+"common.ok" = "Tamam";
+"common.yes" = "Evet";
+"common.no" = "Hayır";
+"common.error" = "Hata";
+"common.success" = "Başarılı";
+"common.loading" = "Yükleniyor...";
+"common.saving" = "Kaydediliyor...";
+"common.clear" = "Temizle";
+"common.copy" = "Kopyala";
+"common.share" = "Paylaş";
+"common.search" = "Ara";
+"common.filter" = "Filtrele";
+"common.sort" = "Sırala";
+"common.more" = "Daha Fazla";
+"common.run" = "Çalıştır";
+"common.stop" = "Durdur";
+"common.retry" = "Yeniden Dene";
+"common.seconds" = "saniye";
+
+// MARK: - Workflow List
+"workflow_list.title" = "İş Akışları";
+"workflow_list.search" = "İş Akışı ara";
+"workflow_list.delete.message" = "%@ öğesini silmek istediğinize emin misiniz? Bu işlem geri alınamaz.";
+"workflow_list.create" = "İş Akışı Oluştur";
+"workflow_list.empty.message" = "Henüz iş akışı yok";
+"workflow_list.empty.action" = "İş Akışı Oluştur";
+"workflow_list.favorites_empty.message" = "Henüz favori iş akışı yok";
+"workflow_list.favorites_empty.action" = "Tümünü Göster";
+"workflow_list.search_empty.message" = "'%@' için iş akışı bulunamadı";
+"workflow_list.filter_no_match.message" = "Geçerli filtreyle eşleşen iş akışı bulunmuyor";
+"workflow_list.filter.all" = "Tümü";
+"workflow_list.filter.favorites" = "Favoriler";
+"workflow_list.sort.name" = "İsim";
+"workflow_list.sort.modified" = "Son Değiştirilme";
+"workflow_list.sort.created" = "Oluşturulma Tarihi";
+"workflow_list.sort.steps" = "Adım Sayısı";
+"workflow_list.settings" = "Ayarlar";
+"workflow_list.history" = "Geçmiş";
+
+// MARK: - Workflow Entity
+"workflow.entity.steps" = "%d adım";
+
+// MARK: - Workflow Detail
+"workflow_detail.steps" = "Adımlar";
+"workflow_detail.prompt" = "Prompt";
+"workflow_detail.description" = "Açıklama";
+"workflow_detail.info.steps" = "Adımlar";
+"workflow_detail.info.created" = "Oluşturuldu";
+"workflow_detail.info.modified" = "Son Değişiklik";
+"workflow_detail.info.favorite" = "Favori";
+"workflow_detail.actions.run" = "İş Akışını Çalıştır";
+"workflow_detail.actions.edit" = "Düzenle";
+"workflow_detail.actions.favorite" = "Favorilere Ekle";
+"workflow_detail.actions.unfavorite" = "Favorilerden Kaldır";
+"workflow_detail.actions.duplicate" = "Kopyala";
+"workflow_detail.delete.title" = "İş Akışı Silinsin mi?";
+"workflow_detail.delete.message" = "Bu işlem geri alınamaz. İş akışı ve tüm adımları kalıcı olarak silinecek.";
+"workflow_detail.empty.message" = "Bu iş akışında adım yok";
+"workflow_detail.empty.action" = "Adım Ekle";
+"workflow_detail.duplicated.title" = "Akış Kopyalandı";
+"workflow_detail.duplicated.action" = "Kopyayı Aç";
+"workflow_detail.duplicated.message" = "Akışın bir kopyası oluşturuldu.";
+"workflow_detail.duplicated.copy" = "(Kopya)";
+"workflow_detail.duplicated.error" = "Kopyalama işlemi başarısız";
+
+// MARK: - Workflow Creation
+"workflow_creation.title.new" = "Yeni İş Akışı";
+"workflow_creation.title.edit" = "İş Akışını Düzenle";
+"workflow_creation.name" = "İş Akışı Adı";
+"workflow_creation.description" = "Açıklama (isteğe bağlı)";
+"workflow_creation.info" = "İş Akışı Bilgileri";
+"workflow_creation.steps.title" = "Adımlar";
+"workflow_creation.steps.empty" = "Henüz adım yok";
+"workflow_creation.steps.add" = "Adım Ekle";
+"workflow_creation.validation.name_required" = "İş akışı adı gerekli";
+"workflow_creation.validation.name_short" = "İş akışı adı en az 3 karakter olmalı";
+"workflow_creation.validation.steps_required" = "En az bir adım gerekli";
+"workflow_creation.info.footer" = "İş akışınıza açıklayıcı bir isim ve isteğe bağlı açıklama ekleyin";
+"workflow_creation.steps.footer" = "Adımlar sırayla çalıştırılır. Sıralamak için sürükleyin.";
+"workflow_creation.steps.count" = "%d adım";
+
+// MARK: - Step Configuration
+"step_config.title.new" = "Adım Ekle";
+"step_config.title.edit" = "Adımı Düzenle";
+"step_config.invalid_step" = "Geçersiz Adım";
+"step_config.type" = "Adım Türü";
+"step_config.type.header" = "Tür";
+"step_config.type.footer" = "Sistem Komutu";
+"step_config.prompt" = "Talimatlar";
+"step_config.prompt.footer" = "Bu adım için özel talimatlar girin. Mümkün olduğunca detaylı olun.";
+"step_config.advanced" = "Gelişmiş Seçenekler";
+"step_config.advanced.temperature" = "Temperature";
+"step_config.advanced.temperature.predictable" = "Tahmin Edilebilir";
+"step_config.advanced.temperature.creative" = "Yaratıcı";
+"step_config.advanced.max_tokens" = "Maksimum Token";
+"step_config.advanced.max_tokens.short" = "Kısa";
+"step_config.advanced.max_tokens.long" = "Uzun";
+"step_config.advanced.sampling" = "Sampling";
+"step_config.advanced.reset" = "Varsayılanlara Sıfırla";
+"step_config.advanced.footer" = "Temperature, yaratıcılığı kontrol eder (0.0=tahmin edilebilir, 2.0=yaratıcı). Maksimum token, yanıt uzunluğunu sınırlar. Sampling, çıktı belirginliğini etkiler.";
+"step_config.test" = "Adımı Test Et";
+"step_config.test.input" = "Test Girdisi";
+"step_config.test.output" = "Çıktı:";
+"step_config.test.testing" = "Test ediliyor...";
+"step_config.test.run" = "Adımı Test Et";
+"step_config.test.footer" = "Kaydetmeden önce adım yapılandırmanızı örnek girdi ile test edin.";
+"step_config.preview" = "Tam İstem Önizlemesi";
+"step_config.validation.empty" = "İstem boş olamaz";
+"step_config.validation.short" = "İstem en az 3 karakter olmalı";
+"step_config.validation.temperature" = "Temperature ayarı 0.0 ile 2.0 arasında olmalı";
+"step_config.validation.tokens" = "Maksimum token sayısı 1 ile 4096 arasında olmalı";
+"step_config.validation.testInput" = "Test girdisi boş olamaz";
+
+// MARK: - Step Types
+"step_type.summarize" = "Özetle";
+"step_type.translate" = "Çevir";
+"step_type.extract" = "Bilgi Çıkar";
+"step_type.rewrite" = "Yeniden Yaz";
+"step_type.analyze" = "Analiz Et";
+"step_type.custom" = "Özel";
+"step_type.system_prompt.summarize" = "Aşağıdaki metni öz ve net bir şekilde özetle:";
+"step_type.system_prompt.translate" = "Aşağıdaki metni çevir:";
+"step_type.system_prompt.extract" = "Metinden istenen bilgileri çıkar:";
+"step_type.system_prompt.rewrite" = "Aşağıdaki metni yeniden yaz:";
+"step_type.system_prompt.analyze" = "Aşağıdaki metni analiz et:";
+
+
+// MARK: - Live Activity
+"live_activity.starting" = "Başlatılıyor...";
+
+// MARK: - Workflow Execution
+"execution.title" = "İş Akışını Çalıştır";
+"execution.input" = "Girdi Metni";
+"execution.input.characters" = "%d karakter";
+"execution.progress" = "Çalıştırma İlerlemesi";
+"execution.results" = "Sonuçlar";
+"execution.results.status" = "Durum";
+"execution.results.duration" = "Süre";
+"execution.results.steps_completed" = "Tamamlanan Adımlar";
+"execution.results.output" = "Son Çıktı";
+"execution.actions.copy" = "Çıktıyı Kopyala";
+"execution.actions.run_again" = "Tekrar Çalıştır";
+"execution.status.running" = "Çalışıyor";
+"execution.status.completed" = "Tamamlandı";
+"execution.status.failed" = "Başarısız";
+"execution.status.cancelled" = "İptal Edildi";
+"execution.live_activity.enabled" = "Canlı Aktivite etkin";
+"execution.error.title" = "Çalıştırma Başarısız";
+
+// MARK: - Workflow Step
+"workflow_step.advanced.greedy" = "Deterministik";
+"workflow_step.advanced.greedy_description" = "Aynı girdide her zaman aynı çıktıyı üretir";
+
+"workflow_step.advanced.random" = "Rastgele";
+"workflow_step.advanced.random_description" = "Daha yaratıcıdır (değişken çıktılar üretir)";
+
+// MARK: - History
+"history.title" = "Çalıştırma Geçmişi";
+"history.search" = "Çalıştırmaları ara";
+"history.empty.message" = "Henüz çalıştırma geçmişi yok";
+"history.empty.success" = "Henüz başarılı çalıştırma yok";
+"history.empty.failed" = "Henüz başarısız çalıştırma yok";
+"history.empty.search" = "'%@' için çalıştırma bulunamadı";
+"history.empty.no_matched_filter" = "Geçerli filtreyle eşleşen hiçbir çalıştırma yok";
+"history.statistics" = "İstatistikler";
+"history.statistics.total" = "Toplam";
+"history.statistics.success" = "Başarılı";
+"history.statistics.failed" = "Başarısız";
+"history.filter.all" = "Tümü";
+"history.filter.success" = "Başarılı";
+"history.filter.failed" = "Başarısız";
+"history.sort.newest" = "Yeniden Eskiye";
+"history.sort.oldest" = "Eskiden Yeniye";
+"history.sort.duration" = "Süre";
+"history.sort.name" = "İş Akışı Adı";
+"history.delete_all.title" = "Tüm Geçmişi Sil";
+"history.delete_all.message" = "Bu işlem tüm çalıştırma geçmişini kalıcı olarak silecek. Bu işlem geri alınamaz.";
+"history.detail.title" = "Çalıştırma Detayları";
+"history.detail.workflow" = "İş Akışı";
+"history.detail.duration" = "Süre";
+"history.detail.executed" = "Çalıştırıldı";
+"history.detail.input" = "Girdi Metni";
+"history.detail.steps" = "Adım Sonuçları";
+"history.detail.output" = "Son Çıktı";
+"history.share_text.title" = "Workflow Çalıştırma Raporu";
+"history.share_text.date" = "Tarih";
+"history.share_text.input" = "GİRİŞ";
+
+
+// MARK: - Settings
+"settings.title" = "Ayarlar";
+"settings.ai_service" = "AI Hizmeti";
+"settings.ai_service.description" = "Apple'ın Foundation Models API’si tarafından desteklenir. Tüm işlemler cihazınızdaki yerel dil modeli kullanılarak cihaz üzerinde gerçekleştirilir.";
+"settings.ai_service.status" = "Cihaz İçi Yapay Zeka";
+"settings.ai_service.available" = "AI işleme bu cihazda kullanılabilir";
+"settings.ai_service.privacy.local" = "Tüm iş akışları tam gizlilikle yerel olarak çalışır";
+"settings.ai_service.privacy.offline" = "Çevrimdışı çalışır - internet bağlantısı gerekmez";
+"settings.ai_service.unavailable" = "AI işleme kullanılamıyor";
+"settings.ai_service.requirements" = "Gereksinimler:";
+"settings.ai_service.requirements.ios" = "• iOS 26.0 veya üzeri";
+"settings.ai_service.requirements.intelligence" = "• Apple Intelligence etkin";
+"settings.ai_service.requirements.device" = "• Uyumlu cihaz";
+"settings.test.configuration.title" = "Test Yapılandırması";
+"settings.test.configuration.streaming" = "Streaming Kullan";
+"settings.test.configuration.structured" = "Yapılandırılmış Çıktı Kullan";
+"settings.test.prompt.title" = "Test Promptu";
+"settings.test.prompt.message" = "Aşağıdaki metni 2-3 cümlede özetleyin:\nSwiftUI, Apple’ın tüm platformlarında kullanıcı arayüzleri oluşturmak için geliştirdiği modern bir çerçevedir.";
+"settings.test.prompt.quick" = "Hızlı Prompts";
+"settings.test.prompt.summarize_tag" = "Aşağıdaki metni özetleyin: SwiftUI, Apple’ın modern kullanıcı arayüzü çerçevesi...";
+"settings.test.prompt.extract_tag" = "Şuradan e-posta adreslerini ve telefon numaralarını çıkarın: John’a john@example.com adresinden ulaşın veya 555-1234’ü arayın";
+"settings.test.prompt.analyze_tag" = "Şunu analiz edin (duygu ve ton): Bu yeni özelliği kesinlikle çok sevdim!";
+"settings.test.response.title" = "Yanıt";
+"settings.test.response.processing" = "İşleniyor...";
+"settings.test.response.no_response" = "Henüz yanıt yok";
+"settings.test.execute_propmt" = "Promptu Çalıştır";
+"settings.preferences" = "Tercihler";
+"settings.preferences.theme" = "Tema";
+"settings.preferences.theme.light" = "Açık";
+"settings.preferences.theme.dark" = "Koyu";
+"settings.preferences.theme.system" = "Sistem";
+"settings.widgets" = "Widget'lar";
+"settings.widgets.preferences" = "Widget Tercihleri";
+"settings.widgets.description" = "Ana ekran widget'ınızda hangi iş akışlarının görüneceğini yapılandırın";
+"settings.siri" = "Siri ve Kısayollar";
+"settings.siri.manage" = "Kısayolları Yönet";
+"settings.privacy" = "Gizlilik";
+"settings.privacy.ondevice.title" = "100% Cihaz İçi İşleme";
+"settings.privacy.ondevice.description" = "Tüm AI iPhone'unuzda yerel olarak çalışır";
+"settings.privacy.nodata.title" = "Sıfır Veri Toplama";
+"settings.privacy.nodata.description" = "Verileriniz asla cihazınızdan ayrılmaz";
+"settings.privacy.offline.title" = "Çevrimdışı Çalışır";
+"settings.privacy.offline.description" = "İnternet bağlantısı gerekmez";
+"settings.about" = "Hakkında";
+"settings.about.version" = "Sürüm";
+"settings.about.build" = "Yapı";
+"settings.about.test" = "AI Hizmetini Test Et";
+"settings.technology" = "Teknoloji";
+"settings.technology.framework" = "Çatı";
+"settings.technology.framework.value" = "Foundation Models";
+"settings.technology.architecture" = "Mimari";
+"settings.technology.architecture.value" = "Cihaz İçi LLM";
+
+// MARK: - Widget Preferences
+"widget_preferences.title" = "Widget Tercihleri";
+"widget_preferences.header" = "Widget İş Akışları";
+"widget_preferences.description" = "Görüntülenecek 4 iş akışına kadar seçin";
+"widget_preferences.selected" = "4'ten %d seçili";
+"widget_preferences.available" = "Kullanılabilir İş Akışları";
+"widget_preferences.footer" = "Seçili iş akışları ana ekran widget'ınızda görünecektir. Değişiklikler hemen geçerli olur.";
+"widget_preferences.empty.title" = "Kullanılabilir İş Akışı Yok";
+"widget_preferences.empty.message" = "Önce uygulamada iş akışları oluşturun";
+"widget_preferences.limit_reached" = "Widget en fazla 4 iş akışı gösterebilir";
+"widget_preferences.not_found" = "Tercihler bulunamadı";
+"widget_preferences.save_failed" = "Tercihler kaydedilemedi";
+
+
+// MARK: - Siri
+"siri.title" = "Siri Kısayolları";
+"siri.description" = "Sesli komutlarla iş akışlarını çalıştırın.";
+"siri.available" = "Kullanılabilir İş Akışları";
+"siri.empty_workflow" = "Herhangi bir iş akışı bulunmuyor";
+"siri.commands" = "Sesli Komutlar";
+"siri.commands.examples" = "Örnekler:";
+"siri.commands.example1" = "Özetle ve Çevir çalıştır";
+"siri.commands.example2" = "İş akışımı çalıştır";
+"siri.commands.example3" = "[iş akışı adı] ile metni işle";
+"siri.howto" = "Nasıl Kullanılır";
+"siri.howto.step1.title" = "'Hey Siri' deyin";
+"siri.howto.step1.description" = "Cihazınızda Siri'yi etkinleştirin";
+"siri.howto.step2.title" = "Komutu söyleyin";
+"siri.howto.step2.description" = "Yukarıdaki sesli komutlardan birini kullanın";
+"siri.howto.step3.title" = "Girdi sağlayın";
+"siri.howto.step3.description" = "Siri işlenecek metni soracak";
+
+// MARK: - Errors
+"error.workflow_not_found" = "İş akışı bulunamadı";
+"error.no_steps" = "İş akışında adım yok";
+"error.empty_input" = "Girdi metni boş olamaz";
+"error.step_failed" = "Adım %d başarısız: %@";
+"error.execution_cancelled" = "Çalıştırma işlemi iptal edildi";
+"error.execution_failed" = "İş akışı çalıştırması başarısız";
+"error.execution.delete_failed" = "Çalıştırma silinirken hata oluştu: %@";
+"error.execution.delete_all" = "Tümü silinirken hata oluştu: %@";
+"error.ai_unavailable" = "AI hizmeti bu cihazda kullanılamıyor";
+"error.save_failed" = "İş akışı kaydedilemedi";
+"error.delete_failed" = "İş akışı silinemedi";
+"error.preferences_failed" = "Tercihler yüklenemedi";
+"error.ai_model_unavailable" = "Bu cihazda AI modeli kullanılamıyor. iOS 26+ ve A17 Pro veya daha yeni bir çip gerektirir.";
+"error.ai_invalid_response" = "AI modelinden geçersiz bir yanıt alındı.";
+"error.ai_execution_failed" = "AI çalıştırma hatası: %@";
+"error.ai_cancelled" = "AI çalıştırma işlemi iptal edildi.";
+"error.theme.update_failed" = "Tema güncellenemedi";
+"error.workflow.set_failed" = "Varsayılan çalışma akışı ayarlanamadı";
+"error.widget.add_failed" = "Seçilen widget eklenemedi";
+"error.widget.remove_failed" = "Seçilen widget kaldırılamadı";
+"error.invalid_workflow" = "Geçersiz İş Akışı";
+"error.favorite_update_failed" = "Favori güncellenemedi";
+
+// MARK: - AI Models
+// MARK: -- Summarization Model
+"summary_result.summary" = "2-3 cümlelik kısa özet";
+"summary_result.keyPoints" = "Metinden 3-5 anahtar nokta";
+"summary_result.sentiment" = "Genel duygu: pozitif, negatif veya nötr";
+
+// MARK: -- Extraction Model
+"extracted_info.emails" = "Bulunan e-posta adresleri listesi";
+"extracted_info.phoneNumbers" = "Bulunan telefon numaraları listesi";
+"extracted_info.dates" = "Belirtilen tarihler listesi";
+"extracted_info.names" = "Bulunan isimler veya varlıklar listesi";
+
+// MARK: -- Translation Model
+"translation_result.translatedText" = "Çevrilmiş metin";
+"translation_result.sourceLanguage" = "Algılanan kaynak dil";
+"translation_result.targetLanguage" = "Hedef dil";
+
+// MARK: -- Analysis Model
+"analysis_result.tone" = "Metnin genel tonu";
+"analysis_result.themes" = "Belirlenen ana temalar";
+"analysis_result.complexity" = "Zorluk seviyesi: basit, orta veya karmaşık";
+"analysis_result.insights" = "Analizden çıkarılan önemli bulgular";
+
+
+// MARK: - Accessibility Labels
+"accessibility.workflow_row" = "İş akışı %@, %d adım";
+"accessibility.step_row" = "Adım %d: %@";
+"accessibility.favorite_button" = "Favori durumunu değiştir";
+"accessibility.delete_button" = "İş akışını sil";
+"accessibility.run_button" = "İş akışını çalıştır";
+"accessibility.add_step_button" = "Yeni adım ekle";
+"accessibility.progress" = "İlerleme: %.0f%%";
+
+// MARK: - Intents
+// MARK: -- Quick Run
+"intents.quick_run_title" = "Hızlı Çalıştır";
+"intents.quick_run_description" = "Bir iş akışını varsayılan ayarlarla hızlıca çalıştırın";
+"intents.quick_run_parameter_workflow" = "İş Akışı";
+"intents.quick_run_parameter_input_text" = "Girdi Metni";
+
+// MARK: -- Run
+"intents.run_workflow_title" = "İş Akışını Çalıştır";
+"intents.run_workflow_description" = "Sağlanan metin ile bir AI iş akışını çalıştırır";
+"intents.run_workflow_parameter_workflow" = "İş Akışı";
+"intents.run_workflow_parameter_input_text" = "Girdi Metni";
+"intents.run_workflow_parameter_input_text_description" = "İş akışında işlenecek metin";
+
+"intents.run_workflow_dialog_not_found" = "Bu iş akışını bulamadım.";
+"intents.run_workflow_dialog_done" = "Tamam! Sonuçları uygulamada kontrol et.";
+"intents.run_workflow_dialog_failed" = "İş akışı başarısız oldu. Uygulamayı kontrol et.";
+
+// MARK: -- Workflow Shortcuts (Siri Kısayol İfadeleri)
+"intents.run_simple" = "%@'da bir iş akışı çalıştır";
+"intents.run_execute" = "%@'da iş akışı yürüt";
+"intents.run_workflow_name" = "%@'da %@ adlı iş akışını çalıştır";
+"intents.process_workflow_name" = "%@'da metni %@ ile işle";
+
+// MARK: - Live Activity
+"activity.steps" = "Adım %d / %d";
+
+// MARK: - Widget
+"widget.configuration.display_name" = "Hızlı Çalıştır";
+"widget.configuration.description" = "Favori iş akışlarınıza hızlı erişim";

@@ -43,7 +43,7 @@ extension WorkflowListViewModel {
             try await repository.delete(workflow)
             await widgetService.refreshWidgets()
         } catch {
-            errorMessage = "Failed to delete workflow: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.deleteFailed): \(error.localizedDescription)"
         }
     }
     
@@ -56,7 +56,7 @@ extension WorkflowListViewModel {
             await widgetService.refreshWidgets()
         } catch {
             workflow.isFavorite.toggle()
-            errorMessage = "Failed to update favorite: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.favoriteUpdateFailed): \(error.localizedDescription)"
         }
     }
     
@@ -80,7 +80,7 @@ extension WorkflowListViewModel {
         do {
             try await repository.save(newWorkflow)
         } catch {
-            errorMessage = "Failed to duplicate workflow: \(error.localizedDescription)"
+            errorMessage = "\(L10N.WorkflowDetail.Duplicated.error): \(error.localizedDescription)"
         }
     }
     
@@ -124,14 +124,30 @@ extension WorkflowListViewModel {
 // MARK: - Supporting Types
 extension WorkflowListViewModel {
     enum SortOption: String, CaseIterable {
-        case name = "Name"
-        case modifiedDate = "Last Modified"
-        case createdDate = "Date Created"
-        case stepCount = "Step Count"
+        case name
+        case modifiedDate
+        case createdDate
+        case stepCount
+        
+        var title: String {
+            switch self {
+            case .name: L10N.WorkflowList.Sort.name
+            case .modifiedDate: L10N.WorkflowList.Sort.modified
+            case .createdDate: L10N.WorkflowList.Sort.created
+            case .stepCount: L10N.WorkflowList.Sort.steps
+            }
+        }
     }
     
     enum FilterOption: String, CaseIterable {
-        case all = "All"
-        case favorites = "Favorites"
+        case all
+        case favorites
+        
+        var title: String {
+            switch self {
+            case .all: L10N.WorkflowList.Filter.all
+            case .favorites: L10N.WorkflowList.Filter.favorites
+            }
+        }
     }
 }

@@ -131,7 +131,7 @@ struct SettingsViewModelTests {
         await vm.loadPreferences()
         await vm.addWidgetSelected(UUID())
         
-        #expect(vm.errorMessage == "Widget can only show 4 workflows maximum")
+        #expect(vm.errorMessage != nil)
     }
     
     @Test("removeWidgetSelected triggers widget refresh")

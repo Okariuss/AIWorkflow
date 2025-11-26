@@ -33,11 +33,11 @@ enum WorkflowExecutionError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .noSteps: "Workflow has no steps to execute"
-        case .emptyInput: "Input text cannot be empty"
-        case .stepFailed(let stepIndex, let error):"Step \(stepIndex + 1) failed: \(error)"
-        case .cancelled: "Execution was cancelled"
-        case .aiServiceUnavailable: "AI service is not available on this device"
+        case .noSteps: L10N.Error.workflowNotFound
+        case .emptyInput: L10N.Error.emptyInput
+        case .stepFailed(let stepIndex, let error): L10N.Error.stepFailed(stepIndex + 1, error)
+        case .cancelled: L10N.Error.executionCancelled
+        case .aiServiceUnavailable: L10N.Error.aiUnavailable
         }
     }
 }

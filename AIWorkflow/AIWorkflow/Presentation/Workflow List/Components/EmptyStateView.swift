@@ -14,7 +14,7 @@ struct EmptyStateView: View {
     let action: (() -> Void)?
     
     init(
-        message: String = "No workflows yet",
+        message: String = L10N.WorkflowList.emptyMessage,
         systemImage: String = "square.stack.3d.up.slash",
         actionTitle: String? = nil,
         action: (() -> Void)? = nil

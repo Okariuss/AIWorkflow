@@ -9,10 +9,10 @@ import AppIntents
 
 struct QuickRunWorkflowIntent: AppIntent {
     
-    static var title: LocalizedStringResource = "Quick Run Workflow"
+    static let title: LocalizedStringResource = "intents.quick_run_title"
     
     static var description = IntentDescription(
-        "Quickly run a workflow with default settings",
+        "intents.quick_run_description",
         categoryName: "Workflows"
     )
     
@@ -20,10 +20,10 @@ struct QuickRunWorkflowIntent: AppIntent {
     
     // MARK: - Parameters
     
-    @Parameter(title: "Workflow")
+    @Parameter(title: "intents.quick_run_parameter_workflow")
     var workflow: WorkflowEntity
     
-    @Parameter(title: "Input Text")
+    @Parameter(title: "intents.quick_run_parameter_input_text")
     var inputText: String
     
     // MARK: - Perform
@@ -59,12 +59,10 @@ enum IntentError: Error, LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .workflowNotFound:
-            return "Workflow not found"
-        case .noSteps:
-            return "Workflow has no steps"
-        case .executionFailed:
-            return "Workflow execution failed"
+        case .workflowNotFound: L10N.Error.workflowNotFound
+        case .noSteps: L10N.Error.noSteps
+        case .executionFailed: L10N.Error.executionFailed
         }
     }
 }
+

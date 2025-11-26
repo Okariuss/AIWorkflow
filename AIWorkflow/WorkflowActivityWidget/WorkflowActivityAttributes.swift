@@ -31,11 +31,20 @@ struct WorkflowActivityAttributes: ActivityAttributes {
 // MARK: - Execution Status
 
 enum ActivityExecutionStatus: String, Codable, Hashable {
-    case running = "Running"
-    case completed = "Completed"
-    case failed = "Failed"
-    case cancelled = "Cancelled"
+    case running
+    case completed
+    case failed
+    case cancelled
     
+    var title: String {
+        switch self {
+        case .running: NSLocalizedString("execution.status.running", comment: "Running status")
+        case .completed: NSLocalizedString("execution.status.completed", comment: "Completed status")
+        case .failed: NSLocalizedString("execution.status.failed", comment: "Failed status")
+        case .cancelled: NSLocalizedString("execution.status.cancelled", comment: "Cancelled status")
+        }
+    }
+
     var icon: String {
         switch self {
         case .running: return "gearshape.2.fill"

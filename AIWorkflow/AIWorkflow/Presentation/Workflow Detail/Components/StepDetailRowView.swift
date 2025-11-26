@@ -86,7 +86,7 @@ private extension StepDetailRowView {
             Divider()
             
             VStack(alignment: .leading, spacing: 8) {
-                Label("Prompt", systemImage: "text.quote")
+                Label(L10N.WorkflowDetail.prompt, systemImage: "text.quote")
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 
@@ -100,7 +100,7 @@ private extension StepDetailRowView {
             
             if !systemPrompt.isEmpty {
                 VStack(alignment: .leading, spacing: 8) {
-                    Label("System Prompt", systemImage: "cpu")
+                    Label(L10N.StepConfig.typeFooter, systemImage: "cpu")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     
@@ -118,7 +118,7 @@ private extension StepDetailRowView {
     }
     
     var stepTypeDisplayName: String {
-        WorkflowStep.StepType(rawValue: step.stepType)?.rawValue ?? step.stepType
+        WorkflowStep.StepType(rawValue: step.stepType)?.title ?? step.stepType
     }
     
     var iconForStepType: String {

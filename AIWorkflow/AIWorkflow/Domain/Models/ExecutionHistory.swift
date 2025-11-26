@@ -47,9 +47,17 @@ final class ExecutionHistory {
 extension ExecutionHistory {
     
     enum Status: String {
-        case success = "Success"
-        case failed = "Failed"
-        case cancelled = "Cancelled"
+        case success
+        case failed
+        case cancelled
+        
+        var title: String {
+            switch self {
+            case .success: L10N.Common.success
+            case .failed: L10N.Execution.Status.failed
+            case .cancelled: L10N.Execution.Status.cancelled
+            }
+        }
         
         var icon: String {
             switch self {

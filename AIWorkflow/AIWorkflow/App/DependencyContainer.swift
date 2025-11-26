@@ -136,11 +136,3 @@ extension DependencyContainer {
         )
     }
 }
-
-// MARK: - Testing Support
-extension DependencyContainer {
-    static func createTestContainer() -> DependencyContainer? {
-        // Placeholder for now
-        nil
-    }
-}

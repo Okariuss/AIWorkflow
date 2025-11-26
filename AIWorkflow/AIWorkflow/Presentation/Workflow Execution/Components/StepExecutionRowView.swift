@@ -38,7 +38,7 @@ private extension StepExecutionRowView {
     }
     
     var stepTypeDisplayName: String {
-        WorkflowStep.StepType(rawValue: step.stepType)?.rawValue ?? step.stepType
+        WorkflowStep.StepType(rawValue: step.stepType)?.title ?? step.stepType
     }
     
     var iconForStepType: String {
@@ -63,18 +63,18 @@ private extension StepExecutionRowView {
     var stepBadge: some View {
         ZStack {
             Circle()
-                .fill()
+                .fill(.primary.opacity(0.1))
                 .frame(width: 32, height: 32)
             
             if status == .executing {
                 ProgressView()
                     .controlSize(.small)
-                    .tint(.white)
+                    .tint(.accentColor)
             } else {
                 Text("\(index + 1)")
                     .font(.caption)
                     .fontWeight(.semibold)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
             }
         }
     }
@@ -106,6 +106,7 @@ private extension StepExecutionRowView {
             Spacer()
             
             statusIndicator
+                .padding(.trailing, 12)
         }
     }
     
@@ -132,7 +133,7 @@ private extension StepExecutionRowView {
     
     var outputSection: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Output:")
+            Text(L10N.StepConfig.testOutput)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             

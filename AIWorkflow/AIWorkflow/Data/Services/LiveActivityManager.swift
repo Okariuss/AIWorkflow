@@ -41,7 +41,7 @@ extension LiveActivityManager {
         
         let initialState = WorkflowActivityAttributes.ContentState(
             currentStepIndex: 0,
-            currentStepName: "Starting...",
+            currentStepName: L10N.LiveActivity.starting,
             totalSteps: totalSteps,
             currentOutput: "",
             status: .running,
@@ -104,7 +104,7 @@ extension LiveActivityManager {
         
         let finalState = WorkflowActivityAttributes.ContentState(
             currentStepIndex: activity.attributes.totalSteps - 1,
-            currentStepName: status.rawValue,
+            currentStepName: status.title,
             totalSteps: activity.attributes.totalSteps,
             currentOutput: finalOutput,
             status: status,

@@ -12,7 +12,7 @@ import Foundation
 final class StepConfigurationViewModel {
     
     // MARK: - Published State
-    var selectedStepType: WorkflowStep.StepType = .summarize
+    var selectedStepType: WorkflowStep.StepType = .custom
     var prompt = ""
     
     // Advanced Options
@@ -80,23 +80,23 @@ extension StepConfigurationViewModel {
         let trimmedPrompt = prompt.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if trimmedPrompt.isEmpty {
-            validationError = "Prompt cannot be empty"
+            validationError = L10N.StepConfig.Validation.empty
             return false
         }
         
         if trimmedPrompt.count < 3 {
-            validationError = "Prompt must be at least 3 characters long"
+            validationError = L10N.StepConfig.Validation.short
             return false
         }
         
         if useAdvancedOptions {
             if temperature < 0 || temperature > 2.0 {
-                validationError = "Temperature must be between 0.0 and 2.0"
+                validationError = L10N.StepConfig.Validation.temperature
                 return false
             }
             
             if maxTokens < 1 || maxTokens > 4096 {
-                validationError = "Max tokens must be between 1 and 4096"
+                validationError = L10N.StepConfig.Validation.tokens
                 return false
             }
         }
@@ -135,7 +135,7 @@ extension StepConfigurationViewModel {
     // MARK: - Test Step
     func testStep() async {
         guard !testInput.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
-            testError = "Test input cannot be empty"
+            testError = L10N.StepConfig.Validation.testInput
             return
         }
         

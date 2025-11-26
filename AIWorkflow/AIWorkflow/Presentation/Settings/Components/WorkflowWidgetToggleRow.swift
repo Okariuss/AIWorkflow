@@ -20,7 +20,7 @@ struct WorkflowWidgetToggleRow: View {
                     .font(.body)
                 
                 HStack {
-                    Text("\(workflow.stepCount) steps")
+                    Text(L10N.WorkflowEntity.steps(workflow.stepCount))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     

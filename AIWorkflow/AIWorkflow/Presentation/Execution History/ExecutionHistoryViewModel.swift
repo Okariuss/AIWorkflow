@@ -34,7 +34,7 @@ extension ExecutionHistoryViewModel {
         do {
             try await repository.delete(execution)
         } catch {
-            errorMessage = "Failed to delete execution: \(error.localizedDescription)"
+            errorMessage = L10N.Error.executionDeleteFailed(error.localizedDescription)
         }
     }
     
@@ -42,7 +42,7 @@ extension ExecutionHistoryViewModel {
         do {
             try await repository.deleteAll()
         } catch {
-            errorMessage = "Failed to delete all: \(error.localizedDescription)"
+            errorMessage = L10N.Error.executionDeleteAllFailed(error.localizedDescription)
         }
     }
     
@@ -88,15 +88,32 @@ extension ExecutionHistoryViewModel {
 // MARK: - Supporting Types
 extension ExecutionHistoryViewModel {
     enum FilterOption: String, CaseIterable {
-        case all = "All"
-        case successful = "Successful"
-        case failed = "Failed"
+        case all
+        case successful
+        case failed
+        
+        var title: String {
+            switch self {
+            case .all: L10N.History.Filter.all
+            case .successful: L10N.History.Filter.success
+            case .failed: L10N.History.Filter.failed
+            }
+        }
     }
     
     enum SortOption: String, CaseIterable {
-        case dateDescending = "Newest First"
-        case dateAscending = "Oldest First"
-        case duration = "Duration"
-        case workflowName = "Workflow Name"
+        case dateDescending
+        case dateAscending
+        case duration
+        case workflowName
+        
+        var title: String {
+            switch self {
+            case .dateDescending: L10N.History.Sort.newest
+            case .dateAscending: L10N.History.Sort.oldest
+            case .duration: L10N.History.Sort.duration
+            case .workflowName: L10N.History.Sort.name
+            }
+        }
     }
 }

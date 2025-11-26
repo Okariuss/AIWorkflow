@@ -11,57 +11,57 @@ import FoundationModels
 // MARK: - Summarization Model
 @Generable
 struct SummaryResult {
-    @Guide(description: "A concise summary in 2-3 sentences")
+    @Guide(description: L10N.AIModels.SummaryResult.summary)
     var summary: String
     
-    @Guide(description: "3-5 key points from the text")
+    @Guide(description: L10N.AIModels.SummaryResult.keyPoints)
     var keyPoints: [String]
     
-    @Guide(description: "Overall sentiment: positive, negative, or neutral")
+    @Guide(description: L10N.AIModels.SummaryResult.sentiment)
     var sentiment: String
 }
 
 // MARK: - Extraction Model
 @Generable
 struct ExtractedInfo {
-    @Guide(description: "List of email addresses found")
+    @Guide(description: L10N.AIModels.ExtractedInfo.emails)
     var emails: [String]
     
-    @Guide(description: "List of phone numbers found")
+    @Guide(description: L10N.AIModels.ExtractedInfo.phoneNumbers)
     var phoneNumbers: [String]
     
-    @Guide(description: "List of dates mentioned")
+    @Guide(description: L10N.AIModels.ExtractedInfo.dates)
     var dates: [String]
     
-    @Guide(description: "List of names or entities found")
+    @Guide(description: L10N.AIModels.ExtractedInfo.names)
     var names: [String]
 }
 
 // MARK: - Translation Model
 @Generable
 struct TranslationResult {
-    @Guide(description: "The translated text")
+    @Guide(description: L10N.AIModels.TranslationResult.translatedText)
     var translatedText: String
     
-    @Guide(description: "Source language detected")
+    @Guide(description: L10N.AIModels.TranslationResult.sourceLanguage)
     var sourceLanguage: String
     
-    @Guide(description: "Target language")
+    @Guide(description: L10N.AIModels.TranslationResult.targetLanguage)
     var targetLanguage: String
 }
 
 // MARK: - Analysis Model
 @Generable
 struct AnalysisResult {
-    @Guide(description: "Overall tone of the text")
+    @Guide(description: L10N.AIModels.AnalysisResult.tone)
     var tone: String
     
-    @Guide(description: "Main themes identified", .count(3...5))
+    @Guide(description: L10N.AIModels.AnalysisResult.themes, .count(3...5))
     var themes: [String]
     
-    @Guide(description: "Complexity level: simple, moderate, or complex")
+    @Guide(description: L10N.AIModels.AnalysisResult.complexity)
     var complexity: String
     
-    @Guide(description: "Key insights from the analysis", .count(2...4))
+    @Guide(description: L10N.AIModels.AnalysisResult.insights, .count(2...4))
     var insights: [String]
 }

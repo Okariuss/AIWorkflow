@@ -25,7 +25,6 @@ struct ExecutionHistoryTests {
         
         #expect(history.workflowId == workflowId)
         #expect(history.workflowName == "Test Workflow")
-        #expect(history.status == "Success")
         #expect(history.executionStatus == .success)
     }
     
@@ -34,7 +33,7 @@ struct ExecutionHistoryTests {
         let history = ExecutionHistory(
             workflowId: UUID(),
             workflowName: "Test",
-            status: "Success",
+            status: ExecutionHistory.Status.success.rawValue,
             inputText: "Input",
             outputText: "Output"
         )

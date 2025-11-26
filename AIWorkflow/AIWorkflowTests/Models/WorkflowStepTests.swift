@@ -15,12 +15,12 @@ struct WorkflowStepTests {
     @Test("WorkflowStep initializas correctly")
     func testWorkflowStepInitialization() {
         let step = WorkflowStep(
-            stepType: "summarize",
+            stepType: WorkflowStep.StepType.summarize.rawValue,
             prompt: "Summarize this text",
             order: 0
         )
         
-        #expect(step.stepType == "summarize")
+        #expect(step.stepType == WorkflowStep.StepType.summarize.rawValue)
         #expect(step.prompt == "Summarize this text")
         #expect(step.order == 0)
         #expect(step.workflow == nil)
@@ -28,9 +28,9 @@ struct WorkflowStepTests {
     
     @Test("Step types have correct system prompts")
     func testStepTypeSystemPrompts() {
-        #expect(WorkflowStep.StepType.summarize.systemPrompt.contains("Summarize"))
-        #expect(WorkflowStep.StepType.translate.systemPrompt.contains("Translate"))
-        #expect(WorkflowStep.StepType.extract.systemPrompt.contains("Extract"))
+        #expect(WorkflowStep.StepType.summarize.systemPrompt == L10N.StepType.summarizeSystemPrompt)
+        #expect(WorkflowStep.StepType.translate.systemPrompt == L10N.StepType.translateSystemPrompt)
+        #expect(WorkflowStep.StepType.extract.systemPrompt == L10N.StepType.extractSystemPrompt)
     }
     
     @Test("All step types are available")

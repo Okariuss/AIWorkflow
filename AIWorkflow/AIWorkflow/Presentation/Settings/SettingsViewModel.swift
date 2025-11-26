@@ -61,7 +61,7 @@ extension SettingsViewModel {
             preferences = try await repository.getOrCreate()
             await checkAIAvailability()
         } catch {
-            errorMessage = "Failed to load preferences: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.preferencesFailed): \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -80,9 +80,10 @@ extension SettingsViewModel {
         
         do {
             try await repository.save(prefs)
+            UserDefaults.standard.set(theme.rawValue, forKey: "appThemePreference")
         } catch {
             prefs.setTheme(oldTheme) // Revert
-            errorMessage = "Failed to update theme: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.themeUpdateFailed): \(error.localizedDescription)"
         }
     }
     
@@ -95,18 +96,18 @@ extension SettingsViewModel {
         do {
             try await repository.save(prefs)
         } catch {
-            errorMessage = "Failed to set default workflow: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.workflowSetFailed): \(error.localizedDescription)"
         }
     }
     
     func addWidgetSelected(_ workflowId: UUID) async {
         guard let prefs = preferences else {
-            errorMessage = "Preferences not loaded"
+            errorMessage = L10N.Error.preferencesFailed
             return
         }
         
         if prefs.widgetSelections.count >= 4 {
-            errorMessage = "Widget can only show 4 workflows maximum"
+            errorMessage = L10N.WidgetPreferences.limitReached
             return
         }
         
@@ -117,13 +118,13 @@ extension SettingsViewModel {
             await widgetService.refreshWidgets()
             
         } catch {
-            errorMessage = "Failed to add widget favorite: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.widgetAddFailed): \(error.localizedDescription)"
         }
     }
     
     func removeWidgetSelected(_ workflowId: UUID) async {
         guard let prefs = preferences else {
-            errorMessage = "Preferences not loaded"
+            errorMessage = L10N.Error.preferencesFailed
             return
         }
         
@@ -134,7 +135,7 @@ extension SettingsViewModel {
             await widgetService.refreshWidgets()
             
         } catch {
-            errorMessage = "Failed to remove widget favorite: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.widgetRemoveFailed): \(error.localizedDescription)"
         }
     }
     

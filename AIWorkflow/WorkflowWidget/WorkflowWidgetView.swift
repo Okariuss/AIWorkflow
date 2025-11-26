@@ -43,7 +43,7 @@ struct SmallWidgetView: View {
                     .lineLimit(2)
                     .multilineTextAlignment(.center)
                 
-                Text("\(workflow.stepCount) steps")
+                Text(String(format: NSLocalizedString("workflow_creation.steps.count", comment: "Number of steps"), workflow.stepCount))
                     .font(.caption)
                     .foregroundStyle(.secondary)
                 
@@ -53,7 +53,7 @@ struct SmallWidgetView: View {
             .widgetURL(URL(string: "aiworkflow://run/\(workflow.id.uuidString)"))
         } else {
             ContentUnavailableView(
-                "No Workflows",
+                NSLocalizedString("widget_preferences.empty.title", comment: "No Workflows Available"),
                 systemImage: "square.stack.3d.up.slash"
             )
         }
@@ -88,7 +88,7 @@ struct MediumWidgetView: View {
                             
                             Spacer()
                             
-                            Text("\(workflow.stepCount) steps")
+                            Text(String(format: NSLocalizedString("workflow_creation.steps.count", comment: "Number of steps"), workflow.stepCount))
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -102,9 +102,9 @@ struct MediumWidgetView: View {
             .padding()
         } else {
             ContentUnavailableView(
-                "No Workflows",
+                NSLocalizedString("widget_preferences.empty.title", comment: "No Workflows Available"),
                 systemImage: "square.stack.3d.up.slash",
-                description: Text("Create workflows in the app")
+                description: Text(NSLocalizedString("widget_preferences.empty.message", comment: "Create workflows in the app first"))
             )
         }
     }
@@ -121,7 +121,7 @@ struct LargeWidgetView: View {
                     Image(systemName: "gearshape.2.fill")
                         .foregroundStyle(.blue)
                     
-                    Text("Quick Run")
+                    Text(NSLocalizedString("widget.configuration.display_name", comment: "Quick Run"))
                         .font(.headline)
                     
                     Spacer()
@@ -155,7 +155,7 @@ struct LargeWidgetView: View {
                                         }
                                     }
                                     
-                                    Text("\(workflow.stepCount) steps")
+                                    Text(String(format: NSLocalizedString("workflow_creation.steps.count", comment: "Number of steps"), workflow.stepCount))
                                         .font(.caption)
                                         .foregroundStyle(.secondary)
                                 }
@@ -179,9 +179,9 @@ struct LargeWidgetView: View {
             }
         } else {
             ContentUnavailableView(
-                "No Workflows",
+                NSLocalizedString("widget_preferences.empty.title", comment: "No Workflows Available"),
                 systemImage: "square.stack.3d.up.slash",
-                description: Text("Create workflows in the app to see them here")
+                description: Text(NSLocalizedString("widget_preferences.empty.message", comment: "Create workflows in the app first"))
             )
         }
     }
