@@ -38,20 +38,31 @@ final class WorkflowStep {
 extension WorkflowStep {
     
     enum StepType: String, CaseIterable {
-        case summarize = "Summarize"
-        case translate = "Translate"
-        case extract = "Extract Information"
-        case rewrite = "Rewrite"
-        case analyze = "Analyze"
-        case custom = "Custom"
+        case summarize
+        case translate
+        case extract
+        case rewrite
+        case analyze
+        case custom
+        
+        var title: String {
+            switch self {
+            case .summarize: L10N.StepType.summarize
+            case .translate: L10N.StepType.translate
+            case .extract: L10N.StepType.extract
+            case .rewrite: L10N.StepType.rewrite
+            case .analyze: L10N.StepType.analyze
+            case .custom: L10N.StepType.custom
+            }
+        }
         
         var systemPrompt: String {
             switch self {
-            case .summarize: "Summarize the following text concisely:"
-            case .translate: "Translate the following text:"
-            case .extract: "Extract the requested information from the text:"
-            case .rewrite: "Rewrite the following text:"
-            case .analyze: "Analyze the following text:"
+            case .summarize: L10N.StepType.summarizeSystemPrompt
+            case .translate: L10N.StepType.translateSystemPrompt
+            case .extract: L10N.StepType.extractSystemPrompt
+            case .rewrite: L10N.StepType.rewriteSystemPrompt
+            case .analyze: L10N.StepType.analyzeSystemPrompt
             case .custom: ""
             }
         }
@@ -89,10 +100,17 @@ extension WorkflowStep {
             case greedy = "Greedy"
             case random = "Random"
             
+            var title: String {
+                switch self {
+                case .greedy: L10N.WorkflowStep.Advanced.greedy
+                case .random: L10N.WorkflowStep.Advanced.random
+                }
+            }
+            
             var description: String {
                 switch self {
-                case .greedy: return "Deterministic (same output for same input)"
-                case .random: return "Creative (varied outputs)"
+                case .greedy: L10N.WorkflowStep.Advanced.greedyDescription
+                case .random: L10N.WorkflowStep.Advanced.randomDescription
                 }
             }
         }

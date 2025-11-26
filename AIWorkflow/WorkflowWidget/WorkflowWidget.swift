@@ -16,8 +16,8 @@ struct WorkflowWidget: Widget {
             WorkflowWidgetView(entry: entry)
                 .containerBackground(.fill.tertiary, for: .widget)
         }
-        .configurationDisplayName("Quick Run")
-        .description("Quick Access to your favorite workflows")
+        .configurationDisplayName(NSLocalizedString("widget.configuration.display_name", comment: "Widget Display Name"))
+        .description(NSLocalizedString("widget.configuration.description", comment: "Widget Description"))
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

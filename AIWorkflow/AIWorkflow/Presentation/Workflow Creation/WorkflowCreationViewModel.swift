@@ -101,17 +101,17 @@ extension WorkflowCreationViewModel {
         let trimmedName = name.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if trimmedName.isEmpty {
-            validationError = "Workflow name is required"
+            validationError = L10N.WorkflowCreation.Validation.nameRequired
             return false
         }
         
         if trimmedName.count < 3 {
-            validationError = "Workflow name must be at least 3 characters long"
+            validationError = L10N.WorkflowCreation.Validation.nameShort
             return false
         }
         
         if steps.isEmpty {
-            validationError = "At least one step is required"
+            validationError = L10N.WorkflowCreation.Validation.stepsRequired
             return false
         }
         
@@ -153,7 +153,7 @@ extension WorkflowCreationViewModel {
             isLoading = false
             return true
         } catch {
-            errorMessage = "Failed to save the workflow: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.saveFailed): \(error.localizedDescription)"
             isLoading = false
             return false
         }

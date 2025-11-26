@@ -23,7 +23,7 @@ struct ErrorView: View {
                 .font(.system(size: 50))
                 .foregroundStyle(.red)
             
-            Text("Error")
+            Text(L10N.Common.error)
                 .font(.title2)
                 .fontWeight(.semibold)
             
@@ -35,7 +35,7 @@ struct ErrorView: View {
             
             if let retryAction {
                 Button(action: retryAction) {
-                    Label("Retry", systemImage: "arrow.clockwise")
+                    Label(L10N.Common.retry, systemImage: "arrow.clockwise")
                         .fontWeight(.semibold)
                 }
                 .buttonStyle(.borderedProminent)

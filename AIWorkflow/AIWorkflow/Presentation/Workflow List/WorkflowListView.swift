@@ -44,11 +44,11 @@ struct WorkflowListView: View {
                     workflowsList
                 }
             }
-            .navigationTitle("Workflows")
+            .navigationTitle(L10N.WorkflowList.title)
             .toolbar {
                 toolbarContent
             }
-            .searchable(text: $viewModel.searchQuery, prompt: "Search workflows")
+            .searchable(text: $viewModel.searchQuery, prompt: L10N.WorkflowList.search)
             .sheet(isPresented: $showingCreateSheet) {
                 WorkflowCreationView(viewModel: DependencyContainer.shared.makeWorkflowCreationViewModel())
             }
@@ -62,18 +62,18 @@ struct WorkflowListView: View {
                     )
                 }
             }
-            .alert("Delete Workflow?", isPresented: $showingDeleteConfirmation, presenting: workflowToDelete) { workflow in
-                Button("Cancel", role: .cancel) {
+            .alert(L10N.WorkflowDetail.Delete.title, isPresented: $showingDeleteConfirmation, presenting: workflowToDelete) { workflow in
+                Button(L10N.Common.cancel, role: .cancel) {
                     workflowToDelete = nil
                 }
-                Button("Delete", role: .destructive) {
+                Button(L10N.Common.delete, role: .destructive) {
                     deleteWorkflow(workflow)
                 }
             } message: { workflow in
-                Text("Are you sure you want to delete '\(workflow.name)'? This action cannot be undone.")
+                Text(L10N.WorkflowList.deleteMessage(workflow.name))
             }
-            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("OK") {
+            .alert(L10N.Common.error, isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(L10N.Common.ok) {
                     viewModel.clearError()
                 }
             } message: {
@@ -92,9 +92,9 @@ private extension WorkflowListView {
     var emptyStateView: some View {
         if viewModel.searchQuery.isEmpty && allWorkflows.isEmpty {
             EmptyStateView(
-                message: "No workflows yet",
+                message: L10N.WorkflowList.emptyMessage,
                 systemImage: "square.stack.3d.up.slash",
-                actionTitle: "Create Workflow",
+                actionTitle: L10N.WorkflowList.emptyAction,
                 action: {
                     HapticManager.shared.impact(.medium)
                     showingCreateSheet = true
@@ -102,9 +102,9 @@ private extension WorkflowListView {
             )
         } else if viewModel.searchQuery.isEmpty && viewModel.filterOption == .favorites {
             EmptyStateView(
-                message: "No favorite workflows yet",
+                message: L10N.WorkflowList.favoritesEmptyMessage,
                 systemImage: "star.slash",
-                actionTitle: "Browse All",
+                actionTitle: L10N.WorkflowList.favoritesEmptyAction,
                 action: {
                     HapticManager.shared.selectionChanged()
                     withAnimation {
@@ -113,10 +113,10 @@ private extension WorkflowListView {
                 }
             )
         } else if !viewModel.searchQuery.isEmpty {
-            EmptyStateView(message: "No workflows found for '\(viewModel.searchQuery)'", systemImage: "magnifyingglass")
+            EmptyStateView(message: L10N.WorkflowList.searchEmpty(viewModel.searchQuery), systemImage: "magnifyingglass")
         } else {
             EmptyStateView(
-                message: "No workflows match the current filter",
+                message: L10N.WorkflowList.filterNoMatch,
                 systemImage: "line.3.horizontal.decrease.circle"
             )
         }
@@ -155,14 +155,14 @@ private extension WorkflowListView {
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Menu {
-                Picker("Filter", selection: $viewModel.filterOption) {
+                Picker(L10N.Common.filter, selection: $viewModel.filterOption) {
                     ForEach(WorkflowListViewModel.FilterOption.allCases, id: \.self) { option in
-                        Text(option.rawValue)
+                        Text(option.title)
                             .tag(option)
                     }
                 }
             } label: {
-                Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                Label(L10N.Common.filter, systemImage: "line.3.horizontal.decrease.circle")
             }
         }
         
@@ -171,7 +171,7 @@ private extension WorkflowListView {
                 HapticManager.shared.impact(.light)
                 showingSettings = true
             } label: {
-                Label("Settings", systemImage: "gear")
+                Label(L10N.WorkflowList.settings, systemImage: "gear")
             }
         }
         
@@ -180,20 +180,20 @@ private extension WorkflowListView {
                 HapticManager.shared.impact(.light)
                 showingHistory = true
             } label: {
-                Label("History", systemImage: "clock.arrow.circlepath")
+                Label(L10N.WorkflowList.history, systemImage: "clock.arrow.circlepath")
             }
         }
         
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
-                Picker("Sort", selection: $viewModel.sortOption) {
+                Picker(L10N.Common.sort, selection: $viewModel.sortOption) {
                     ForEach(WorkflowListViewModel.SortOption.allCases, id: \.self) { option in
-                        Text(option.rawValue)
+                        Text(option.title)
                             .tag(option)
                     }
                 }
             } label: {
-                Label("Sort", systemImage: "arrow.up.arrow.down")
+                Label(L10N.Common.sort, systemImage: "arrow.up.arrow.down")
             }
         }
         
@@ -202,7 +202,7 @@ private extension WorkflowListView {
                 HapticManager.shared.impact(.medium)
                 showingCreateSheet = true
             } label: {
-                Label("Create Workflow", systemImage: "plus")
+                Label(L10N.WorkflowList.create, systemImage: "plus")
             }
         }
     }
@@ -216,7 +216,7 @@ private extension WorkflowListView {
             workflowToDelete = workflow
             showingDeleteConfirmation = true
         } label: {
-            Label("Delete", systemImage: "trash")
+            Label(L10N.Common.delete, systemImage: "trash")
         }
     }
     
@@ -228,7 +228,7 @@ private extension WorkflowListView {
                 HapticManager.shared.notification(.success)
             }
         } label: {
-            Label("Duplicate", systemImage: "doc.on.doc")
+            Label(L10N.WorkflowDetail.Actions.duplicate, systemImage: "doc.on.doc")
         }
         .tint(.blue)
     }
@@ -241,7 +241,7 @@ private extension WorkflowListView {
             }
         } label: {
             Label(
-                workflow.isFavorite ? "Unfavorite" : "Favorite",
+                workflow.isFavorite ? L10N.WorkflowDetail.Actions.unfavorite : L10N.WorkflowDetail.Actions.favorite,
                 systemImage: workflow.isFavorite ? "star.slash" : "star.fill"
             )
         }

@@ -17,7 +17,7 @@ struct WorkflowShortcutsProvider: AppShortcutsProvider {
                 "Run \(\.$workflow) in \(.applicationName)",
                 "Process text with \(\.$workflow) in \(.applicationName)"
             ],
-            shortTitle: "Run Workflow",
+            shortTitle: "intents.run_workflow_title",
             systemImageName: "play.circle"
         )
     }

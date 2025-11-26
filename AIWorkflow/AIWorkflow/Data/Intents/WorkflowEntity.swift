@@ -25,7 +25,7 @@ struct WorkflowEntity: AppEntity {
     var displayRepresentation: DisplayRepresentation {
         DisplayRepresentation(
             title: "\(workflowName)",
-            subtitle: "\(stepCount) steps"
+            subtitle: L10N.WorkflowEntity.steps(stepCount)
         )
     }
 }

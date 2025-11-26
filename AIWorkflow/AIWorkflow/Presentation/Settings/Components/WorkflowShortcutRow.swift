@@ -16,7 +16,7 @@ struct WorkflowShortcutRow: View {
                 Text(workflow.name)
                     .font(.body)
                 
-                Text("\(workflow.stepCount) steps")
+                Text(L10N.WorkflowEntity.steps(workflow.stepCount))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }

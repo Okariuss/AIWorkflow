@@ -48,8 +48,8 @@ struct WorkflowExecutionView: View {
             .toolbar {
                 toolbarContent
             }
-            .alert("Execution Failed", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("OK") {
+            .alert(L10N.Execution.errorTitle, isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(L10N.Common.ok) {
                     viewModel.clearError()
                 }
             } message: {
@@ -70,7 +70,7 @@ struct WorkflowExecutionView: View {
 private extension WorkflowExecutionView {
     var inputSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Label("Input Text", systemImage: "text.alignleft")
+            Label(L10N.Execution.input, systemImage: "text.alignleft")
                 .font(.headline)
             
             TextEditor(text: $viewModel.inputText)
@@ -83,7 +83,7 @@ private extension WorkflowExecutionView {
                 )
                 .focused($isInputFocused)
             
-            Text("\(viewModel.inputText.count) characters")
+            Text(L10N.Execution.inputCharacters(viewModel.inputText.count))
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }
@@ -94,7 +94,7 @@ private extension WorkflowExecutionView {
             Image(systemName: "bell.badge.fill")
                 .foregroundStyle(.blue)
             
-            Text("Live Activity enabled")
+            Text(L10N.Execution.liveActivityEnabled)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             
@@ -127,7 +127,7 @@ private extension WorkflowExecutionView {
     
     var headerWithProgress: some View {
         HStack {
-            Label("Execution Progress", systemImage: "gearshape.2")
+            Label(L10N.Execution.progress, systemImage: "gearshape.2")
                 .font(.headline)
             
             Spacer()
@@ -175,7 +175,7 @@ private extension WorkflowExecutionView {
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
             if !viewModel.isExecuting && viewModel.executionResult == nil {
-                Button("Cancel") {
+                Button(L10N.Common.cancel) {
                     dismiss()
                 }
             }
@@ -183,11 +183,11 @@ private extension WorkflowExecutionView {
         
         ToolbarItem(placement: .confirmationAction) {
             if viewModel.isExecuting {
-                Button("Stop", role: .destructive) {
+                Button(L10N.Common.stop, role: .destructive) {
                     viewModel.cancel()
                 }
             } else if viewModel.executionResult == nil {
-                Button("Run") {
+                Button(L10N.Common.run) {
                     isInputFocused = false
                     Task {
                         await viewModel.execute()
@@ -196,7 +196,7 @@ private extension WorkflowExecutionView {
                 .disabled(!viewModel.canExecute)
                 .fontWeight(.semibold)
             } else {
-                Button("Done") {
+                Button(L10N.Common.done) {
                     dismiss()
                 }
             }
@@ -206,7 +206,7 @@ private extension WorkflowExecutionView {
     func resultsSection(result: WorkflowExecutionResult) -> some View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
-                Label("Results", systemImage: result.status.icon)
+                Label(L10N.Execution.results, systemImage: result.status.icon)
                     .font(.headline)
                 
                 Spacer()
@@ -225,7 +225,7 @@ private extension WorkflowExecutionView {
     func statusBadge(for status: ExecutionStatus) -> some View {
         HStack(spacing: 4) {
             Image(systemName: status.icon)
-            Text(status.rawValue)
+            Text(status.title)
         }
         .font(.caption)
         .fontWeight(.semibold)
@@ -239,7 +239,7 @@ private extension WorkflowExecutionView {
     func executionStats(for result: WorkflowExecutionResult) -> some View {
         VStack(spacing: 12) {
             HStack {
-                Label("Duration", systemImage: "clock")
+                Label(L10N.Execution.Results.duration, systemImage: "clock")
                     .foregroundStyle(.secondary)
                 Spacer()
                 Text(String(format: "%.2fs", result.totalDuration))
@@ -249,7 +249,7 @@ private extension WorkflowExecutionView {
             Divider()
             
             HStack {
-                Label("Steps Completed", systemImage: "checkmark.circle")
+                Label(L10N.Execution.Results.stepsCompleted, systemImage: "checkmark.circle")
                     .foregroundStyle(.secondary)
                 Spacer()
                 Text("\(result.stepResults.filter { $0.isSuccess }.count)\(result.stepResults.count)")
@@ -263,7 +263,7 @@ private extension WorkflowExecutionView {
     
     func finalOutput(for result: WorkflowExecutionResult) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Final Output", systemImage: "doc.text")
+            Label(L10N.Execution.Results.output, systemImage: "doc.text")
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
             
@@ -285,7 +285,7 @@ private extension WorkflowExecutionView {
             Button {
                 UIPasteboard.general.string = result.finalOutput
             } label: {
-                Label("Copy Output", systemImage: "doc.on.doc")
+                Label(L10N.Execution.Actions.copy, systemImage: "doc.on.doc")
             }
             .buttonStyle(.bordered)
             
@@ -294,7 +294,7 @@ private extension WorkflowExecutionView {
             Button {
                 viewModel.reset()
             } label: {
-                Label("Run Again", systemImage: "arrow.clockwise")
+                Label(L10N.Execution.Actions.runAgain, systemImage: "arrow.clockwise")
             }
             .buttonStyle(.borderedProminent)
         }

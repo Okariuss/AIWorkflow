@@ -54,10 +54,8 @@ enum PreferencesError: LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .notFound:
-            return "Preferences not found"
-        case .saveFailed:
-            return "Failed to save preferences"
+        case .notFound: L10N.WidgetPreferences.notFound
+        case .saveFailed: L10N.WidgetPreferences.saveFailed
         }
     }
 }

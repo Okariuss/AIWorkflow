@@ -23,14 +23,14 @@ struct LockScreenLiveActivityView: View {
                 
                 Spacer()
                 
-                Text(context.state.status.rawValue)
+                Text(context.state.status.title)
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
             
             VStack(alignment: .leading, spacing: 6) {
                 HStack {
-                    Text("Step \(context.state.currentStepIndex + 1) of \(context.state.totalSteps)")
+                    Text(String(format: NSLocalizedString("activity.steps", comment: ""), context.state.currentStepIndex + 1, context.state.totalSteps))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     

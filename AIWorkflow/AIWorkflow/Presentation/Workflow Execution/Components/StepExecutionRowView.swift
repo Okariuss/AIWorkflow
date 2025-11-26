@@ -38,7 +38,7 @@ private extension StepExecutionRowView {
     }
     
     var stepTypeDisplayName: String {
-        WorkflowStep.StepType(rawValue: step.stepType)?.rawValue ?? step.stepType
+        WorkflowStep.StepType(rawValue: step.stepType)?.title ?? step.stepType
     }
     
     var iconForStepType: String {
@@ -132,7 +132,7 @@ private extension StepExecutionRowView {
     
     var outputSection: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("Output:")
+            Text(L10N.StepConfig.testOutput)
                 .font(.caption)
                 .foregroundStyle(.secondary)
             

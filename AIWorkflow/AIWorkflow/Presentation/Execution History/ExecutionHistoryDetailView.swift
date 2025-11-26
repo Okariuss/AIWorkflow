@@ -32,7 +32,7 @@ struct ExecutionHistoryDetailView: View {
             }
             .padding()
         }
-        .navigationTitle("Execution Details")
+        .navigationTitle(L10N.History.Detail.title)
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             toolbarContent
@@ -77,7 +77,7 @@ private extension ExecutionHistoryDetailView {
     var infoCard: some View {
         VStack(spacing: 12) {
             HStack {
-                Label("Workflow", systemImage: "square.stack.3d.up")
+                Label(L10N.History.Detail.workflow, systemImage: "square.stack.3d.up")
                     .foregroundStyle(.secondary)
                 Spacer()
                 Text(execution.workflowName)
@@ -87,17 +87,17 @@ private extension ExecutionHistoryDetailView {
             Divider()
             
             HStack {
-                Label("Duration", systemImage: "timer")
+                Label(L10N.History.Detail.duration, systemImage: "timer")
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text(String(format: "%.2f seconds", execution.duration))
+                Text(String(format: "%.2f \(L10N.Common.seconds)", execution.duration))
                     .fontWeight(.medium)
             }
             
             Divider()
             
             HStack {
-                Label("Executed", systemImage: "clock")
+                Label(L10N.History.Detail.executed, systemImage: "clock")
                     .foregroundStyle(.secondary)
                 Spacer()
                 Text(execution.executedAt.formatted(.relative(presentation: .named)))
@@ -111,7 +111,7 @@ private extension ExecutionHistoryDetailView {
     
     var inputSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Input Text", systemImage: "text.alignleft")
+            Label(L10N.History.Detail.input, systemImage: "text.alignleft")
                 .font(.headline)
             
             ScrollView {
@@ -129,7 +129,7 @@ private extension ExecutionHistoryDetailView {
     
     var stepResultsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Label("Step Results", systemImage: "list.bullet")
+            Label(L10N.History.Detail.steps, systemImage: "list.bullet")
                 .font(.headline)
             
             VStack(spacing: 8) {
@@ -179,7 +179,7 @@ private extension ExecutionHistoryDetailView {
     
     var outputSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Final Output", systemImage: "doc.text")
+            Label(L10N.History.Detail.output, systemImage: "doc.text")
                 .font(.headline)
             
             ScrollView {
@@ -201,7 +201,7 @@ private extension ExecutionHistoryDetailView {
             Button {
                 UIPasteboard.general.string = execution.outputText
             } label: {
-                Label("Copy Output", systemImage: "doc.on.doc")
+                Label(L10N.Execution.Actions.copy, systemImage: "doc.on.doc")
             }
             .disabled(execution.outputText.isEmpty)
         }
@@ -210,7 +210,7 @@ private extension ExecutionHistoryDetailView {
             Button {
                 showingShareSheet = true
             } label: {
-                Label("Share", systemImage: "square.and.arrow.up")
+                Label(L10N.Common.share, systemImage: "square.and.arrow.up")
             }
         }
     }
@@ -229,21 +229,21 @@ private extension ExecutionHistoryDetailView {
     
     func generateShareText() -> String {
         var text = """
-            Workflow Execution Report
+            \(L10N.History.Share.title)
             ========================
             
-            Workflow: \(execution.workflowName)
-            Status: \(execution.status)
-            Date: \(execution.executedAt.formatted(date: .long, time: .shortened))
-            Duration: \(String(format: "%.2f seconds", execution.duration))
+            \(L10N.History.Detail.workflow): \(execution.workflowName)
+            \(L10N.Execution.Results.status): \(execution.status)
+            \(L10N.History.Share.date): \(execution.executedAt.formatted(date: .long, time: .shortened))
+            \(L10N.Execution.Results.duration): \(String(format: "%.2f \(L10N.Common.seconds)", execution.duration))
             
-            INPUT:
+            \(L10N.History.Share.input):
             \(execution.inputText)
             
             """
         
         if !execution.stepResults.isEmpty {
-            text += "\nSTEP RESULTS:\n"
+            text += "\n\(L10N.History.Detail.steps.uppercased()):\n"
             for (index, step) in execution.stepResults.enumerated() {
                 text += "\n\(index + 1). \(step.stepName) (\(String(format: "%.2fs", step.duration)))\n"
                 text += "\(step.output)\n"
@@ -252,7 +252,7 @@ private extension ExecutionHistoryDetailView {
         
         text += """
             
-            FINAL OUTPUT:
+            \(L10N.History.Detail.output.uppercased()):
             \(execution.outputText)
             """
         

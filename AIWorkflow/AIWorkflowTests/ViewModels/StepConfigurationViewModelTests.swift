@@ -93,7 +93,7 @@ struct StepConfigurationViewModelTests {
         
         let fullPrompt = viewModel.fullPrompt
         
-        #expect(fullPrompt.contains("Summarize"))
+        #expect(fullPrompt.contains(L10N.StepType.summarizeSystemPrompt))
         #expect(fullPrompt.contains("My custom instructions"))
     }
 }

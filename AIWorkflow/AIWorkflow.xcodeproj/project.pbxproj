@@ -71,13 +71,6 @@
 			);
 			target = 247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */;
 		};
-		247C1A402EC899F300597FC4 /* Exceptions for "WorkflowActivityWidget" folder in "AIWorkflow" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				WorkflowActivityAttributes.swift,
-			);
-			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
-		};
 		2491C84C2ECBAB5100375115 /* Exceptions for "WorkflowWidget" folder in "WorkflowWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -99,13 +92,34 @@
 			);
 			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
 		};
+		24D158EF2ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowActivityWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Localizable.strings",
+			);
+			target = 247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */;
+		};
+		24D158F02ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Localizable.strings",
+			);
+			target = 2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */;
+		};
+		24D158FA2ED600F20072AAC9 /* Exceptions for "WorkflowActivityWidget" folder in "AIWorkflow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WorkflowActivityAttributes.swift,
+			);
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		247C1A242EC895C600597FC4 /* WorkflowActivityWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				247C1A402EC899F300597FC4 /* Exceptions for "WorkflowActivityWidget" folder in "AIWorkflow" target */,
+				24D158FA2ED600F20072AAC9 /* Exceptions for "WorkflowActivityWidget" folder in "AIWorkflow" target */,
 				247C1A352EC895C800597FC4 /* Exceptions for "WorkflowActivityWidget" folder in "WorkflowActivityWidgetExtension" target */,
 			);
 			path = WorkflowActivityWidget;
@@ -129,6 +143,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				2491C85D2ECBB3DA00375115 /* Exceptions for "AIWorkflow" folder in "AIWorkflow" target */,
+				24D158EF2ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowActivityWidgetExtension" target */,
+				24D158F02ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowWidgetExtension" target */,
 			);
 			path = AIWorkflow;
 			sourceTree = "<group>";
@@ -329,6 +345,7 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
 			);
 			mainGroup = 24B373B52EC261BC00C18890;
 			minimizedProjectReferenceProxies = 1;
@@ -599,6 +616,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -663,6 +681,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";

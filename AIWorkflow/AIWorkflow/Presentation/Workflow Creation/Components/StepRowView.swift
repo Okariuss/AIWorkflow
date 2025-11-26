@@ -62,7 +62,7 @@ private extension StepRowView {
     }
     
     var stepTypeDisplayName: String {
-        WorkflowStep.StepType(rawValue: step.stepType)?.rawValue ?? step.stepType
+        WorkflowStep.StepType(rawValue: step.stepType)?.title ?? step.stepType
     }
 }
 

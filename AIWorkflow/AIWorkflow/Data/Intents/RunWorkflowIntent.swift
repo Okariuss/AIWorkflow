@@ -10,10 +10,10 @@ import Foundation
 
 struct RunWorkflowIntent: AppIntent {
     
-    static var title: LocalizedStringResource = "Run Workflow"
+    static var title: LocalizedStringResource = "intents.run_workflow_title"
     
     static var description = IntentDescription(
-        "Runs an AI workflow with the provided input text",
+        "intents.run_workflow_description",
         categoryName: "Workflows"
     )
     
@@ -21,12 +21,12 @@ struct RunWorkflowIntent: AppIntent {
     
     // MARK: - Parameters
     
-    @Parameter(title: "Workflow")
+    @Parameter(title: "intents.run_workflow_parameter_workflow")
     var workflow: WorkflowEntity
     
     @Parameter(
-        title: "Input Text",
-        description: "The text to process through the workflow"
+        title: "intents.run_workflow_parameter_input_text",
+        description: "intents.run_workflow_parameter_input_text_description"
     )
     var inputText: String
     
@@ -37,7 +37,7 @@ struct RunWorkflowIntent: AppIntent {
         let container = DependencyContainer.shared
         
         guard let actualWorkflow = try? await container.workflowRepository.fetch(by: workflow.id) else {
-            return .result(dialog: "I couldn't find that workflow.")
+            return .result(dialog: IntentDialog(L10N.Intents.runWorkflowDialogNotFound))
         }
         
         do {
@@ -47,10 +47,10 @@ struct RunWorkflowIntent: AppIntent {
                 enableLiveActivity: true
             )
             
-            return .result(dialog: "Done! Check the app for results.")
+            return .result(dialog: IntentDialog(L10N.Intents.runWorkflowDialogDone))
             
         } catch {
-            return .result(dialog: "Workflow failed. Check the app.")
+            return .result(dialog: IntentDialog(L10N.Intents.runWorkflowDialogFailed))
         }
     }
 }

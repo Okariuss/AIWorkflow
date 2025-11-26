@@ -30,23 +30,23 @@ struct WorkflowExecutionResult {
 }
 
 enum ExecutionStatus: String {
-    case success = "Success"
-    case failed = "Failed"
-    case cancelled = "Cancelled"
+    case success
+    case failed
+    case cancelled
+    
+    var title: String {
+        switch self {
+        case .success: L10N.Common.success
+        case .failed: L10N.Execution.Status.failed
+        case .cancelled: L10N.Execution.Status.cancelled
+        }
+    }
     
     var icon: String {
         switch self {
         case .success: return "checkmark.square"
         case .failed: return "exclamationmark.square"
         case .cancelled: return "xmark.square"
-        }
-    }
-    
-    var color: String {
-        switch self {
-        case .success: return "green"
-        case .failed: return "red"
-        case .cancelled: return "gray"
         }
     }
 }

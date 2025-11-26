@@ -43,9 +43,9 @@ struct WorkflowDetailView: View {
                     stepsSection
                 } else {
                     EmptyStateView(
-                        message: "No steps in this workflow",
+                        message: L10N.WorkflowDetail.emptyMessage,
                         systemImage: "square.stack.3d.up.slash",
-                        actionTitle: "Add Steps"
+                        actionTitle: L10N.WorkflowDetail.emptyAction
                     ) {
                         showingEditSheet = true
                     }
@@ -71,18 +71,18 @@ struct WorkflowDetailView: View {
                 )
             }
         }
-        .alert("Delete Workflow?", isPresented: $viewModel.showingDeleteConfirmation) {
-            Button("Cancel", role: .cancel) { }
-            Button("Delete", role: .destructive) {
+        .alert(L10N.WorkflowDetail.Delete.title, isPresented: $viewModel.showingDeleteConfirmation) {
+            Button(L10N.Common.cancel, role: .cancel) { }
+            Button(L10N.Common.delete, role: .destructive) {
                 Task {
                     await viewModel.deleteWorkflow()
                 }
             }
         } message: {
-            Text("This action cannot be undone. The workflow and all its steps will be permanently deleted.")
+            Text(L10N.WorkflowDetail.Delete.message)
         }
-        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-            Button("OK") {
+        .alert(L10N.Common.error, isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button(L10N.Common.ok) {
                 viewModel.clearError()
             }
         } message: {
@@ -90,16 +90,16 @@ struct WorkflowDetailView: View {
                 Text(error)
             }
         }
-        .alert("Workflow Duplicated", isPresented: $showingDuplicateSuccess) {
-            Button("OK") {}
+        .alert(L10N.WorkflowDetail.Duplicated.title, isPresented: $showingDuplicateSuccess) {
+            Button(L10N.Common.ok) {}
             if let duplicated = duplicatedWorkflow {
-                Button("View Copy") {
+                Button(L10N.WorkflowDetail.Duplicated.action) {
                     duplicatedWorkflow = duplicated
                     navigateToDuplicatedWorkflow = true
                 }
             }
         } message: {
-            Text("A copy of this workflow has been created.")
+            Text(L10N.WorkflowDetail.Duplicated.message)
         }
         .navigationDestination(isPresented: $navigateToDuplicatedWorkflow) {
             if let duplicated = duplicatedWorkflow {
@@ -125,7 +125,7 @@ struct WorkflowDetailView: View {
 private extension WorkflowDetailView {
     var descriptionSection: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Label("Description", systemImage: "text.alignleft")
+            Label(L10N.WorkflowDetail.description, systemImage: "text.alignleft")
                 .font(.headline)
                 .foregroundStyle(.secondary)
             
@@ -137,12 +137,12 @@ private extension WorkflowDetailView {
     var stepsSection: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
-                Label("Steps", systemImage: "list.bullet")
+                Label(L10N.WorkflowDetail.Info.steps, systemImage: "list.bullet")
                     .font(.headline)
                 
                 Spacer()
                 
-                Text("\(viewModel.workflow.stepCount) \(viewModel.workflow.stepCount == 1 ? "step" : "steps")")
+                Text(L10N.WorkflowCreation.stepsCount(viewModel.workflow.stepCount))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -174,7 +174,7 @@ private extension WorkflowDetailView {
                 Button {
                     showingExecutionSheet = true
                 } label: {
-                    Label("Run Workflow", systemImage: "play.fill")
+                    Label(L10N.WorkflowDetail.Actions.run, systemImage: "play.fill")
                 }
                 .disabled(!viewModel.canRun)
                 
@@ -183,7 +183,7 @@ private extension WorkflowDetailView {
                 Button {
                     showingEditSheet = true
                 } label: {
-                    Label("Edit", systemImage: "pencil")
+                    Label(L10N.WorkflowDetail.Actions.edit, systemImage: "pencil")
                 }
                 
                 Button {
@@ -192,7 +192,7 @@ private extension WorkflowDetailView {
                     }
                 } label: {
                     Label(
-                        viewModel.workflow.isFavorite ? "Remove from Favorites" : "Add to Favorites",
+                        viewModel.workflow.isFavorite ? L10N.WorkflowDetail.Actions.unfavorite : L10N.WorkflowDetail.Actions.favorite,
                         systemImage: viewModel.workflow.isFavorite ? "star.slash" : "star.fill"
                     )
                 }
@@ -205,7 +205,7 @@ private extension WorkflowDetailView {
                         }
                     }
                 } label: {
-                    Label("Duplicate", systemImage: "doc.on.doc")
+                    Label(L10N.WorkflowDetail.Actions.duplicate, systemImage: "doc.on.doc")
                 }
                 
                 Divider()
@@ -213,7 +213,7 @@ private extension WorkflowDetailView {
                 Button(role: .destructive) {
                     viewModel.showingDeleteConfirmation = true
                 } label: {
-                    Label("Delete", systemImage: "trash")
+                    Label(L10N.Common.delete, systemImage: "trash")
                 }
                 
             } label: {

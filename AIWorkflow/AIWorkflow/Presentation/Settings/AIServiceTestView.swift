@@ -10,10 +10,7 @@ import SwiftUI
 struct AIServiceTestView: View {
     // MARK: - State
     
-    @State private var prompt = """
-        Summarize the following text in 2-3 sentences: 
-        SwiftUI is Apple's modern framework for building user interfaces across all Apple platforms.
-        """
+    @State private var prompt = L10N.Settings.Test.Prompt.message
     @State private var response = ""
     @State private var displayedResponse = ""
     @State private var isExecuting = false
@@ -39,13 +36,13 @@ struct AIServiceTestView: View {
             responseSection
             actionSection
         }
-        .navigationTitle("AI Service Test")
+        .navigationTitle(L10N.Settings.About.test)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             isAvailableStatus = await aiService.isAvailable()
         }
-        .alert("Error", isPresented: .constant(errorMessage != nil)) {
-            Button("OK") {
+        .alert(L10N.Common.error, isPresented: .constant(errorMessage != nil)) {
+            Button(L10N.Common.ok) {
                 errorMessage = nil
             }
         } message: {
@@ -61,13 +58,13 @@ struct AIServiceTestView: View {
 // MARK: - Subviews
 private extension AIServiceTestView {
     var configurationSection: some View {
-        Section("Test Configuration") {
-            Toggle("Use Streaming", isOn: $useStreaming)
+        Section(L10N.Settings.Test.Configuration.title) {
+            Toggle(L10N.Settings.Test.Configuration.streaming, isOn: $useStreaming)
                 .onChange(of: useStreaming) { oldValue, newValue in
                     if newValue { useStructuredOutput = false }
                 }
             
-            Toggle("Use Structured Output", isOn: $useStructuredOutput)
+            Toggle(L10N.Settings.Test.Configuration.structured, isOn: $useStructuredOutput)
                 .disabled(useStreaming)
                 .onChange(of: useStructuredOutput) { oldValue, newValue in
                     if newValue { useStreaming = false }
@@ -76,24 +73,24 @@ private extension AIServiceTestView {
     }
     
     var promptSection: some View {
-        Section("Test Prompt") {
+        Section(L10N.Settings.Test.Prompt.title) {
             TextEditor(text: $prompt)
                 .frame(minHeight: 120)
                 .font(.body)
                 .padding(.vertical, 4)
             
-            Picker("Quick Prompts", selection: $prompt) {
-                Text("Custom").tag(prompt)
-                Text("Summarize").tag("Summarize the following text: SwiftUI is Apple's modern framework...")
-                Text("Extract Info").tag("Extract email addresses and phone numbers from: Contact John at john@example.com or call 555-1234")
-                Text("Analyze").tag("Analyze the sentiment and tone of: I absolutely love this new feature!")
+            Picker(L10N.Settings.Test.Prompt.quick, selection: $prompt) {
+                Text(L10N.StepType.custom).tag(prompt)
+                Text(L10N.StepType.summarize).tag(L10N.Settings.Test.Prompt.summarizeTag)
+                Text(L10N.StepType.extract).tag(L10N.Settings.Test.Prompt.extractTag)
+                Text(L10N.StepType.analyze).tag(L10N.Settings.Test.Prompt.analyzeTag)
             }
             .pickerStyle(.menu)
         }
     }
     
     var responseSection: some View {
-        Section("Response") {
+        Section(L10N.Settings.Test.Response.title) {
             if isExecuting && useStreaming {
                 // STREAMING DURUMUNDA ANİMASYONLU YAZIM
                 ScrollView {
@@ -108,14 +105,14 @@ private extension AIServiceTestView {
             } else if isExecuting {
                 HStack(spacing: 8) {
                     ProgressView()
-                    Text("Processing...")
+                    Text(L10N.Settings.Test.Response.processing)
                         .foregroundStyle(.secondary)
                 }
             } else if !response.isEmpty {
                 responseView
                     .transition(.opacity.combined(with: .slide))
             } else {
-                Text("No response yet")
+                Text(L10N.Settings.Test.Response.noResponse)
                     .foregroundStyle(.tertiary)
             }
         }
@@ -141,7 +138,7 @@ private extension AIServiceTestView {
                 
                 Spacer()
                 
-                Button("Copy") {
+                Button(L10N.Common.copy) {
                     UIPasteboard.general.string = response
                 }
                 .font(.caption)
@@ -156,12 +153,12 @@ private extension AIServiceTestView {
                     await executePrompt()
                 }
             } label: {
-                Label("Execute Prompt", systemImage: "play.fill")
+                Label(L10N.Settings.Test.executePrompt, systemImage: "play.fill")
             }
             .disabled(isExecuting || prompt.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
             
             if !response.isEmpty {
-                Button("Clear") {
+                Button(L10N.Common.clear) {
                     withAnimation(.easeInOut) {
                         response = ""
                         executionTime = 0

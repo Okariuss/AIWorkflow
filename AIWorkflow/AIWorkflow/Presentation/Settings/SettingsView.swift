@@ -30,15 +30,15 @@ struct SettingsView: View {
         NavigationStack {
             Group {
                 if viewModel.isLoading {
-                    LoadingView(message: "Loading preferences...")
+                    LoadingView(message: L10N.Common.loading)
                 } else {
                     settingsList
                 }
             }
-            .navigationTitle("Settings")
+            .navigationTitle(L10N.Settings.title)
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Done") {
+                    Button(L10N.Common.done) {
                         dismiss()
                     }
                 }
@@ -46,8 +46,8 @@ struct SettingsView: View {
             .task {
                 await viewModel.loadPreferences()
             }
-            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("OK") {
+            .alert(L10N.Common.error, isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(L10N.Common.ok) {
                     viewModel.clearError()
                 }
             } message: {
@@ -80,15 +80,15 @@ private extension SettingsView {
                 availability: viewModel.aiAvailability
             )
         } header: {
-            Text("AI Service")
+            Text(L10N.Settings.AIService.title)
         } footer: {
-            Text("Powered by Apple's Foundation Models API. All processing happens on your device using on-device language model.")
+            Text(L10N.Settings.AIService.description)
         }
     }
     
     var preferencesSection: some View {
-        Section("Preferences") {
-            Picker("Theme", selection: Binding(
+        Section(L10N.Settings.Preferences.title) {
+            Picker(L10N.Settings.Preferences.theme, selection: Binding(
                 get: { viewModel.currentTheme },
                 set: { newValue in
                     Task {
@@ -98,7 +98,7 @@ private extension SettingsView {
             )) {
                 ForEach(UserPreferences.ThemePreference.allCases, id: \.self) { theme in
                     HStack {
-                        Text(theme.rawValue)
+                        Text(theme.title)
                         Spacer()
                         Image(systemName: iconForTheme(theme))
                             .foregroundStyle(.secondary)
@@ -116,7 +116,7 @@ private extension SettingsView {
                 WidgetPreferencesView(viewModel: viewModel)
             } label: {
                 HStack {
-                    Label("Widget Preferences", systemImage: "rectangle.grid.2x2")
+                    Label(L10N.Settings.Widgets.preferences, systemImage: "rectangle.grid.2x2")
                     Spacer()
                     if !viewModel.widgetSelections.isEmpty {
                         Text("\(viewModel.widgetSelections.count)")
@@ -126,31 +126,31 @@ private extension SettingsView {
                 }
             }
             
-            Text("Configure which workflows appear in your home screen widget")
+            Text(L10N.Settings.Widgets.description)
                 .font(.caption)
                 .foregroundStyle(.secondary)
         } header: {
-            Text("Widgets")
+            Text(L10N.Settings.Widgets.title)
         }
     }
     
     var siriSection: some View {
-        Section("Siri & Shortcuts") {
+        Section(L10N.Settings.Siri.title) {
             NavigationLink {
                 SiriSettingsView()
             } label: {
-                Label("Manage Shortcuts", systemImage: "list.bullet")
+                Label(L10N.Settings.Siri.manage, systemImage: "list.bullet")
             }
         }
     }
     
     var privacySection: some View {
-        Section("Privacy") {
+        Section(L10N.Settings.Privacy.title) {
             Label {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("100% On-Device Processing")
+                    Text(L10N.Settings.Privacy.onDeviceTitle)
                         .font(.body)
-                    Text("All AI runs locally on your iPhone")
+                    Text(L10N.Settings.Privacy.onDeviceDescription)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -161,9 +161,9 @@ private extension SettingsView {
             
             Label {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Zero Data Collection")
+                    Text(L10N.Settings.Privacy.noDataTitle)
                         .font(.body)
-                    Text("Your data never leaves your device")
+                    Text(L10N.Settings.Privacy.noDataDescription)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -174,9 +174,9 @@ private extension SettingsView {
             
             Label {
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Works Offline")
+                    Text(L10N.Settings.Privacy.offlineTitle)
                         .font(.body)
-                    Text("No internet connection required")
+                    Text(L10N.Settings.Privacy.offlineDescription)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -188,16 +188,16 @@ private extension SettingsView {
     }
     
     var aboutSection: some View {
-        Section("About") {
+        Section(L10N.Settings.About.title) {
             HStack {
-                Text("Version")
+                Text(L10N.Settings.About.version)
                 Spacer()
                 Text(appVersion)
                     .foregroundStyle(.secondary)
             }
             
             HStack {
-                Text("Build")
+                Text(L10N.Settings.About.build)
                 Spacer()
                 Text(buildNumber)
                     .foregroundStyle(.secondary)
@@ -206,24 +206,24 @@ private extension SettingsView {
             NavigationLink {
                 AIServiceTestView()
             } label: {
-                Label("Test AI Service", systemImage: "testtube.2")
+                Label(L10N.Settings.About.test, systemImage: "testtube.2")
             }
         }
     }
     
     var developerSection: some View {
-        Section("Technology") {
+        Section(L10N.Settings.Technology.title) {
             HStack {
-                Text("Framework")
+                Text(L10N.Settings.Technology.framework)
                 Spacer()
-                Text("Foundation Models")
+                Text(L10N.Settings.Technology.frameworkValue)
                     .foregroundStyle(.secondary)
             }
             
             HStack {
-                Text("Architecture")
+                Text(L10N.Settings.Technology.architecture)
                 Spacer()
-                Text("On-Device LLM")
+                Text(L10N.Settings.Technology.architectureValue)
                     .foregroundStyle(.secondary)
             }
         }

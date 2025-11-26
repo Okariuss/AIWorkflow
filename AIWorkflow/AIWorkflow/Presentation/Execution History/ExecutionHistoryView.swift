@@ -37,13 +37,13 @@ struct ExecutionHistoryView: View {
                 historyList
             }
         }
-        .navigationTitle("Execution History")
+        .navigationTitle(L10N.History.title)
         .toolbar {
             toolbarContent
         }
-        .searchable(text: $viewModel.searchQuery, prompt: "Search executions")
-        .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-            Button("OK") {
+        .searchable(text: $viewModel.searchQuery, prompt: L10N.History.search)
+        .alert(L10N.Common.error, isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button(L10N.Common.ok) {
                 viewModel.clearError()
             }
         } message: {
@@ -51,15 +51,15 @@ struct ExecutionHistoryView: View {
                 Text(error)
             }
         }
-        .confirmationDialog("Delete All History", isPresented: $showingDeleteAllConfirmation) {
-            Button("Delete All", role: .destructive) {
+        .confirmationDialog(L10N.History.DeleteAll.title, isPresented: $showingDeleteAllConfirmation) {
+            Button(L10N.Common.delete, role: .destructive) {
                 Task {
                     await viewModel.deleteAll()
                 }
             }
-            Button("Cancel", role: .cancel) {}
+            Button(L10N.Common.cancel, role: .cancel) {}
         } message: {
-            Text("This will permanently delete all execution history. This action cannot be undone.")
+            Text(L10N.History.DeleteAll.message)
         }
     }
 }
@@ -71,28 +71,28 @@ private extension ExecutionHistoryView {
     var emptyStateView: some View {
         if viewModel.searchQuery.isEmpty && allExecutions.isEmpty {
             EmptyStateView(
-                message: "No execution history yet",
+                message: L10N.History.emptyMessage,
                 systemImage: "clock.arrow.circlepath",
             )
         } else if viewModel.searchQuery.isEmpty && viewModel.filterOption == .successful {
             EmptyStateView(
-                message: "No success executions yet",
+                message: L10N.History.emptySuccess,
                 systemImage: "checkmark.seal",
-                actionTitle: "Browse All",
+                actionTitle: L10N.WorkflowList.favoritesEmptyAction,
                 action: { viewModel.filterOption = .all }
             )
         } else if viewModel.searchQuery.isEmpty && viewModel.filterOption == .failed {
             EmptyStateView(
-                message: "No failed executions yet",
+                message: L10N.History.emptyFailed,
                 systemImage: "xmark.octagon",
-                actionTitle: "Browse All",
+                actionTitle: L10N.WorkflowList.favoritesEmptyAction,
                 action: { viewModel.filterOption = .all }
             )
         } else if !viewModel.searchQuery.isEmpty {
-            EmptyStateView(message: "No executions found for '\(viewModel.searchQuery)'", systemImage: "magnifyingglass")
+            EmptyStateView(message: L10N.History.emptySearch(viewModel.searchQuery), systemImage: "magnifyingglass")
         } else {
             EmptyStateView(
-                message: "No executions match the current filter",
+                message: L10N.History.noMatch,
                 systemImage: "line.3.horizontal.decrease.circle"
             )
         }
@@ -115,7 +115,7 @@ private extension ExecutionHistoryView {
                         Button {
                             UIPasteboard.general.string = execution.outputText
                         } label: {
-                            Label("Copy Output", systemImage: "doc.on.doc")
+                            Label(L10N.Execution.Actions.copy, systemImage: "doc.on.doc")
                         }
                         .disabled(execution.outputText.isEmpty)
                         
@@ -126,7 +126,7 @@ private extension ExecutionHistoryView {
                                 await viewModel.deleteExecution(execution)
                             }
                         } label: {
-                            Label("Delete", systemImage: "trash")
+                            Label(L10N.Common.delete, systemImage: "trash")
                         }
                     }
                     .swipeActions(edge: .trailing, allowsFullSwipe: true) {
@@ -146,28 +146,28 @@ private extension ExecutionHistoryView {
     var statisticsCard: some View {
         VStack(spacing: 12) {
             HStack {
-                Text("Statistics")
+                Text(L10N.History.statistics)
                     .font(.headline)
                 Spacer()
             }
             
             HStack(spacing: 16) {
                 StatItemView(
-                    title: "Total",
+                    title: L10N.History.Statistics.total,
                     value: "\(allExecutions.count)",
                     icon: "clock.arrow.circlepath",
                     color: .blue
                 )
                 
                 StatItemView(
-                    title: "Success",
+                    title: L10N.History.Statistics.success,
                     value: "\(allExecutions.filter { $0.executionStatus == .success }.count)",
                     icon: "checkmark.circle.fill",
                     color: .green
                 )
                 
                 StatItemView(
-                    title: "Failed",
+                    title: L10N.History.Statistics.failed,
                     value: "\(allExecutions.filter { $0.executionStatus == .failed }.count)",
                     icon: "xmark.circle.fill",
                     color: .red
@@ -185,27 +185,27 @@ private extension ExecutionHistoryView {
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .topBarLeading) {
             Menu {
-                Picker("Filter", selection: $viewModel.filterOption) {
+                Picker(L10N.Common.filter, selection: $viewModel.filterOption) {
                     ForEach(ExecutionHistoryViewModel.FilterOption.allCases, id: \.self) { option in
-                        Text(option.rawValue)
+                        Text(option.title)
                             .tag(option)
                     }
                 }
             } label: {
-                Label("Filter", systemImage: "line.3.horizontal.decrease.circle")
+                Label(L10N.Common.filter, systemImage: "line.3.horizontal.decrease.circle")
             }
         }
         
         ToolbarItem(placement: .topBarTrailing) {
             Menu {
-                Picker("Sort", selection: $viewModel.sortOption) {
+                Picker(L10N.Common.sort, selection: $viewModel.sortOption) {
                     ForEach(ExecutionHistoryViewModel.SortOption.allCases, id: \.self) { option in
-                        Text(option.rawValue)
+                        Text(option.title)
                             .tag(option)
                     }
                 }
             } label: {
-                Label("Sort", systemImage: "arrow.up.arrow.down")
+                Label(L10N.Common.sort, systemImage: "arrow.up.arrow.down")
             }
         }
         
@@ -214,10 +214,10 @@ private extension ExecutionHistoryView {
                 Button(role: .destructive) {
                     showingDeleteAllConfirmation = true
                 } label: {
-                    Label("Delete All History", systemImage: "trash")
+                    Label(L10N.History.DeleteAll.title, systemImage: "trash")
                 }
             } label: {
-                Label("More", systemImage: "ellipsis.circle")
+                Label(L10N.Common.more, systemImage: "ellipsis.circle")
             }
             .disabled(allExecutions.isEmpty)
         }
@@ -233,7 +233,7 @@ private extension ExecutionHistoryView {
                 await viewModel.deleteExecution(execution)
             }
         } label: {
-            Label("Delete", systemImage: "trash")
+            Label(L10N.Common.ok, systemImage: "trash")
         }
     }
 }

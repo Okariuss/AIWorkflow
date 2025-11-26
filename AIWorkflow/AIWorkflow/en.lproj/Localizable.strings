@@ -1,0 +1,380 @@
+/* 
+  Localizable.strings
+  AIWorkflow
+
+  Created by Okan Orkun on 21.11.2025.
+  
+*/
+// MARK: ENGLISH
+
+// MARK: - Common
+"common.save" = "Save";
+"common.cancel" = "Cancel";
+"common.delete" = "Delete";
+"common.edit" = "Edit";
+"common.done" = "Done";
+"common.close" = "Close";
+"common.add" = "Add";
+"common.remove" = "Remove";
+"common.ok" = "OK";
+"common.yes" = "Yes";
+"common.no" = "No";
+"common.error" = "Error";
+"common.success" = "Success";
+"common.loading" = "Loading...";
+"common.saving" = "Saving...";
+"common.clear" = "Clear";
+"common.copy" = "Copy";
+"common.share" = "Share";
+"common.search" = "Search";
+"common.filter" = "Filter";
+"common.sort" = "Sort";
+"common.more" = "More";
+"common.run" = "Run";
+"common.stop" = "Stop";
+"common.retry" = "Retry";
+"common.seconds" = "seconds";
+
+// MARK: - Workflow List
+"workflow_list.title" = "Workflows";
+"workflow_list.search" = "Search workflows";
+"workflow_list.delete.message" = "Are you sure you want to delete %@? This action cannot be undone.";
+"workflow_list.create" = "Create Workflow";
+"workflow_list.empty.message" = "No workflows yet";
+"workflow_list.empty.action" = "Create Workflow";
+"workflow_list.favorites_empty.message" = "No favorite workflows yet";
+"workflow_list.favorites_empty.action" = "Browse All";
+"workflow_list.search_empty.message" = "No workflows found for '%@'";
+"workflow_list.filter_no_match.message" = "No workflows match the current filter";
+"workflow_list.filter.all" = "All";
+"workflow_list.filter.favorites" = "Favorites";
+"workflow_list.sort.name" = "Name";
+"workflow_list.sort.modified" = "Last Modified";
+"workflow_list.sort.created" = "Date Created";
+"workflow_list.sort.steps" = "Step Count";
+"workflow_list.settings" = "Settings";
+"workflow_list.history" = "History";
+
+// MARK: - Workflow Entity
+"workflow.entity.steps" = "%d steps";
+
+// MARK: - Workflow Detail
+"workflow_detail.steps" = "Steps";
+"workflow_detail.prompt" = "Prompt";
+"workflow_detail.description" = "Description";
+"workflow_detail.info.steps" = "Steps";
+"workflow_detail.info.created" = "Created";
+"workflow_detail.info.modified" = "Last Modified";
+"workflow_detail.info.favorite" = "Favorite";
+"workflow_detail.actions.run" = "Run Workflow";
+"workflow_detail.actions.edit" = "Edit";
+"workflow_detail.actions.favorite" = "Add to Favorites";
+"workflow_detail.actions.unfavorite" = "Remove from Favorites";
+"workflow_detail.actions.duplicate" = "Duplicate";
+"workflow_detail.delete.title" = "Delete Workflow?";
+"workflow_detail.delete.message" = "This action cannot be undone. The workflow and all its steps will be permanently deleted.";
+"workflow_detail.empty.message" = "No steps in this workflow";
+"workflow_detail.empty.action" = "Add Steps";
+"workflow_detail.duplicated.title" = "Workflow Duplicated";
+"workflow_detail.duplicated.action" = "View Copy";
+"workflow_detail.duplicated.message" = "A copy of this workflow has been created.";
+"workflow_detail.duplicated.copy" = "(Copy)";
+"workflow_detail.duplicated.error" = "Failed to duplicate workflow";
+
+// MARK: - Workflow Creation
+"workflow_creation.title.new" = "New Workflow";
+"workflow_creation.title.edit" = "Edit Workflow";
+"workflow_creation.name" = "Workflow Name";
+"workflow_creation.description" = "Description (optional)";
+"workflow_creation.info" = "Workflow Info";
+"workflow_creation.steps.title" = "Steps";
+"workflow_creation.steps.empty" = "No steps yet";
+"workflow_creation.steps.add" = "Add Step";
+"workflow_creation.validation.name_required" = "Workflow name is required";
+"workflow_creation.validation.name_short" = "Workflow name must be at least 3 characters long";
+"workflow_creation.validation.steps_required" = "At least one step is required";
+"workflow_creation.info.footer" = "Give your workflow a descriptive name and optional description";
+"workflow_creation.steps.footer" = "Steps will be executed in order. Drag to reorder.";
+"workflow_creation.steps.count" = "%d step(s)";
+
+// MARK: - Step Configuration
+"step_config.title.new" = "Add Step";
+"step_config.title.edit" = "Edit Step";
+"step_config.invalid_step" = "Invalid Step";
+"step_config.type" = "Step Type";
+"step_config.type.header" = "Type";
+"step_config.type.footer" = "System Prompt";
+"step_config.prompt" = "Instructions";
+"step_config.prompt.footer" = "Enter specific instructions for this step. Be as detailed as possible.";
+"step_config.advanced" = "Advanced Options";
+"step_config.advanced.temperature" = "Temperature";
+"step_config.advanced.temperature.predictable" = "Predictable";
+"step_config.advanced.temperature.creative" = "Creative";
+"step_config.advanced.max_tokens" = "Max Tokens";
+"step_config.advanced.max_tokens.short" = "Short";
+"step_config.advanced.max_tokens.long" = "Long";
+"step_config.advanced.sampling" = "Sampling Mode";
+"step_config.advanced.reset" = "Reset to Defaults";
+"step_config.advanced.footer" = "Temperature controls creativity (0.0=predictable, 2.0=creative). Max tokens limits response length. Sampling mode affects output determinism.";
+"step_config.test" = "Test Step";
+"step_config.test.input" = "Test Input";
+"step_config.test.output" = "Output:";
+"step_config.test.testing" = "Testing step...";
+"step_config.test.run" = "Test Step";
+"step_config.test.footer" = "Test your step configuration with sample input before saving.";
+"step_config.preview" = "Full Prompt Preview";
+"step_config.validation.empty" = "Prompt cannot be empty";
+"step_config.validation.short" = "Prompt must be at least 3 characters long";
+"step_config.validation.temperature" = "Temperature must be between 0.0 and 2.0";
+"step_config.validation.tokens" = "Max tokens must be between 1 and 4096";
+"step_config.validation.testInput" = "Test input cannot be empty";
+
+
+// MARK: - Step Types
+"step_type.summarize" = "Summarize";
+"step_type.translate" = "Translate";
+"step_type.extract" = "Extract Information";
+"step_type.rewrite" = "Rewrite";
+"step_type.analyze" = "Analyze";
+"step_type.custom" = "Custom";
+"step_type.system_prompt.summarize" = "Summarize the following text concisely:";
+"step_type.system_prompt.translate" = "Translate the following text:";
+"step_type.system_prompt.extract" = "Extract the requested information from the text:";
+"step_type.system_prompt.rewrite" = "Rewrite the following text:";
+"step_type.system_prompt.analyze" = "Analyze the following text:";
+
+// MARK: - Live Activity
+"live_activity.starting" = "Starting...";
+
+// MARK: - Workflow Execution
+"execution.title" = "Run Workflow";
+"execution.input" = "Input Text";
+"execution.input.characters" = "%d characters";
+"execution.progress" = "Execution Progress";
+"execution.results" = "Results";
+"execution.results.status" = "Status";
+"execution.results.duration" = "Duration";
+"execution.results.steps_completed" = "Steps Completed";
+"execution.results.output" = "Final Output";
+"execution.actions.copy" = "Copy Output";
+"execution.actions.run_again" = "Run Again";
+"execution.status.running" = "Running";
+"execution.status.completed" = "Completed";
+"execution.status.failed" = "Failed";
+"execution.status.cancelled" = "Cancelled";
+"execution.live_activity.enabled" = "Live Activity enabled";
+"execution.error.title" = "Execution Failed";
+
+// MARK: - Workflow Step
+"workflow_step.advanced.greedy" = "Greedy";
+"workflow_step.advanced.greedy_description" = "Deterministic (same output for same input)";
+"workflow_step.advanced.random" = "Random";
+"workflow_step.advanced.random_description" = "Creative (varied outputs)";
+
+// MARK: - History
+"history.title" = "Execution History";
+"history.search" = "Search executions";
+"history.empty.message" = "No execution history yet";
+"history.empty.success" = "No successful executions yet";
+"history.empty.failed" = "No failed executions yet";
+"history.empty.search" = "No executions found for '%@'";
+"history.empty.no_matched_filter" = "No executions match the current filter";
+"history.statistics" = "Statistics";
+"history.statistics.total" = "Total";
+"history.statistics.success" = "Success";
+"history.statistics.failed" = "Failed";
+"history.filter.all" = "All";
+"history.filter.success" = "Successful";
+"history.filter.failed" = "Failed";
+"history.sort.newest" = "Newest First";
+"history.sort.oldest" = "Oldest First";
+"history.sort.duration" = "Duration";
+"history.sort.name" = "Workflow Name";
+"history.delete_all.title" = "Delete All History";
+"history.delete_all.message" = "This will permanently delete all execution history. This action cannot be undone.";
+"history.detail.title" = "Execution Details";
+"history.detail.workflow" = "Workflow";
+"history.detail.duration" = "Duration";
+"history.detail.executed" = "Executed";
+"history.detail.input" = "Input Text";
+"history.detail.steps" = "Step Results";
+"history.detail.output" = "Final Output";
+"history.share_text.title" = "Workflow Execution Report";
+"history.share_text.date" = "Date";
+"history.share_text.input" = "INPUT";
+
+// MARK: - Settings
+"settings.title" = "Settings";
+"settings.ai_service" = "AI Service";
+"settings.ai_service.description" = "Powered by Apple's Foundation Models API. All processing happens on your device using on-device language model.";
+"settings.ai_service.status" = "On-Device AI";
+"settings.ai_service.available" = "AI processing is available on this device";
+"settings.ai_service.privacy.local" = "All workflows run locally with complete privacy";
+"settings.ai_service.privacy.offline" = "Works offline - no internet required";
+"settings.ai_service.unavailable" = "AI processing is not available";
+"settings.ai_service.requirements" = "Requirements:";
+"settings.ai_service.requirements.ios" = "• iOS 26.0 or later";
+"settings.ai_service.requirements.intelligence" = "• Apple Intelligence enabled";
+"settings.ai_service.requirements.device" = "• Compatible device";
+"settings.test.configuration.title" = "Test Configuration";
+"settings.test.configuration.streaming" = "Use Streaming";
+"settings.test.configuration.structured" = "Use Structured Output";
+"settings.test.prompt.title" = "Test Prompt";
+"settings.test.prompt.message" = "Summarize the following text in 2-3 sentences:\nSwiftUI is Apple's modern framework for building user interfaces across all Apple platforms.";
+"settings.test.prompt.quick" = "Quick Prompts";
+"settings.test.prompt.summarize_tag" = "Summarize the following text: SwiftUI is Apple's modern framework...";
+"settings.test.prompt.extract_tag" = "Extract email addresses and phone numbers from: Contact John at john@example.com or call 555-1234";
+"settings.test.prompt.analyze_tag" = "Analyze the sentiment and tone of: I absolutely love this new feature!";
+"settings.test.response.title" = "Response";
+"settings.test.response.processing" = "Processing...";
+"settings.test.response.no_response" = "No response yet";
+"settings.test.execute_propmt" = "Execute Prompt";
+"settings.preferences" = "Preferences";
+"settings.preferences.theme" = "Theme";
+"settings.preferences.theme.light" = "Light";
+"settings.preferences.theme.dark" = "Dark";
+"settings.preferences.theme.system" = "System";
+"settings.widgets" = "Widgets";
+"settings.widgets.preferences" = "Widget Preferences";
+"settings.widgets.description" = "Configure which workflows appear in your home screen widget";
+"settings.siri" = "Siri & Shortcuts";
+"settings.siri.manage" = "Manage Shortcuts";
+"settings.privacy" = "Privacy";
+"settings.privacy.ondevice.title" = "100% On-Device Processing";
+"settings.privacy.ondevice.description" = "All AI runs locally on your iPhone";
+"settings.privacy.nodata.title" = "Zero Data Collection";
+"settings.privacy.nodata.description" = "Your data never leaves your device";
+"settings.privacy.offline.title" = "Works Offline";
+"settings.privacy.offline.description" = "No internet connection required";
+"settings.about" = "About";
+"settings.about.version" = "Version";
+"settings.about.build" = "Build";
+"settings.about.test" = "Test AI Service";
+"settings.technology" = "Technology";
+"settings.technology.framework" = "Framework";
+"settings.technology.framework.value" = "Foundation Models";
+"settings.technology.architecture" = "Architecture";
+"settings.technology.architecture.value" = "On-Device LLM";
+
+// MARK: - Widget Preferences
+"widget_preferences.title" = "Widget Preferences";
+"widget_preferences.header" = "Widget Workflows";
+"widget_preferences.description" = "Select up to 4 workflows to display";
+"widget_preferences.selected" = "%d of 4 selected";
+"widget_preferences.available" = "Available Workflows";
+"widget_preferences.footer" = "Selected workflows will appear in your home screen widget. Changes take effect immediately.";
+"widget_preferences.empty.title" = "No Workflows Available";
+"widget_preferences.empty.message" = "Create workflows in the app first";
+"widget_preferences.limit_reached" = "Widget can only show 4 workflows maximum";
+"widget_preferences.not_found" = "Preferences not found";
+"widget_preferences.save_failed" = "Failed to save preferences";
+
+// MARK: - Siri
+"siri.title" = "Siri Shortcuts";
+"siri.description" = "Run workflows with voice commands.";
+"siri.available" = "Available Workflows";
+"siri.empty_workflow" = "No workflows available";
+"siri.commands" = "Voice Commands";
+"siri.commands.examples" = "Examples:";
+"siri.commands.example1" = "Run Summarize & Translate";
+"siri.commands.example2" = "Execute my workflow";
+"siri.commands.example3" = "Process text with [workflow name]";
+"siri.howto" = "How To Use";
+"siri.howto.step1.title" = "Say 'Hey Siri'";
+"siri.howto.step1.description" = "Activate Siri on your device";
+"siri.howto.step2.title" = "Say the command";
+"siri.howto.step2.description" = "Use one of the voice command above";
+"siri.howto.step3.title" = "Provide input";
+"siri.howto.step3.description" = "Siri will ask for the text to process";
+
+// MARK: - Errors
+"error.workflow_not_found" = "Workflow not found";
+"error.no_steps" = "Workflow has no steps";
+"error.empty_input" = "Input text cannot be empty";
+"error.step_failed" = "Step %d failed: %@";
+"error.execution_cancelled" = "Execution was cancelled";
+"error.execution_failed" = "Workflow execution failed";
+"error.execution.delete_failed" = "Failed to delete execution: %@";
+"error.execution.delete_all" = "Failed to delete all: %@";
+"error.ai_unavailable" = "AI service is not available on this device.";
+"error.save_failed" = "Failed to save workflow";
+"error.delete_failed" = "Failed to delete workflow";
+"error.preferences_failed" = "Failed to load preferences";
+"error.ai_model_unavailable" = "AI model is not available on this device. Requires iOS 26+ and A17 Pro chip or later.";
+"error.ai_invalid_response" = "Received an invalid response from the AI model.";
+"error.ai_execution_failed" = "AI execution failed: %@";
+"error.ai_cancelled" = "AI execution was cancelled.";
+"error.theme.update_failed" = "Failed to update theme";
+"error.workflow.set_failed" = "Failed to set default workflow";
+"error.widget.add_failed" = "Failed to add widget selected";
+"error.widget.remove_failed" = "Failed to remove widget selected";
+"error.invalid_workflow" = "Invalid Workflow";
+"error.favorite_update_failed" = "Failed to update favorite";
+
+// MARK: - AI Models
+// MARK: -- Summarization Model
+"summary_result.summary" = "A concise summary in 2-3 sentences";
+"summary_result.keyPoints" = "3-5 key points from the text";
+"summary_result.sentiment" = "Overall sentiment: positive, negative, or neutral";
+
+// MARK: -- Extraction Model
+"extracted_info.emails" = "List of email addresses found";
+"extracted_info.phoneNumbers" = "List of phone numbers found";
+"extracted_info.dates" = "List of dates mentioned";
+"extracted_info.names" = "List of names or entities found";
+
+// MARK: -- Translation Model
+"translation_result.translatedText" = "The translated text";
+"translation_result.sourceLanguage" = "Source language detected";
+"translation_result.targetLanguage" = "Target language";
+
+// MARK: -- Analysis Model
+"analysis_result.tone" = "Overall tone of the text";
+"analysis_result.themes" = "Main themes identified";
+"analysis_result.complexity" = "Complexity level: simple, moderate, or complex";
+"analysis_result.insights" = "Key insights from the analysis";
+
+
+// MARK: - Accessibility Labels
+"accessibility.workflow_row" = "Workflow %@, %d steps";
+"accessibility.step_row" = "Step %d: %@";
+"accessibility.favorite_button" = "Toggle favorite";
+"accessibility.delete_button" = "Delete workflow";
+"accessibility.run_button" = "Run workflow";
+"accessibility.add_step_button" = "Add new step";
+"accessibility.progress" = "Progress: %.0f%%";
+
+// MARK: - Intents
+// MARK: -- Quick Run
+"intents.quick_run_title" = "Quick Run Workflow";
+"intents.quick_run_description" = "Quickly run a workflow with default settings";
+"intents.quick_run_parameter_workflow" = "Workflow";
+"intents.quick_run_parameter_input_text" = "Input Text";
+
+"intents.error_workflow_not_found" = "Workflow not found";
+"intents.error_no_steps" = "Workflow has no steps";
+"intents.error_execution_failed" = "Workflow execution failed";
+
+// MARK: -- Run
+"intents.run_workflow_title" = "Run Workflow";
+"intents.run_workflow_description" = "Runs an AI workflow with the provided input text";
+"intents.run_workflow_parameter_workflow" = "Workflow";
+"intents.run_workflow_parameter_input_text" = "Input Text";
+"intents.run_workflow_parameter_input_text_description" = "The text to process through the workflow";
+
+"intents.run_workflow_dialog_not_found" = "I couldn't find that workflow.";
+"intents.run_workflow_dialog_done" = "Done! Check the app for results.";
+"intents.run_workflow_dialog_failed" = "Workflow failed. Check the app.";
+
+// MARK: -- Workflow Shortcuts (Siri Phrases)
+"intents.run_simple" = "Run a workflow in %@";
+"intents.run_execute" = "Execute workflow in %@";
+"intents.run_workflow_name" = "Run %@ in %@";
+"intents.process_workflow_name" = "Process text with %@ in %@";
+
+// MARK: - Live Activity
+"activity.steps" = "Step %d of %d";
+
+// MARK: - Widget
+"widget.configuration.display_name" = "Quick Run";
+"widget.configuration.description" = "Quick Access to your favorite workflows";

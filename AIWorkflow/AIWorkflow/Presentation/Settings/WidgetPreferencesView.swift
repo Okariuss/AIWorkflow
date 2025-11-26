@@ -29,7 +29,7 @@ struct WidgetPreferencesView: View {
                 workflowsSection
             }
         }
-        .navigationTitle("Widget Preferences")
+        .navigationTitle(L10N.WidgetPreferences.title)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             updateSelectedCount()
@@ -55,10 +55,10 @@ private extension WidgetPreferencesView {
                         .foregroundStyle(.blue)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Widget Workflows")
+                        Text(L10N.WidgetPreferences.header)
                             .font(.headline)
                         
-                        Text("Select up to 4 workflows to display")
+                        Text(L10N.WidgetPreferences.description)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -68,7 +68,7 @@ private extension WidgetPreferencesView {
                     Image(systemName: selectedCount > 0 ? "checkmark.circle.fill" : "circle")
                         .foregroundStyle(selectedCount > 0 ? .green : .secondary)
                     
-                    Text("\(selectedCount) of 4 selected")
+                    Text(L10N.WidgetPreferences.selected(selectedCount))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -85,11 +85,11 @@ private extension WidgetPreferencesView {
                     .font(.largeTitle)
                     .foregroundStyle(.secondary)
                 
-                Text("No Workflows Available")
+                Text(L10N.WidgetPreferences.emptyTitle)
                     .font(.headline)
                     .foregroundStyle(.secondary)
                 
-                Text("Create workflows in the app first")
+                Text(L10N.WidgetPreferences.emptyMessage)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
             }
@@ -116,9 +116,9 @@ private extension WidgetPreferencesView {
                 }
             }
         } header: {
-            Text("Available Workflows")
+            Text(L10N.WidgetPreferences.available)
         } footer: {
-            Text("Selected workflows will appear in your home screen widget. Changes take effect immediately.")
+            Text(L10N.WidgetPreferences.footer)
                 .font(.caption)
         }
     }

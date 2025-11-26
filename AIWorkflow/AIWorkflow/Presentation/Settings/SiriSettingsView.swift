@@ -24,7 +24,7 @@ struct SiriSettingsView: View {
             voiceCommandsSection
             howToUseSection
         }
-        .navigationTitle("Siri Shortcuts")
+        .navigationTitle(L10N.Siri.title)
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await loadWorkflows()
@@ -43,10 +43,10 @@ private extension SiriSettingsView {
                         .foregroundStyle(.blue)
                     
                     VStack(alignment: .leading, spacing: 4) {
-                        Text("Siri Shortcuts")
+                        Text(L10N.Siri.title)
                             .font(.headline)
                         
-                        Text("Run workflows with voice commands.")
+                        Text(L10N.Siri.description)
                             .font(.caption)
                             .foregroundStyle(.secondary)
                     }
@@ -58,11 +58,11 @@ private extension SiriSettingsView {
     
     @ViewBuilder
     var availableWorkflowsSection: some View {
-        Section("Available Workflows") {
+        Section(L10N.Siri.available) {
             if isLoading {
-                LoadingView(message: "Loading workflows...")
+                LoadingView(message: L10N.Common.loading)
             } else if availableWorkflows.isEmpty {
-                Text("No workflows available")
+                Text(L10N.Siri.emptyWorkflow)
                     .foregroundStyle(.secondary)
             } else {
                 ForEach(availableWorkflows, id: \.id) { workflow in
@@ -73,43 +73,43 @@ private extension SiriSettingsView {
     }
     
     var voiceCommandsSection: some View {
-        Section("Voice Commands") {
+        Section(L10N.Siri.commands) {
             VStack(alignment: .leading, spacing: 8) {
-                Text("Examples:")
+                Text(L10N.Siri.commandsExamples)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                 
-                exampleCommand("Run Summarize & Translate")
-                exampleCommand("Execute my workflow")
-                exampleCommand("Process text with [workflow name]")
+                exampleCommand(L10N.Siri.commandsExample1)
+                exampleCommand(L10N.Siri.commandsExample2)
+                exampleCommand(L10N.Siri.commandsExample3)
             }
             .padding(.vertical, 4)
         }
     }
     
     var howToUseSection: some View {
-        Section("How To Use") {
+        Section(L10N.Siri.howTo) {
             VStack(alignment: .leading, spacing: 12) {
                 instructionStep(
                     number: 1,
-                    title: "Say 'Hey Siri'",
-                    description: "Activate Siri on your device"
+                    title: L10N.Siri.HowTo.step1Title,
+                    description: L10N.Siri.HowTo.step1Description
                 )
                 
                 Divider()
                 
                 instructionStep(
                     number: 2,
-                    title: "Say the command",
-                    description: "Use one of the voice command above"
+                    title: L10N.Siri.HowTo.step2Title,
+                    description: L10N.Siri.HowTo.step2Description
                 )
                 
                 Divider()
                 
                 instructionStep(
                     number: 3,
-                    title: "Provide input",
-                    description: "Siri will ask for the text to process"
+                    title: L10N.Siri.HowTo.step3Title,
+                    description: L10N.Siri.HowTo.step3Description
                 )
             }
         }
@@ -163,7 +163,7 @@ private extension SiriSettingsView {
         do {
             availableWorkflows = try await repository.fetchAll()
         } catch {
-            print("Failed to load workflows: \(error)")
+            print("\(L10N.Error.preferencesFailed): \(error)")
         }
         isLoading = false
     }

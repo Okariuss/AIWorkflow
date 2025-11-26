@@ -29,7 +29,7 @@ struct WorkflowRowView: View {
             Button {
                 showingExecutionSheet = true
             } label: {
-                Label("Run", systemImage: "play.fill")
+                Label(L10N.Common.run, systemImage: "play.fill")
             }
             .tint(.green)
         }
@@ -72,7 +72,7 @@ private extension WorkflowRowView {
     
     var footerView: some View {
         HStack {
-            Label("\(workflow.stepCount) steps", systemImage: "list.bullet")
+            Label(L10N.WorkflowCreation.stepsCount(workflow.stepCount), systemImage: "list.bullet")
                 .font(.caption)
                 .foregroundStyle(.secondary)
             Spacer()

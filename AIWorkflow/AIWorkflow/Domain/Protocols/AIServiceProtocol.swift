@@ -22,12 +22,13 @@ enum AIServiceError: LocalizedError {
     case executionFailed(String)
     case cancelled
     
+    
     var errorDescription: String? {
         switch self {
-        case .modelNotAvailable: "AI model is not available on this device. Requires iOS 18.2+ and A17 Pro chip or later."
-        case .invalidResponse: "Received an invalid response from the AI model."
-        case .executionFailed(let message): "AI execution failed: \(message)"
-        case .cancelled: "AI execution was cancelled."
+        case .modelNotAvailable: L10N.Error.aiModelUnavailable
+        case .invalidResponse: L10N.Error.aiInvalidResponse
+        case .executionFailed(let message): L10N.Error.aiExecutionFailed(message)
+        case .cancelled: L10N.Error.aiCancelled
         }
     }
 }

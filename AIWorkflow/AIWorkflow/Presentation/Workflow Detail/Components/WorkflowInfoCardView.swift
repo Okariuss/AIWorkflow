@@ -17,7 +17,7 @@ struct WorkflowInfoCardView: View {
     var body: some View {
         VStack(spacing: 16) {
             createView(
-                leadingText: "Steps",
+                leadingText: L10N.WorkflowDetail.Info.steps,
                 image: "list.bullet",
                 imageColor: .blue,
                 trailingText: "\(workflow.stepCount)"
@@ -26,7 +26,7 @@ struct WorkflowInfoCardView: View {
             Divider()
             
             createView(
-                leadingText: "Created",
+                leadingText: L10N.WorkflowDetail.Info.created,
                 image: "calendar.badge.plus",
                 imageColor: .green,
                 trailingText: createdDate
@@ -35,7 +35,7 @@ struct WorkflowInfoCardView: View {
             Divider()
             
             createView(
-                leadingText: "Last Modified",
+                leadingText: L10N.WorkflowDetail.Info.modified,
                 image: "calendar.badge.clock",
                 imageColor: .orange,
                 trailingText: modifiedDate
@@ -60,7 +60,7 @@ private extension WorkflowInfoCardView {
             
             HStack {
                 Label {
-                    Text("Favorite")
+                    Text(L10N.WorkflowDetail.Info.favorite)
                         .foregroundStyle(.secondary)
                 } icon: {
                     Image(systemName: "star.fill")

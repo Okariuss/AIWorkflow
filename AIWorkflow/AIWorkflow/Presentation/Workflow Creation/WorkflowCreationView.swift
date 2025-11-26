@@ -32,7 +32,7 @@ struct WorkflowCreationView: View {
                 workflowInfoSection
                 stepsCount
             }
-            .navigationTitle(viewModel.getExistingWorkflow == nil ? "New Workflow" : "Edit Workflow")
+            .navigationTitle(viewModel.getExistingWorkflow == nil ? L10N.WorkflowCreation.titleNew : L10N.WorkflowCreation.titleEdit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 toolbarContent
@@ -40,8 +40,8 @@ struct WorkflowCreationView: View {
             .sheet(isPresented: $showingStepConfiguration) {
                 stepConfigurationSheet
             }
-            .alert("Invalid Workflow", isPresented: .constant(viewModel.validationError != nil)) {
-                Button("OK") {
+            .alert(L10N.Error.invalidWorkflow, isPresented: .constant(viewModel.validationError != nil)) {
+                Button(L10N.Common.ok) {
                     viewModel.clearValidationError()
                 }
             } message: {
@@ -49,8 +49,8 @@ struct WorkflowCreationView: View {
                     Text(error)
                 }
             }
-            .alert("Error", isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button("OK") {
+            .alert(L10N.Common.error, isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(L10N.Common.ok) {
                     viewModel.clearError()
                 }
             } message: {
@@ -60,7 +60,7 @@ struct WorkflowCreationView: View {
             }
             .overlay {
                 if viewModel.isLoading {
-                    LoadingView(message: "Saving workflow...")
+                    LoadingView(message: L10N.Common.saving)
                 }
             }
         }
@@ -72,19 +72,19 @@ private extension WorkflowCreationView {
     var workflowInfoSection: some View {
         Section {
             VStack(alignment: .leading, spacing: 8) {
-                TextField("Workflow Name", text: $viewModel.name)
+                TextField(L10N.WorkflowCreation.name, text: $viewModel.name)
                     .focused($isNameFocused)
                 
                 if !viewModel.name.isEmpty {
                     HStack {
-                        Text("\(viewModel.name.count) characters")
+                        Text(L10N.Execution.inputCharacters(viewModel.name.count))
                             .font(.caption)
                             .foregroundStyle(.secondary)
                         
                         Spacer()
                         
                         if viewModel.name.count < 3 {
-                            Text("At least 3 characters required")
+                            Text(L10N.WorkflowCreation.Validation.nameShort)
                                 .font(.caption)
                                 .foregroundStyle(.red)
                         }
@@ -92,12 +92,12 @@ private extension WorkflowCreationView {
                 }
             }
             
-            TextField("Description (optional)", text: $viewModel.workflowDescription, axis: .vertical)
+            TextField(L10N.WorkflowCreation.description, text: $viewModel.workflowDescription, axis: .vertical)
                 .lineLimit(3...6)
         } header: {
-            Text("Workflow Info")
+            Text(L10N.WorkflowCreation.workflowInfo)
         } footer: {
-            Text("Give your workflow a descriptive name and optional description")
+            Text(L10N.WorkflowCreation.infoFooter)
                 .font(.caption)
         }
     }
@@ -105,7 +105,7 @@ private extension WorkflowCreationView {
     var stepsCount: some View {
         Section {
             if viewModel.steps.isEmpty {
-                ContentUnavailableView("No steps yet", systemImage: "square.stack.3d.up.slash", description: Text("Add at least one step to your workflow"))
+                ContentUnavailableView(L10N.WorkflowCreation.stepsEmpty, systemImage: "square.stack.3d.up.slash", description: Text(L10N.WorkflowCreation.Validation.stepsRequired))
             } else {
                 ForEach(Array(viewModel.steps.enumerated()), id: \.element.id) { index, step in
                     StepRowView(step: step, index: index)
@@ -131,21 +131,21 @@ private extension WorkflowCreationView {
                 showingStepConfiguration = true
                 editingStepIndex = nil
             } label: {
-                Label("Add Step", systemImage: "plus.circle.fill")
+                Label(L10N.WorkflowCreation.stepsAdd, systemImage: "plus.circle.fill")
                     .foregroundStyle(.blue)
             }
         } header: {
             HStack {
-                Text("Steps")
+                Text(L10N.WorkflowCreation.stepsTitle)
                 Spacer()
                 if !viewModel.steps.isEmpty {
-                    Text("\(viewModel.steps.count) \(viewModel.steps.count == 1 ? "step" : "steps")")
+                    Text(L10N.WorkflowCreation.stepsCount(viewModel.steps.count))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
             }
         } footer: {
-            Text("Steps will be executed in order. Drag to reorder.")
+            Text(L10N.WorkflowCreation.stepsFooter)
                 .font(.caption)
         }
     }
@@ -153,13 +153,13 @@ private extension WorkflowCreationView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
-            Button("Cancel") {
+            Button(L10N.Common.cancel) {
                 dismiss()
             }
         }
         
         ToolbarItem(placement: .confirmationAction) {
-            Button("Save") {
+            Button(L10N.Common.save) {
                 saveWorkflow()
             }
             .disabled(!viewModel.isValid || viewModel.isLoading)
@@ -168,7 +168,7 @@ private extension WorkflowCreationView {
         
         if !viewModel.steps.isEmpty {
             ToolbarItem(placement: .status) {
-                Text("\(viewModel.steps.count) \(viewModel.steps.count == 1 ? "step" : "steps")")
+                Text(L10N.WorkflowCreation.stepsCount(viewModel.steps.count))
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -209,7 +209,7 @@ private extension WorkflowCreationView {
                 viewModel.deleteStep(at: index)
             }
         } label: {
-            Label("Delete", systemImage: "trash")
+            Label(L10N.Common.delete, systemImage: "trash")
         }
     }
     
@@ -220,7 +220,7 @@ private extension WorkflowCreationView {
                 viewModel.duplicateStep(at: index)
             }
         } label: {
-            Label("Duplicate", systemImage: "doc.on.doc")
+            Label(L10N.WorkflowDetail.Actions.duplicate, systemImage: "doc.on.doc")
         }
         .tint(.blue)
     }

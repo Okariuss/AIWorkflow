@@ -35,7 +35,7 @@ private extension AIServiceStatusView {
                 .foregroundStyle(.blue)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("On-Device AI")
+                Text(L10N.Settings.AIService.status)
                     .font(.headline)
             }
             
@@ -54,7 +54,7 @@ private extension AIServiceStatusView {
     var availableView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("AI processing is available on this device")
+                Text(L10N.Settings.AIService.available)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } icon: {
@@ -63,7 +63,7 @@ private extension AIServiceStatusView {
             }
             
             Label {
-                Text("All workflows run locally with complete privacy")
+                Text(L10N.Settings.AIService.Privacy.local)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
             } icon: {
@@ -72,7 +72,7 @@ private extension AIServiceStatusView {
             }
             
             Label {
-                Text("Works offline - no internet required")
+                Text(L10N.Settings.AIService.Privacy.offline)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
             } icon: {
@@ -85,7 +85,7 @@ private extension AIServiceStatusView {
     var unavailableView: some View {
         VStack(alignment: .leading, spacing: 8) {
             Label {
-                Text("AI processing is not available")
+                Text(L10N.Settings.AIService.unavailable)
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
             } icon: {
@@ -94,20 +94,20 @@ private extension AIServiceStatusView {
             }
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("Requirements:")
+                Text(L10N.Settings.AIService.requirements)
                     .font(.caption)
                     .fontWeight(.semibold)
                     .foregroundStyle(.secondary)
                 
-                Text("• iOS 26.0 or later")
+                Text(L10N.Settings.AIService.requirementsIOS)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
                 
-                Text("• Apple Intelligence enabled")
+                Text(L10N.Settings.AIService.requirementsIntelligence)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
                 
-                Text("• Compatible device")
+                Text(L10N.Settings.AIService.requirementsDevice)
                     .font(.caption)
                     .foregroundStyle(.tertiary)
             }

@@ -11,7 +11,7 @@ struct LoadingView: View {
     
     let message: String
     
-    init(message: String = "Loading...") {
+    init(message: String = L10N.Common.loading) {
         self.message = message
     }
     

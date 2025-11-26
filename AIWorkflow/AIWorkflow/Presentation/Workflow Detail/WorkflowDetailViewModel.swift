@@ -57,7 +57,7 @@ extension WorkflowDetailViewModel {
             try await repository.save(workflow)
         } catch {
             workflow.isFavorite.toggle()
-            errorMessage = "Failed to update favorite: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.favoriteUpdateFailed): \(error.localizedDescription)"
         }
     }
     
@@ -69,7 +69,7 @@ extension WorkflowDetailViewModel {
             try await repository.delete(workflow)
             wasDeleted = true
         } catch {
-            errorMessage = "Failed to delete workflow: \(error.localizedDescription)"
+            errorMessage = "\(L10N.Error.deleteFailed): \(error.localizedDescription)"
         }
         
         isLoading = false
@@ -80,7 +80,7 @@ extension WorkflowDetailViewModel {
         errorMessage = nil
         
         let newWorkflow = Workflow(
-            name: "\(workflow.name) (Copy)",
+            name: "\(workflow.name) \(L10N.WorkflowDetail.Duplicated.copy)",
             workflowDescription: workflow.workflowDescription,
             isFavorite: false
         )
@@ -100,7 +100,7 @@ extension WorkflowDetailViewModel {
             isLoading = false
             return newWorkflow
         } catch {
-            errorMessage = "Failed to duplicate workflow: \(error.localizedDescription)"
+            errorMessage = "\(L10N.WorkflowDetail.Duplicated.error): \(error.localizedDescription)"
             isLoading = false
             return nil
         }

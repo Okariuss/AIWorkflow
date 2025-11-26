@@ -41,13 +41,13 @@ struct StepConfigurationView: View {
                 testStepSection
                 previewSection
             }
-            .navigationTitle(viewModel.getExistingStep == nil ? "Add Step" : "Edit Step")
+            .navigationTitle(viewModel.getExistingStep == nil ? L10N.StepConfig.titleNew : L10N.StepConfig.titleEdit)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 toolbarContent
             }
-            .alert("Invalid Step", isPresented: .constant(viewModel.validationError != nil)) {
-                Button("OK") {
+            .alert(L10N.StepConfig.invalidStep, isPresented: .constant(viewModel.validationError != nil)) {
+                Button(L10N.Common.ok) {
                     viewModel.clearError()
                 }
             } message: {
@@ -66,10 +66,10 @@ struct StepConfigurationView: View {
 private extension StepConfigurationView {
     var stepTypeSection: some View {
         Section {
-            Picker("Step Type", selection: $viewModel.selectedStepType) {
+            Picker(L10N.StepConfig.type, selection: $viewModel.selectedStepType) {
                 ForEach(WorkflowStep.StepType.allCases, id: \.self) { type in
                     HStack {
-                        Text(type.rawValue)
+                        Text(type.title)
                         Spacer()
                         Image(systemName: iconForStepType(type))
                             .foregroundStyle(.secondary)
@@ -79,10 +79,10 @@ private extension StepConfigurationView {
             }
             .pickerStyle(.navigationLink)
         } header: {
-            Text("Type")
+            Text(L10N.StepConfig.typeHeader)
         } footer: {
             if !viewModel.selectedStepType.systemPrompt.isEmpty {
-                Text("System Prompt: \(viewModel.selectedStepType.systemPrompt)")
+                Text("\(L10N.StepConfig.typeFooter): \(viewModel.selectedStepType.systemPrompt)")
                     .font(.caption)
             }
         }
@@ -96,29 +96,29 @@ private extension StepConfigurationView {
             
             if !viewModel.prompt.isEmpty {
                 HStack {
-                    Text("\(viewModel.prompt.count) characters")
+                    Text(L10N.Execution.inputCharacters(viewModel.prompt.count))
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     
                     Spacer()
                     
-                    Button("Clear") {
+                    Button(L10N.Common.clear) {
                         viewModel.prompt = ""
                     }
                     .font(.caption)
                 }
             }
         } header: {
-            Text("Instructions")
+            Text(L10N.StepConfig.prompt)
         } footer: {
-            Text("Enter specific instructions for this step. Be as detailed as possible.")
+            Text(L10N.StepConfig.promptFooter)
                 .font(.caption)
         }
     }
     
     var advancedOptionsSection: some View {
         Section {
-            Toggle("Enable Advanced Options", isOn: $viewModel.useAdvancedOptions)
+            Toggle(L10N.StepConfig.advanced, isOn: $viewModel.useAdvancedOptions)
                 .onChange(of: viewModel.useAdvancedOptions) { _, newValue in
                     withAnimation {
                         viewModel.showAdvancedOptions = newValue
@@ -131,11 +131,11 @@ private extension StepConfigurationView {
         } header: {
             HStack {
                 Image(systemName: "slider.horizontal.3")
-                Text("Advanced Options")
+                Text(L10N.StepConfig.advanced)
             }
         } footer: {
             if viewModel.useAdvancedOptions {
-                Text("Temperature controls creativity (0.0=predictable, 2.0=creative). Max tokens limits response length. Sampling mode affects output determinism.")
+                Text(L10N.StepConfig.Advanced.footer)
                     .font(.caption)
             }
         }
@@ -146,7 +146,7 @@ private extension StepConfigurationView {
         VStack(alignment: .leading, spacing: 16) {
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("Temperature")
+                    Text(L10N.StepConfig.Advanced.temperature)
                         .font(.subheadline)
                     Spacer()
                     Text(String(format: "%.1f", viewModel.temperature))
@@ -157,11 +157,11 @@ private extension StepConfigurationView {
                 Slider(value: $viewModel.temperature, in: 0.0...2.0, step: 0.1)
                 
                 HStack {
-                    Text("Predictable")
+                    Text(L10N.StepConfig.Advanced.temperaturePredictable)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Text("Creative")
+                    Text(L10N.StepConfig.Advanced.temperatureCreative)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -171,7 +171,7 @@ private extension StepConfigurationView {
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack {
-                    Text("Max Tokens")
+                    Text(L10N.StepConfig.Advanced.maxTokens)
                         .font(.subheadline)
                     Spacer()
                     Text("\(viewModel.maxTokens)")
@@ -185,11 +185,11 @@ private extension StepConfigurationView {
                 ), in: 50...4096, step: 50)
                 
                 HStack {
-                    Text("Short")
+                    Text(L10N.StepConfig.Advanced.maxTokensShort)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                     Spacer()
-                    Text("Long")
+                    Text(L10N.StepConfig.Advanced.maxTokensLong)
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
@@ -198,10 +198,10 @@ private extension StepConfigurationView {
             Divider()
             
             // Sampling Mode
-            Picker("Sampling Mode", selection: $viewModel.samplingMode) {
+            Picker(L10N.StepConfig.Advanced.sampling, selection: $viewModel.samplingMode) {
                 ForEach(WorkflowStep.AdvancedOptions.SamplingMode.allCases, id: \.self) { mode in
                     VStack(alignment: .leading) {
-                        Text(mode.rawValue)
+                        Text(mode.title)
                         Text(mode.description)
                             .font(.caption)
                             .foregroundStyle(.secondary)
@@ -219,7 +219,7 @@ private extension StepConfigurationView {
             } label: {
                 HStack {
                     Image(systemName: "arrow.counterclockwise")
-                    Text("Reset to Defaults")
+                    Text(L10N.StepConfig.Advanced.reset)
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -234,7 +234,7 @@ private extension StepConfigurationView {
             if viewModel.isTestingStep {
                 HStack {
                     ProgressView()
-                    Text("Testing step...")
+                    Text(L10N.StepConfig.testTesting)
                         .foregroundStyle(.secondary)
                 }
             } else {
@@ -249,7 +249,7 @@ private extension StepConfigurationView {
                     
                     if !viewModel.testOutput.isEmpty {
                         VStack(alignment: .leading, spacing: 8) {
-                            Label("Output:", systemImage: "checkmark.circle.fill")
+                            Label(L10N.StepConfig.testOutput, systemImage: "checkmark.circle.fill")
                                 .font(.caption)
                                 .foregroundStyle(.green)
                             
@@ -271,7 +271,7 @@ private extension StepConfigurationView {
                     
                     HStack {
                         if !viewModel.testOutput.isEmpty || viewModel.testError != nil {
-                            Button("Clear") {
+                            Button(L10N.Common.clear) {
                                 viewModel.clearTest()
                             }
                             .buttonStyle(.bordered)
@@ -286,7 +286,7 @@ private extension StepConfigurationView {
                         } label: {
                             HStack {
                                 Image(systemName: "play.circle.fill")
-                                Text("Test Step")
+                                Text(L10N.StepConfig.testRun)
                             }
                         }
                         .buttonStyle(.borderedProminent)
@@ -297,10 +297,10 @@ private extension StepConfigurationView {
         } header: {
             HStack {
                 Image(systemName: "flask")
-                Text("Test Step")
+                Text(L10N.StepConfig.testRun)
             }
         } footer: {
-            Text("Test your step configuration with sample input before saving.")
+            Text(L10N.StepConfig.testFooter)
                 .font(.caption)
         }
     }
@@ -314,7 +314,7 @@ private extension StepConfigurationView {
                     .foregroundStyle(.secondary)
             } header: {
                 HStack {
-                    Text("Full Prompt Preview")
+                    Text(L10N.StepConfig.preview)
                     Spacer()
                     Image(systemName: "eye")
                 }
@@ -325,13 +325,13 @@ private extension StepConfigurationView {
     @ToolbarContentBuilder
     var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .cancellationAction) {
-            Button("Cancel") {
+            Button(L10N.Common.cancel) {
                 dismiss()
             }
         }
         
         ToolbarItem(placement: .confirmationAction) {
-            Button("Save") {
+            Button(L10N.Common.save) {
                 saveStep()
             }
             .disabled(!viewModel.isValid)
@@ -371,7 +371,7 @@ private extension StepConfigurationView {
 
 #Preview("Edit Step with Advanced Options") {
     let step = WorkflowStep(
-        stepType: WorkflowStep.StepType.summarize.rawValue,
+        stepType: WorkflowStep.StepType.summarize.title,
         prompt: "Summarize this text in 3 sentences",
         order: 0
     )
