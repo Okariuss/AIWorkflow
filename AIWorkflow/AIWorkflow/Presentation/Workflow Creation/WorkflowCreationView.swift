@@ -14,8 +14,7 @@ struct WorkflowCreationView: View {
     
     // MARK: - Properties
     @State private var viewModel: WorkflowCreationViewModel
-    @State private var showingStepConfiguration = false
-    @State private var editingStepIndex: Int?
+    @State private var stepToEdit: StepEditMode?
     
     // MARK: - Focus State
     @FocusState private var isNameFocused: Bool
@@ -37,8 +36,8 @@ struct WorkflowCreationView: View {
             .toolbar {
                 toolbarContent
             }
-            .sheet(isPresented: $showingStepConfiguration) {
-                stepConfigurationSheet
+            .sheet(item: $stepToEdit) { editMode in
+                stepConfigurationSheet(for: editMode)
             }
             .alert(L10N.Error.invalidWorkflow, isPresented: .constant(viewModel.validationError != nil)) {
                 Button(L10N.Common.ok) {
@@ -128,8 +127,7 @@ private extension WorkflowCreationView {
             }
             
             Button {
-                showingStepConfiguration = true
-                editingStepIndex = nil
+                stepToEdit = .new
             } label: {
                 Label(L10N.WorkflowCreation.stepsAdd, systemImage: "plus.circle.fill")
                     .foregroundStyle(.blue)
@@ -176,19 +174,23 @@ private extension WorkflowCreationView {
     }
     
     @ViewBuilder
-    var stepConfigurationSheet: some View {
-        if let index = editingStepIndex {
+    func stepConfigurationSheet(for editMode: StepEditMode) -> some View {
+        switch editMode {
+        case .new:
             StepConfigurationView(
-                existingStep: viewModel.steps[index],
-                stepOrder: index)
-            { updatedStep in
-                viewModel.updateStep(updatedStep, at: index)
-            }
-        } else {
-            StepConfigurationView(
+                existingStep: nil,
                 stepOrder: viewModel.steps.count
-            ) { newStep in
-                viewModel.addStep(newStep)
+            ) { step in
+                viewModel.addStep(step)
+                stepToEdit = nil
+            }
+        case .edit(let index, let step):
+            StepConfigurationView(
+                existingStep: step,
+                stepOrder: index
+            ) { updatedStep in
+                viewModel.updateStep(updatedStep, at: index)
+                stepToEdit = nil
             }
         }
     }
@@ -198,8 +200,9 @@ private extension WorkflowCreationView {
 // MARK: Private Methods
 private extension WorkflowCreationView {
     func editStep(at index: Int) {
-        editingStepIndex = index
-        showingStepConfiguration = true
+        guard viewModel.steps.indices.contains(index) else { return }
+        let step = viewModel.steps[index]
+        stepToEdit = .edit(index: index, step: step)
     }
     
     func deleteButton(at index: Int) -> some View {
@@ -234,6 +237,21 @@ private extension WorkflowCreationView {
             } else {
                 HapticManager.shared.notification(.error)
             }
+        }
+    }
+}
+
+// MARK: - Step Edit Mode
+private enum StepEditMode: Identifiable {
+    case new
+    case edit(index: Int, step: WorkflowStep)
+    
+    var id: String {
+        switch self {
+        case .new:
+            return "new"
+        case .edit(let index, _):
+            return "edit_\(index)"
         }
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 
 struct RunWorkflowIntent: AppIntent {
     
-    static var title: LocalizedStringResource = "intents.run_workflow_title"
+    static var title: LocalizedStringResource = LocalizedStringResource("intents.run_workflow_title", bundle: .main)
     
     static var description = IntentDescription(
         "intents.run_workflow_description",

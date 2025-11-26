@@ -80,6 +80,7 @@ extension SettingsViewModel {
         
         do {
             try await repository.save(prefs)
+            UserDefaults.standard.set(theme.rawValue, forKey: "appThemePreference")
         } catch {
             prefs.setTheme(oldTheme) // Revert
             errorMessage = "\(L10N.Error.themeUpdateFailed): \(error.localizedDescription)"

@@ -12,7 +12,7 @@ import Foundation
 final class StepConfigurationViewModel {
     
     // MARK: - Published State
-    var selectedStepType: WorkflowStep.StepType = .summarize
+    var selectedStepType: WorkflowStep.StepType = .custom
     var prompt = ""
     
     // Advanced Options

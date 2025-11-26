@@ -12,10 +12,11 @@ struct WorkflowShortcutsProvider: AppShortcutsProvider {
         AppShortcut(
             intent: RunWorkflowIntent(),
             phrases: [
+                // English
                 "Run a workflow in \(.applicationName)",
-                "Execute workflow in \(.applicationName)",
-                "Run \(\.$workflow) in \(.applicationName)",
-                "Process text with \(\.$workflow) in \(.applicationName)"
+                
+                // Turkish
+                "\(.applicationName)'da bir iş akışı çalıştır",
             ],
             shortTitle: "intents.run_workflow_title",
             systemImageName: "play.circle"

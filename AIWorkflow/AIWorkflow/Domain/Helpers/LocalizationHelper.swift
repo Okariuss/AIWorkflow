@@ -202,11 +202,11 @@ enum L10N {
         static let analyze = "step_type.analyze".localized
         static let custom = "step_type.custom".localized
         
-        static let summarizeSystemPrompt = "step_type.summarize.system_prompt".localized
-        static let translateSystemPrompt = "step_type.translate.system_prompt".localized
-        static let extractSystemPrompt = "step_type.extract.system_prompt".localized
-        static let rewriteSystemPrompt = "step_type.rewrite.system_prompt".localized
-        static let analyzeSystemPrompt = "step_type.analyze.system_prompt".localized
+        static let summarizeSystemPrompt = "step_type.system_prompt.summarize".localized
+        static let translateSystemPrompt = "step_type.system_prompt.translate".localized
+        static let extractSystemPrompt = "step_type.system_prompt.extract".localized
+        static let rewriteSystemPrompt = "step_type.system_prompt.rewrite".localized
+        static let analyzeSystemPrompt = "step_type.system_prompt.analyze".localized
         
     }
     

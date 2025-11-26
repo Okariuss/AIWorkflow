@@ -54,9 +54,9 @@ struct WorkflowEntityQuery: EntityQuery {
         let container = DependencyContainer.shared
         let allWorkflows = try await container.workflowRepository.fetchAll()
         
-        // Return up to 5 most recent workflows
+        // Return up to 4 most recent workflows
         return allWorkflows
-            .prefix(5)
+            .prefix(4)
             .map { workflow in
                 WorkflowEntity(
                     id: workflow.id,

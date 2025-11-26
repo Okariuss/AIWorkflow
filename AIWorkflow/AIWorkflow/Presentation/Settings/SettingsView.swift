@@ -94,6 +94,7 @@ private extension SettingsView {
                     Task {
                         await viewModel.updateTheme(newValue)
                     }
+                    dismiss()
                 }
             )) {
                 ForEach(UserPreferences.ThemePreference.allCases, id: \.self) { theme in
@@ -106,7 +107,7 @@ private extension SettingsView {
                     .tag(theme)
                 }
             }
-            .pickerStyle(.navigationLink)
+            .pickerStyle(.menu)
         }
     }
     

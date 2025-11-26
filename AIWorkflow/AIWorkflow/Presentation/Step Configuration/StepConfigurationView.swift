@@ -78,6 +78,9 @@ private extension StepConfigurationView {
                 }
             }
             .pickerStyle(.navigationLink)
+            .onChange(of: viewModel.selectedStepType) { oldValue, newValue in
+                viewModel.prompt = newValue.systemPrompt
+            }
         } header: {
             Text(L10N.StepConfig.typeHeader)
         } footer: {

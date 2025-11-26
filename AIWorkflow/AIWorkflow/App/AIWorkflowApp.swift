@@ -11,15 +11,33 @@ import SwiftData
 @main
 struct AIWorkflowApp: App {
     
+    @AppStorage("appThemePreference") private var appThemePreference: String = UserPreferences.ThemePreference.system.rawValue
     private let dependencyContainer = DependencyContainer.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .modelContainer(dependencyContainer.container)
+                .preferredColorScheme(colorSchemeForTheme(appThemePreference))
                 .onOpenURL { url in
                     handleURL(url)
                 }
+        }
+    }
+    
+    // MARK: - Theme Management
+    private func colorSchemeForTheme(_ themeRawValue: String) -> ColorScheme? {
+        guard let theme = UserPreferences.ThemePreference(rawValue: themeRawValue) else {
+            return nil
+        }
+        
+        switch theme {
+        case .light:
+            return .light
+        case .dark:
+            return .dark
+        case .system:
+            return nil
         }
     }
     

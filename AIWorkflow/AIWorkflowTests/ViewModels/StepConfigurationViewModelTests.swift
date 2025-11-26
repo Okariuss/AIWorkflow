@@ -19,7 +19,7 @@ struct StepConfigurationViewModelTests {
     func testInitialization() {
         let viewModel = StepConfigurationViewModel()
         
-        #expect(viewModel.selectedStepType == .summarize)
+        #expect(viewModel.selectedStepType == .custom)
         #expect(viewModel.prompt.isEmpty)
         #expect(viewModel.validationError == nil)
         #expect(viewModel.isValid == false)

@@ -20,7 +20,7 @@ final class UserPreferences {
     init(
         id: UUID = UUID(),
         defaultWorkflowId: UUID? = nil,
-        themePreference: String = ThemePreference.system.title,
+        themePreference: String = ThemePreference.system.rawValue,
         widgetSelectionsJSON: String = "[]",
         createdAt: Date = Date(),
         modifiedAt: Date = Date()
