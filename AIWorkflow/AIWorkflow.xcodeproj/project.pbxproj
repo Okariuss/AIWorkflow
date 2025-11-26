@@ -6,19 +6,177 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		247C1A212EC895C600597FC4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A202EC895C600597FC4 /* WidgetKit.framework */; };
+		247C1A232EC895C600597FC4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A222EC895C600597FC4 /* SwiftUI.framework */; };
+		247C1A342EC895C800597FC4 /* WorkflowActivityWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2491C8382ECBAB4F00375115 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A202EC895C600597FC4 /* WidgetKit.framework */; };
+		2491C8392ECBAB4F00375115 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 247C1A222EC895C600597FC4 /* SwiftUI.framework */; };
+		2491C8482ECBAB5100375115 /* WorkflowWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		247C1A322EC895C800597FC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24B373B62EC261BC00C18890 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 247C1A1D2EC895C600597FC4;
+			remoteInfo = WorkflowActivityWidgetExtension;
+		};
+		2491C8462ECBAB5100375115 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24B373B62EC261BC00C18890 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2491C8362ECBAB4F00375115;
+			remoteInfo = WorkflowWidgetExtension;
+		};
+		24AB43F52EC272250094A757 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 24B373B62EC261BC00C18890 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 24B373BD2EC261BC00C18890;
+			remoteInfo = AIWorkflow;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		247C1A392EC895C800597FC4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				247C1A342EC895C800597FC4 /* WorkflowActivityWidgetExtension.appex in Embed Foundation Extensions */,
+				2491C8482ECBAB5100375115 /* WorkflowWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkflowActivityWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		247C1A202EC895C600597FC4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		247C1A222EC895C600597FC4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WorkflowWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		24AB43F12EC272250094A757 /* AIWorkflowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AIWorkflowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		24B373BE2EC261BC00C18890 /* AIWorkflow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AIWorkflow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		247C1A352EC895C800597FC4 /* Exceptions for "WorkflowActivityWidget" folder in "WorkflowActivityWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */;
+		};
+		2491C84C2ECBAB5100375115 /* Exceptions for "WorkflowWidget" folder in "WorkflowWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */;
+		};
+		2491C8552ECBB14500375115 /* Exceptions for "WorkflowWidget" folder in "AIWorkflow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WorkflowWidgetEntry.swift,
+			);
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+		};
+		2491C85D2ECBB3DA00375115 /* Exceptions for "AIWorkflow" folder in "AIWorkflow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				App/Info.plist,
+			);
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+		};
+		24D158EF2ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowActivityWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Localizable.strings",
+			);
+			target = 247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */;
+		};
+		24D158F02ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"/Localized: Localizable.strings",
+			);
+			target = 2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */;
+		};
+		24D158FA2ED600F20072AAC9 /* Exceptions for "WorkflowActivityWidget" folder in "AIWorkflow" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				WorkflowActivityAttributes.swift,
+			);
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		247C1A242EC895C600597FC4 /* WorkflowActivityWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				24D158FA2ED600F20072AAC9 /* Exceptions for "WorkflowActivityWidget" folder in "AIWorkflow" target */,
+				247C1A352EC895C800597FC4 /* Exceptions for "WorkflowActivityWidget" folder in "WorkflowActivityWidgetExtension" target */,
+			);
+			path = WorkflowActivityWidget;
+			sourceTree = "<group>";
+		};
+		2491C83A2ECBAB4F00375115 /* WorkflowWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2491C8552ECBB14500375115 /* Exceptions for "WorkflowWidget" folder in "AIWorkflow" target */,
+				2491C84C2ECBAB5100375115 /* Exceptions for "WorkflowWidget" folder in "WorkflowWidgetExtension" target */,
+			);
+			path = WorkflowWidget;
+			sourceTree = "<group>";
+		};
+		24AB43F22EC272250094A757 /* AIWorkflowTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = AIWorkflowTests;
+			sourceTree = "<group>";
+		};
 		24B373C02EC261BC00C18890 /* AIWorkflow */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				2491C85D2ECBB3DA00375115 /* Exceptions for "AIWorkflow" folder in "AIWorkflow" target */,
+				24D158EF2ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowActivityWidgetExtension" target */,
+				24D158F02ED5FD0D0072AAC9 /* Exceptions for "AIWorkflow" folder in "WorkflowWidgetExtension" target */,
+			);
 			path = AIWorkflow;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		247C1A1B2EC895C600597FC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				247C1A232EC895C600597FC4 /* SwiftUI.framework in Frameworks */,
+				247C1A212EC895C600597FC4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2491C8342ECBAB4F00375115 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2491C8392ECBAB4F00375115 /* SwiftUI.framework in Frameworks */,
+				2491C8382ECBAB4F00375115 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24AB43EE2EC272250094A757 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24B373BB2EC261BC00C18890 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -29,10 +187,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		247C1A1F2EC895C600597FC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				247C1A202EC895C600597FC4 /* WidgetKit.framework */,
+				247C1A222EC895C600597FC4 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		24B373B52EC261BC00C18890 = {
 			isa = PBXGroup;
 			children = (
 				24B373C02EC261BC00C18890 /* AIWorkflow */,
+				24AB43F22EC272250094A757 /* AIWorkflowTests */,
+				247C1A242EC895C600597FC4 /* WorkflowActivityWidget */,
+				2491C83A2ECBAB4F00375115 /* WorkflowWidget */,
+				247C1A1F2EC895C600597FC4 /* Frameworks */,
 				24B373BF2EC261BC00C18890 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +212,9 @@
 			isa = PBXGroup;
 			children = (
 				24B373BE2EC261BC00C18890 /* AIWorkflow.app */,
+				24AB43F12EC272250094A757 /* AIWorkflowTests.xctest */,
+				247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */,
+				2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -48,6 +222,73 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 247C1A362EC895C800597FC4 /* Build configuration list for PBXNativeTarget "WorkflowActivityWidgetExtension" */;
+			buildPhases = (
+				247C1A1A2EC895C600597FC4 /* Sources */,
+				247C1A1B2EC895C600597FC4 /* Frameworks */,
+				247C1A1C2EC895C600597FC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				247C1A242EC895C600597FC4 /* WorkflowActivityWidget */,
+			);
+			name = WorkflowActivityWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = WorkflowActivityWidgetExtension;
+			productReference = 247C1A1E2EC895C600597FC4 /* WorkflowActivityWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2491C84B2ECBAB5100375115 /* Build configuration list for PBXNativeTarget "WorkflowWidgetExtension" */;
+			buildPhases = (
+				2491C8332ECBAB4F00375115 /* Sources */,
+				2491C8342ECBAB4F00375115 /* Frameworks */,
+				2491C8352ECBAB4F00375115 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				2491C83A2ECBAB4F00375115 /* WorkflowWidget */,
+			);
+			name = WorkflowWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = WorkflowWidgetExtension;
+			productReference = 2491C8372ECBAB4F00375115 /* WorkflowWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		24AB43F02EC272250094A757 /* AIWorkflowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 24AB43F72EC272250094A757 /* Build configuration list for PBXNativeTarget "AIWorkflowTests" */;
+			buildPhases = (
+				24AB43ED2EC272250094A757 /* Sources */,
+				24AB43EE2EC272250094A757 /* Frameworks */,
+				24AB43EF2EC272250094A757 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				24AB43F62EC272250094A757 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				24AB43F22EC272250094A757 /* AIWorkflowTests */,
+			);
+			name = AIWorkflowTests;
+			packageProductDependencies = (
+			);
+			productName = AIWorkflowTests;
+			productReference = 24AB43F12EC272250094A757 /* AIWorkflowTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		24B373BD2EC261BC00C18890 /* AIWorkflow */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 24B373C92EC261BE00C18890 /* Build configuration list for PBXNativeTarget "AIWorkflow" */;
@@ -55,10 +296,13 @@
 				24B373BA2EC261BC00C18890 /* Sources */,
 				24B373BB2EC261BC00C18890 /* Frameworks */,
 				24B373BC2EC261BC00C18890 /* Resources */,
+				247C1A392EC895C800597FC4 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				247C1A332EC895C800597FC4 /* PBXTargetDependency */,
+				2491C8472ECBAB5100375115 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				24B373C02EC261BC00C18890 /* AIWorkflow */,
@@ -80,6 +324,16 @@
 				LastSwiftUpdateCheck = 2600;
 				LastUpgradeCheck = 2600;
 				TargetAttributes = {
+					247C1A1D2EC895C600597FC4 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					2491C8362ECBAB4F00375115 = {
+						CreatedOnToolsVersion = 26.0.1;
+					};
+					24AB43F02EC272250094A757 = {
+						CreatedOnToolsVersion = 26.0.1;
+						TestTargetID = 24B373BD2EC261BC00C18890;
+					};
 					24B373BD2EC261BC00C18890 = {
 						CreatedOnToolsVersion = 26.0.1;
 					};
@@ -91,6 +345,7 @@
 			knownRegions = (
 				en,
 				Base,
+				tr,
 			);
 			mainGroup = 24B373B52EC261BC00C18890;
 			minimizedProjectReferenceProxies = 1;
@@ -100,11 +355,35 @@
 			projectRoot = "";
 			targets = (
 				24B373BD2EC261BC00C18890 /* AIWorkflow */,
+				24AB43F02EC272250094A757 /* AIWorkflowTests */,
+				247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */,
+				2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		247C1A1C2EC895C600597FC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2491C8352ECBAB4F00375115 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24AB43EF2EC272250094A757 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24B373BC2EC261BC00C18890 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -115,6 +394,27 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		247C1A1A2EC895C600597FC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2491C8332ECBAB4F00375115 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		24AB43ED2EC272250094A757 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		24B373BA2EC261BC00C18890 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -124,12 +424,223 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		247C1A332EC895C800597FC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 247C1A1D2EC895C600597FC4 /* WorkflowActivityWidgetExtension */;
+			targetProxy = 247C1A322EC895C800597FC4 /* PBXContainerItemProxy */;
+		};
+		2491C8472ECBAB5100375115 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2491C8362ECBAB4F00375115 /* WorkflowWidgetExtension */;
+			targetProxy = 2491C8462ECBAB5100375115 /* PBXContainerItemProxy */;
+		};
+		24AB43F62EC272250094A757 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 24B373BD2EC261BC00C18890 /* AIWorkflow */;
+			targetProxy = 24AB43F52EC272250094A757 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		247C1A372EC895C800597FC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkflowActivityWidget/WorkflowActivityWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkflowActivityWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkflowActivityWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowActivityWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		247C1A382EC895C800597FC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkflowActivityWidget/WorkflowActivityWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkflowActivityWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkflowActivityWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowActivityWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		2491C8492ECBAB5100375115 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkflowWidget/WorkflowWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkflowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkflowWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		2491C84A2ECBAB5100375115 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WorkflowWidget/WorkflowWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WorkflowWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WorkflowWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow.WorkflowWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		24AB43F82EC272250094A757 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflowTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AIWorkflow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AIWorkflow";
+			};
+			name = Debug;
+		};
+		24AB43F92EC272250094A757 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = SURBTN8MP7;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflowTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AIWorkflow.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AIWorkflow";
+			};
+			name = Release;
+		};
 		24B373C72EC261BE00C18890 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -194,6 +705,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -251,17 +763,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AIWorkflow/AIWorkflow.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SURBTN8MP7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AIWorkflow/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AIWorkflow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to run AI workflows with voice commands.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -270,12 +787,16 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -284,17 +805,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = AIWorkflow/AIWorkflow.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SURBTN8MP7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AIWorkflow/App/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AIWorkflow;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NSSiriUsageDescription = "This app uses Siri to run AI workflows with voice commands.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -303,18 +829,49 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.okarius.AIWorkflow;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		247C1A362EC895C800597FC4 /* Build configuration list for PBXNativeTarget "WorkflowActivityWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				247C1A372EC895C800597FC4 /* Debug */,
+				247C1A382EC895C800597FC4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2491C84B2ECBAB5100375115 /* Build configuration list for PBXNativeTarget "WorkflowWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2491C8492ECBAB5100375115 /* Debug */,
+				2491C84A2ECBAB5100375115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		24AB43F72EC272250094A757 /* Build configuration list for PBXNativeTarget "AIWorkflowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24AB43F82EC272250094A757 /* Debug */,
+				24AB43F92EC272250094A757 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		24B373B92EC261BC00C18890 /* Build configuration list for PBXProject "AIWorkflow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
